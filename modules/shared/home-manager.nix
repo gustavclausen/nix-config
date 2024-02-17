@@ -75,7 +75,7 @@
       export HISTIGNORE="pwd:ls:cd"
 
       shell() {
-        nix-shell '<nixpkgs>' -A "$1"
+        nix-shell -p $@
       }
 
       alias ls='ls --color=auto'
