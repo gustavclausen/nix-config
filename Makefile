@@ -37,3 +37,7 @@ rollback: check-env
 
 update-deps:
 	nix flake update
+
+cleanup:
+	nix-collect-garbage --delete-old
+	sudo nix-collect-garbage -d
