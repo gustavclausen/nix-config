@@ -74,16 +74,15 @@
   local.dock.enable = true;
   local.dock.entries = [
     {path = "/Applications/Google Chrome.app/";}
-    {path = "/System/Applications/Messages.app/";}
-    {path = "/Applications/Slack.app/";}
     {path = "/System/Applications/Mail.app/";}
     {path = "/System/Applications/Calendar.app/";}
+    {path = "/System/Applications/Messages.app/";}
     {path = "/Applications/Obsidian.app/";}
     {path = "/Applications/TickTick.app/";}
+    {path = "/Applications/1Password.app/";}
+    {path = "/Applications/Spotify.app/";}
     {
       path = "${pkgs.alacritty}/Applications/Alacritty.app/";
     }
-    {path = "/Applications/1Password.app/";}
-    {path = "/Applications/Spotify.app/";}
   ];
 }
