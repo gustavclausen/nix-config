@@ -237,8 +237,6 @@
     extraConfig = lib.mkMerge [
       (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
         ''
-          IdentityFile ~/.ssh/id_ed25519
-
           Host github.com
             Hostname github.com
             IdentitiesOnly yes
@@ -246,8 +244,6 @@
         '')
       (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
         ''
-          IdentityFile ~/.ssh/id_ed25519
-
           Host github.com
             Hostname github.com
             IdentitiesOnly yes
