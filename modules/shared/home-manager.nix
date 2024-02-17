@@ -108,7 +108,7 @@
       alias ks="switch"
 
       if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-        exec tmux attach || exec tmux
+        tmux new-session -A -s main
       fi
 
       GPG_TTY=$(tty)
