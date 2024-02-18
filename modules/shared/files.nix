@@ -32,6 +32,23 @@ in {
       FLAKENAME=${flakeName} make rollback
     '';
   };
+  "${xdg_dataHome}/bin/spawn-zsh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash -e
+
+      echo $PATH > /tmp/path
+      zsh
+    '';
+  };
+  "${xdg_dataHome}/bin/reload-path" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env zsh -e
+
+      export PATH="$(cat /tmp/path):$PATH"
+    '';
+  };
   "${home}/.editorconfig" = {
     text = ''
       root = true

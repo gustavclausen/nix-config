@@ -75,10 +75,11 @@
       export HISTIGNORE="pwd:ls:cd"
 
       shell() {
-        nix-shell -p $@
+        nix-shell -p --command "bash ~/.local/share/bin/spawn-zsh" $@
       }
 
       alias ls='ls --color=auto'
+      alias rp='source reload-path'
     '';
 
     initExtra = ''
