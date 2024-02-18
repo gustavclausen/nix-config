@@ -49,6 +49,16 @@ in {
       export PATH="$(cat /tmp/path):$PATH"
     '';
   };
+  "${xdg_dataHome}/bin/clean-nvim" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env zsh -e
+
+      rm -rf ~/.cache/nvim
+      rm -rf ~/.local/state/nvim
+    '';
+  };
+
   "${home}/.editorconfig" = {
     text = ''
       root = true
