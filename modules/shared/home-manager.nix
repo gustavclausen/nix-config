@@ -115,8 +115,6 @@
 
       export GOPATH="$HOME/go"
       export PATH="$GOPATH:$HOME/go/bin:$PATH"
-
-      source <(switch init zsh)
     '';
   };
 
