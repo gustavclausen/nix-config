@@ -13,7 +13,6 @@
       home = {
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
           extra = with pkgs; [
-            argocd
           ];
         };
       };
