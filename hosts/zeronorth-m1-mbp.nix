@@ -125,11 +125,23 @@ in {
   local.dock.enable = true;
   local.dock.entries = [
     {path = "/Applications/Google Chrome.app/";}
+    {
+      path = "${pkgs.slack}/Applications/Slack.app/";
+    }
+    {
+      path = "/Users/${currentSystemUser}/Applications/Chrome Apps.localized/Gmail.app/";
+    }
+    {
+      path = "/Users/${currentSystemUser}/Applications/Chrome Apps.localized/Google Calendar.app/";
+    }
     {path = "/Applications/Obsidian.app/";}
     {path = "/Applications/1Password.app/";}
     {path = "/Applications/Spotify.app/";}
     {
       path = "${pkgs.alacritty}/Applications/Alacritty.app/";
+    }
+    {
+      path = "/Applications/AWS VPN Client/AWS VPN Client.app/";
     }
   ];
 }
