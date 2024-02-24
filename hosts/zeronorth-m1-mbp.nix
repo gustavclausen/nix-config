@@ -21,7 +21,7 @@ in {
           extra = with pkgs; [
             argocd
             aws-sam-cli
-            helm
+            kubernetes-helm
             helm-docs
             helmfile
             k6
