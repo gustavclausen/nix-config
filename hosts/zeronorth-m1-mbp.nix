@@ -11,7 +11,7 @@
     else "/home/${currentSystemUser}";
 in {
   homebrew = {
-    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["aws-vpn-client" "inkscape"];};
+    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["aws-vpn-client" "inkscape" "google-drive"];};
   };
 
   home-manager = {
