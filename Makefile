@@ -1,8 +1,3 @@
-.ONESHELL : = true
-# Get the path to this Makefile and directory
-MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-
-# We need to do some OS switching below.
 UNAME := $(shell uname)
 
 check-env:

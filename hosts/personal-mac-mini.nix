@@ -1,10 +1,23 @@
 {
   agenix,
   pkgs,
+  currentSystemUser,
   ...
 }: {
   homebrew = {
-    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = [];};
+    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["ticktick"];};
+  };
+
+  home-manager = {
+    users.${currentSystemUser} = {
+      home = {
+        packages = pkgs.callPackage ../modules/darwin/packages.nix {
+          extra = with pkgs; [
+            argocd
+          ];
+        };
+      };
+    };
   };
 
   imports = [

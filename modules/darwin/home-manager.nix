@@ -47,7 +47,6 @@ in {
     }: {
       home = {
         enableNixpkgsReleaseCheck = false;
-        packages = pkgs.callPackage ./packages.nix {};
         file = lib.mkMerge [
           sharedFiles
           additionalFiles
