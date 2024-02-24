@@ -126,7 +126,7 @@
         signingKey = "03BE49B7B9FB53CA";
         privSigningKey = "${secrets}/users/zeronorth_com/github-signing-key.age";
         privSshKey = "${secrets}/systems/zeronorth-m1-mbp/github-ssh-key.age";
-        pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwtmlolIfmJLaVoOTHbGUNkriP4Qds9bU3f3lpnwZf+";
+        pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINHJBLNvX+qaiYFnOoOwJjdYfpKS1Q3uB0Za/wfMjShL";
         pgpPubKey = ''
           -----BEGIN PGP PUBLIC KEY BLOCK-----
 
