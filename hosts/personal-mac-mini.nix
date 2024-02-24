@@ -2,8 +2,14 @@
   agenix,
   pkgs,
   currentSystemUser,
+  secrets,
   ...
-}: {
+}: let
+  homePath =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then "/Users/${currentSystemUser}"
+    else "/home/${currentSystemUser}";
+in {
   homebrew = {
     casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["ticktick"];};
   };
@@ -25,6 +31,15 @@
     ../modules/darwin/dock
     agenix.darwinModules.default
   ];
+
+  age.secrets."github-pat" = {
+    symlink = true;
+    path = "${homePath}/.secrets/github-pat.env";
+    file = "${secrets}/systems/personal-mac-mini/github-pat.age";
+    mode = "600";
+    owner = "${currentSystemUser}";
+    group = "staff";
+  };
 
   system = {
     stateVersion = 4;

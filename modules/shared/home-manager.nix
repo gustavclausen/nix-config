@@ -116,6 +116,14 @@
 
       export GOPATH="$HOME/go"
       export PATH="$GOPATH:$HOME/go/bin:$PATH"
+
+      setopt extendedglob
+      if [[ -n $HOME/.secrets/*.env(#qN) ]]; then
+        for file in $HOME/.secrets/*.env; do
+            source "$file"
+        done
+      fi
+      unsetopt extendedglob
     '';
   };
 
