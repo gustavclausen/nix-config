@@ -56,6 +56,15 @@ in {
     group = "staff";
   };
 
+  age.secrets."aws" = {
+    symlink = true;
+    path = "${homePath}/.aws/config";
+    file = "${secrets}/systems/zeronorth-m1-mbp/aws.age";
+    mode = "600";
+    owner = "${currentSystemUser}";
+    group = "staff";
+  };
+
   system = {
     stateVersion = 4;
 
