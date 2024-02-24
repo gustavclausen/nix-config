@@ -10,6 +10,7 @@ with pkgs; [
   bashInteractive
   cargo
   colima
+  corepack_21
   coreutils
   diffutils
   docker
