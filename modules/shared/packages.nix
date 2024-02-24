@@ -34,4 +34,32 @@ with pkgs; [
   nodejs_21
   cargo
   python3
+
+  awscli2
+  bashInteractive
+  colima
+  curl
+  diffutils
+  findutils
+  fzf
+  gawk
+  gh
+  gzip
+  k6
+  k9s
+  gnumake
+  mkdocs
+
+  helm-docs
+  poetry
+  pre-commit
+  ranger
+  redis
+  ripgrep
+  shellcheck
+  inetutils
+  terraform-docs
+  terraform
+  tflint
+  gnused
 ]
