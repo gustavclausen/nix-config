@@ -90,4 +90,11 @@ in {
   ".ssh/pgp_github.pub" = {
     text = gitUser.pgpPubKey;
   };
+
+  "${home}/.cargo/config" = {
+    text = ''
+      [net]
+      git-fetch-with-cli = true
+    '';
+  };
 }
