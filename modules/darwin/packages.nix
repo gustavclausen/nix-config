@@ -11,4 +11,5 @@ in
     curl
     gawk
     pinentry_mac
+    (pkgs.writeShellScriptBin "gsed" "exec ${pkgs.gnused}/bin/sed \"$@\"")
   ]
