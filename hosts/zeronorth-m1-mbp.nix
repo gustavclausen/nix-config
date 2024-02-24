@@ -21,15 +21,16 @@ in {
           extra = with pkgs; [
             argocd
             aws-sam-cli
-            kubernetes-helm
             helm-docs
             helmfile
             k6
             k9s
             kubectl
+            kubernetes-helm
             kubeswitch
             poetry
             redis
+            slack
             terraform
             terraform-docs
             tflint

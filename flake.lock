@@ -173,11 +173,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1708808316,
-        "narHash": "sha256-Q6gLXhog1Of3u9qnRiGYP/AIa1bJUB+eu0vr8pdb5/g=",
+        "lastModified": 1708811606,
+        "narHash": "sha256-CVOlaQEhv9Wle5fVU1CqRktXB7bZ0cSG3+e2a34pZPs=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "ffb14331009a9087e43adb6e94a61ebe277095a2",
+        "rev": "fd5495c79afb55a0616fc99337fac6e9f7f1bc3c",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1708808497,
-        "narHash": "sha256-Fi9OYv1ln7B6A5kmxuxJoVyXlgu1qrQR0WUsCErL7mg=",
+        "lastModified": 1708812746,
+        "narHash": "sha256-N04ilmBPQt3nuD8IVo+W/7m5gkRScVEYUZbOxw6B5QY=",
         "ref": "refs/heads/main",
-        "rev": "0e66b9a21d9c4a6cb7e54bd25a4a80f0849d0786",
-        "revCount": 10,
+        "rev": "159385ae3e9fbd893b4ef7ad2fd67226664bff38",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com/gustavclausen/nix-secrets.git"
       },
