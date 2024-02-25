@@ -139,7 +139,7 @@
 
       if command -v "switcher" >/dev/null 2>&1; then
         source <(switcher init zsh)
-        alias switch="AWS_PROFILE=$AWS_VAULT switch"
+        alias switch="AWS_PROFILE=kube switch"
       fi
       # END HACK
 
