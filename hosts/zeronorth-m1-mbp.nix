@@ -81,7 +81,7 @@ in {
 
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.sound.beep.feedback" = 0;
-        "com.apple.swipescrolldirection" = false;
+        "com.apple.swipescrolldirection" = true;
 
         NSAutomaticSpellingCorrectionEnabled = false;
         NSAutomaticCapitalizationEnabled = false;
