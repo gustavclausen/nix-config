@@ -11,7 +11,7 @@
     else "/home/${currentSystemUser}";
 in {
   homebrew = {
-    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["aws-vpn-client" "inkscape" "google-drive" "linear-linear"];};
+    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion"];};
   };
 
   home-manager = {
@@ -137,6 +137,7 @@ in {
       path = "/Applications/Linear.app/";
     }
     {path = "/Applications/Obsidian.app/";}
+    {path = "/Applications/Notion.app/";}
     {path = "/Applications/1Password.app/";}
     {path = "/Applications/Spotify.app/";}
     {
