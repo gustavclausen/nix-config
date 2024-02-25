@@ -27,7 +27,6 @@ in {
             k9s
             kubectl
             kubernetes-helm
-            kubeswitch
             poetry
             redis
             slack
