@@ -102,6 +102,8 @@
       PROMPT='$(ctx)$(common_current_dir)$(common_bg_jobs)$(common_return_status)'
       RPROMPT='$(common_git_status)'
 
+      export EDITOR=nvim
+
       alias r=". ranger"
       alias vim="nvim"
       alias n="nvim"
