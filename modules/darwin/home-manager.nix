@@ -45,6 +45,7 @@ in {
       lib,
       ...
     }: {
+      xdg.enable = true;
       home = {
         enableNixpkgsReleaseCheck = false;
         file = lib.mkMerge [

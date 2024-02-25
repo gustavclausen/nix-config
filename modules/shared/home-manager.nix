@@ -334,4 +334,17 @@
       bind -r M-l resize-pane -R 5
     '';
   };
+
+  lazygit = {
+    enable = true;
+
+    settings = {
+      keybinding = {
+        commits = {
+          moveDownCommit = "<f1>";
+          moveUpCommit = "<f2>";
+        };
+      };
+    };
+  };
 }
