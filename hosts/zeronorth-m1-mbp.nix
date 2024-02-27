@@ -20,6 +20,7 @@ in {
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
           extra = with pkgs; [
             argocd
+            copier
             helm-docs
             helmfile
             k6
