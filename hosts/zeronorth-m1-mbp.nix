@@ -20,7 +20,6 @@ in {
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
           extra = with pkgs; [
             argocd
-            aws-sam-cli
             helm-docs
             helmfile
             k6
