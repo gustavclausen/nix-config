@@ -3,13 +3,16 @@
   pkgs,
   currentSystemUser,
   secrets,
+  homePath,
   ...
-}: let
-  homePath =
-    if pkgs.stdenv.hostPlatform.isDarwin
-    then "/Users/${currentSystemUser}"
-    else "/home/${currentSystemUser}";
-in {
+}: {
+  imports = [
+    ./default.nix
+    ../modules/darwin/home-manager.nix
+    ../modules/darwin/dock
+    agenix.darwinModules.default
+  ];
+
   homebrew = {
     casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["ticktick"];};
   };
@@ -24,13 +27,6 @@ in {
       };
     };
   };
-
-  imports = [
-    ./default.nix
-    ../modules/darwin/home-manager.nix
-    ../modules/darwin/dock
-    agenix.darwinModules.default
-  ];
 
   local.git = {
     enable = true;

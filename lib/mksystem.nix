@@ -17,6 +17,11 @@
 
   isDarwinHost = nixpkgs.lib.strings.hasInfix "darwin" system;
 
+  homePath =
+    if isDarwinHost
+    then "/Users/${user}"
+    else "/home/${user}";
+
   systemFunc =
     if isDarwinHost
     then darwin.lib.darwinSystem
@@ -52,6 +57,7 @@ in
       inherit inputs;
       inherit agenix;
       inherit secrets;
+      inherit homePath;
       flakeName = "${name}";
     };
     modules = [

@@ -2,12 +2,11 @@
   config,
   pkgs,
   lib,
-  currentSystemUser,
+  homePath,
   ...
 }:
 with lib; let
-  home = "${config.users.users.${currentSystemUser}.home}";
-  xdg_configHome = "${home}/.config";
+  xdg_configHome = "${homePath}/.config";
   cfg = config.local.nvim;
   inherit (pkgs) git;
 in {

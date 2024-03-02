@@ -3,15 +3,11 @@
   currentSystemUser,
   config,
   pkgs,
+  homePath,
   ...
 }:
 with lib; let
   cfg = config.local.git;
-
-  homePath =
-    if pkgs.stdenv.hostPlatform.isDarwin
-    then "/Users/${currentSystemUser}"
-    else "/home/${currentSystemUser}";
 
   sshHome = "${homePath}/.ssh";
 in {

@@ -1,12 +1,4 @@
-{
-  pkgs,
-  currentSystemUser,
-  ...
-}: let
-  homePath =
-    if pkgs.stdenv.hostPlatform.isDarwin
-    then "/Users/${currentSystemUser}"
-    else "/home/${currentSystemUser}";
+{homePath, ...}: let
   sshHome = "${homePath}/.ssh";
 in {
   age.identityPaths = [

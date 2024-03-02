@@ -1,11 +1,9 @@
 {
   flakeName,
-  config,
-  user,
+  homePath,
   ...
 }: let
-  home = "${config.users.users.${user}.home}";
-  xdg_dataHome = "${home}/.local/share";
+  xdg_dataHome = "${homePath}/.local/share";
 in {
   "${xdg_dataHome}/bin/nix-reload" = {
     executable = true;
@@ -58,7 +56,7 @@ in {
     '';
   };
 
-  "${home}/.editorconfig" = {
+  "${homePath}/.editorconfig" = {
     text = ''
       root = true
 
@@ -81,7 +79,7 @@ in {
       indent_size = 2
     '';
   };
-  "${home}/.cargo/config" = {
+  "${homePath}/.cargo/config" = {
     text = ''
       [net]
       git-fetch-with-cli = true

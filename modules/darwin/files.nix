@@ -1,12 +1,9 @@
 {
-  user,
-  config,
   pkgs,
+  homePath,
   ...
-}: let
-  home = "${config.users.users.${user}.home}";
-in {
-  "${home}/.gnupg/gpg-agent.conf" = {
+}: {
+  "${homePath}/.gnupg/gpg-agent.conf" = {
     text = ''
       grab
       default-cache-ttl 60480000
@@ -15,7 +12,7 @@ in {
     '';
   };
 
-  "${home}/.gnupg/gpg.conf" = {
+  "${homePath}/.gnupg/gpg.conf" = {
     text = ''
       use-agent
     '';

@@ -5,15 +5,16 @@
   currentSystemUser,
   currentSystem,
   flakeName,
+  homePath,
   ...
 }: let
   user = currentSystemUser;
-  sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName;};
-  additionalFiles = import ./files.nix {inherit user config pkgs;};
+  sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName homePath;};
+  additionalFiles = import ./files.nix {inherit user config pkgs homePath;};
 in {
   users.users.${user} = {
-    name = "${user}";
-    home = "/Users/${user}";
+    name = user;
+    home = homePath;
     isHidden = false;
     shell = pkgs.zsh;
   };
