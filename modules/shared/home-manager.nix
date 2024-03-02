@@ -282,10 +282,7 @@
       {
         plugin = tmuxPlugins.dracula;
         extraConfig = ''
-          set -g @dracula-show-powerline true
-          set -g @dracula-plugins " "
-          set -g @dracula-border-contrast true
-          set -g @dracula-show-left-icon session
+          set -g @dracula-show-left-icon 🚀
         '';
       }
       {
