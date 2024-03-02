@@ -1,7 +1,6 @@
 {
   flakeName,
   config,
-  gitUser,
   user,
   ...
 }: let
@@ -82,15 +81,6 @@ in {
       indent_size = 2
     '';
   };
-
-  ".ssh/id_github.pub" = {
-    text = gitUser.pubKey;
-  };
-
-  ".ssh/pgp_github.pub" = {
-    text = gitUser.pgpPubKey;
-  };
-
   "${home}/.cargo/config" = {
     text = ''
       [net]

@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  gitUser,
   ...
 }: {
   zsh = {
@@ -158,8 +157,6 @@
       "pyrightconfig.json"
       "*.swp"
     ];
-    userName = gitUser.userName;
-    userEmail = gitUser.email;
     lfs = {
       enable = true;
     };
@@ -174,7 +171,6 @@
       url."ssh://git@github.com/".insteadOf = "https://github.com/";
       commit.gpgsign = true;
       gpg.program = "${pkgs.gnupg}/bin/gpg";
-      user.signingkey = "${gitUser.signingKey}";
     };
   };
 

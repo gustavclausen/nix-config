@@ -4,12 +4,11 @@
   lib,
   currentSystemUser,
   currentSystem,
-  gitUser,
   flakeName,
   ...
 }: let
   user = currentSystemUser;
-  sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName gitUser;};
+  sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName;};
   additionalFiles = import ./files.nix {inherit user config pkgs;};
 in {
   users.users.${user} = {
@@ -53,13 +52,8 @@ in {
           additionalFiles
         ];
         stateVersion = "23.11";
-        activation.setup-gpg = lib.hm.dag.entryAfter ["installPackages"] ''
-          ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent
-          ${pkgs.gnupg}/bin/gpg --import ~/.ssh/pgp_github.pub
-          ${pkgs.gnupg}/bin/gpg --import ~/.ssh/pgp_github.key
-        '';
       };
-      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem gitUser;};
+      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem;};
     };
   };
 }

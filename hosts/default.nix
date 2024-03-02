@@ -5,8 +5,8 @@
   ...
 }: {
   imports = [
-    ../modules/shared
     ../modules/shared/secrets.nix
+    ../modules/shared
   ];
 
   services.nix-daemon.enable = true;

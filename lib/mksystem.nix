@@ -12,7 +12,6 @@
 }: name: {
   system,
   user,
-  gitUser,
 }: let
   hostConfig = ../hosts/${name}.nix;
 
@@ -51,7 +50,6 @@ in
 
     specialArgs = {
       inherit inputs;
-      inherit gitUser;
       inherit agenix;
       inherit secrets;
       flakeName = "${name}";
