@@ -30,6 +30,8 @@
             k9s
             kubectl
             kubernetes-helm
+            kustomize
+            kyverno
             poetry
             redis
             slack
