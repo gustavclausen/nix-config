@@ -43,7 +43,7 @@ with pkgs; [
   tmux
   tree
   wget
-  yq
+  yq-go
   yubikey-manager
   zip
 ]
