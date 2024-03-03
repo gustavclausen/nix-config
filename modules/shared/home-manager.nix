@@ -283,6 +283,7 @@
         plugin = tmuxPlugins.dracula;
         extraConfig = ''
           set -g @dracula-show-left-icon 🚀
+          set -g @dracula-plugins " "
         '';
       }
       {
