@@ -15,6 +15,9 @@ Thanks for the inspiration.
       # Command-line tools
       xcode-select --install
 
+      # Rosetta
+      sudo softwareupdate --install-rosetta
+
       # Nix
       sh <(curl -L https://nixos.org/nix/install)
 
