@@ -167,6 +167,7 @@
         autocrlf = "input";
       };
       pull.rebase = true;
+      push.default = "current";
       rebase.autoStash = true;
       url."ssh://git@github.com/".insteadOf = "https://github.com/";
       commit.gpgsign = true;
