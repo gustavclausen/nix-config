@@ -32,6 +32,7 @@
             kubernetes-helm
             kustomize
             kyverno
+            ngrok
             poetry
             redis
             slack
