@@ -23,6 +23,8 @@
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
           extra = with pkgs; [
             argocd
+            aws-nuke
+            cloud-custodian
             copier
             helm-docs
             helmfile
