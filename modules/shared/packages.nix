@@ -10,7 +10,7 @@ with pkgs; [
   bashInteractive
   cargo
   colima
-  corepack_21
+  corepack_22
   coreutils
   diffutils
   docker
@@ -32,7 +32,7 @@ with pkgs; [
   neovim
   (nerdfonts.override
     {fonts = ["JetBrainsMono"];})
-  nodejs_21
+  nodejs_22
   openssh
   pre-commit
   python3
