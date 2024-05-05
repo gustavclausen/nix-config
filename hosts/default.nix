@@ -12,7 +12,7 @@
   services.nix-daemon.enable = true;
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.git;
     settings.trusted-users = ["@admin" "${currentSystemUser}"];
 
     gc = {
