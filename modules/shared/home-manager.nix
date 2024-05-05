@@ -469,4 +469,13 @@
       };
     };
   };
+
+  fzf = {
+    enable = true;
+  };
+
+  eza = {
+    enable = true;
+    icons = true;
+  };
 }

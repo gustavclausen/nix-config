@@ -15,6 +15,7 @@ with pkgs; [
   diffutils
   docker
   docker-compose
+  eza
   findutils
   fzf
   gh
