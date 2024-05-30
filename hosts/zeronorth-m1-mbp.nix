@@ -28,6 +28,7 @@
             copier
             helm-docs
             helmfile
+            istioctl
             k6
             k9s
             kubectl
