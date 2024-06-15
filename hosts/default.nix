@@ -34,6 +34,4 @@
   system.checks.verifyNixPath = false;
 
   environment.systemPackages = [agenix.packages."${pkgs.system}".default] ++ (import ../modules/shared/packages.nix {inherit pkgs;});
-
-  fonts.fontDir.enable = true;
 }

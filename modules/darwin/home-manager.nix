@@ -53,8 +53,13 @@ in {
           additionalFiles
         ];
         stateVersion = "23.11";
+        packages = [
+          (pkgs.nerdfonts.override
+            {fonts = ["JetBrainsMono"];})
+        ];
       };
       programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem;};
+      fonts.fontconfig.enable = true;
     };
   };
 }

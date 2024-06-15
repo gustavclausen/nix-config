@@ -31,8 +31,6 @@ with pkgs; [
   lazygit
   mkdocs
   neovim
-  (nerdfonts.override
-    {fonts = ["JetBrainsMono"];})
   nodejs_22
   openssh
   pre-commit
