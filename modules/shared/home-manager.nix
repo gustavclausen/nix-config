@@ -104,8 +104,9 @@
       export EDITOR=nvim
 
       alias r=". ranger"
-      alias vim="nvim"
-      alias n="nvim"
+      alias nvim="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
+      alias vim="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
+      alias n="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
       alias lg="lazygit"
       alias ks="switch"
 
@@ -336,6 +337,10 @@
     enable = true;
 
     settings = {
+      os = {
+        edit = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
+        open = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
+      };
       keybinding = {
         commits = {
           moveDownCommit = "<f1>";
