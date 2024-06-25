@@ -26,6 +26,7 @@
             aws-nuke
             cloud-custodian
             copier
+            goreleaser
             helm-docs
             helmfile
             istioctl
