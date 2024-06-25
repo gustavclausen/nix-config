@@ -33,6 +33,7 @@
             istioctl
             k6
             k9s
+            kind
             kubectl
             kubernetes-helm
             kustomize
