@@ -37,6 +37,7 @@
             kyverno
             ngrok
             poetry
+            pyenv
             redis
             slack
             terraform

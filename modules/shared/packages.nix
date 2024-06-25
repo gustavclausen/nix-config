@@ -45,4 +45,7 @@ with pkgs; [
   yq-go
   yubikey-manager
   zip
+  xz
+  zlib
+  openssl
 ]
