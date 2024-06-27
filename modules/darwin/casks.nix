@@ -1,11 +1,12 @@
 {extra}:
 extra
 ++ [
-  "raycast"
-  "google-chrome"
   "1password"
-  "spotify"
-  "rectangle-pro"
-  "obsidian"
+  "another-redis-desktop-manager"
+  "google-chrome"
   "monitorcontrol"
+  "obsidian"
+  "raycast"
+  "rectangle-pro"
+  "spotify"
 ]
