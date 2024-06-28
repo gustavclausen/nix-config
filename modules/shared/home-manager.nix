@@ -262,6 +262,8 @@
   ssh = {
     enable = true;
 
+    includes = ["config.d/*"];
+
     extraConfig = lib.mkMerge [
       (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
         ''

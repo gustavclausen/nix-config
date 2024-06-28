@@ -127,6 +127,15 @@
     group = "staff";
   };
 
+  age.secrets."zn-jumphosts" = {
+    symlink = true;
+    path = "${homePath}/.ssh/config.d/zn-jumphosts";
+    file = "${secrets}/systems/zeronorth-m1-mbp/jumphosts.age";
+    mode = "600";
+    owner = "${currentSystemUser}";
+    group = "staff";
+  };
+
   system = {
     stateVersion = 4;
 
