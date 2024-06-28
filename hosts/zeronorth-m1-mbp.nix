@@ -14,7 +14,7 @@
   ];
 
   homebrew = {
-    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["another-redis-desktop-manager" "aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion"];};
+    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["another-redis-desktop-manager" "aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion" "pritunl"];};
   };
 
   home-manager = {
@@ -215,8 +215,6 @@
     {
       path = "${pkgs.alacritty}/Applications/Alacritty.app/";
     }
-    {
-      path = "/Applications/AWS VPN Client/AWS VPN Client.app/";
-    }
+    {path = "/Applications/Pritunl.app/";}
   ];
 }
