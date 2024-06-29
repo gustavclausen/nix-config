@@ -24,6 +24,7 @@ with pkgs; [
   gnused
   go
   gopls
+  goreleaser
   gzip
   inetutils
   jq
@@ -33,6 +34,7 @@ with pkgs; [
   neovim
   nodejs_22
   openssh
+  openssl
   pre-commit
   python3
   ranger
@@ -42,10 +44,9 @@ with pkgs; [
   tmux
   tree
   wget
+  xz
   yq-go
   yubikey-manager
   zip
-  xz
   zlib
-  openssl
 ]

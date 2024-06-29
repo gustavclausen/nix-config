@@ -27,7 +27,6 @@
             cloud-custodian
             copier
             eksctl
-            goreleaser
             helm-docs
             helmfile
             istioctl
