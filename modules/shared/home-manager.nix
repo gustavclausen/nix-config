@@ -129,6 +129,8 @@
         done
       fi
 
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
       # HACK BEGIN
       # WAITING FOR KUBESWITCH TO WORK WITH NIX: https://github.com/NixOS/nixpkgs/pull/288162
       # UNTIL THEN, KUBESWICH IS DOWNLOADED AND MANAGED WITH HOMEBREW
