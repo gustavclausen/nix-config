@@ -132,22 +132,9 @@
       eval "$(/opt/homebrew/bin/brew shellenv)"
       export PATH="$(npm get prefix)/bin:$PATH"
 
-      # HACK BEGIN
-      # WAITING FOR KUBESWITCH TO WORK WITH NIX: https://github.com/NixOS/nixpkgs/pull/288162
-      # UNTIL THEN, KUBESWICH IS DOWNLOADED AND MANAGED WITH HOMEBREW
-      BREW_BIN="/opt/homebrew/bin/brew"
-      if type "$BREW_BIN" &>/dev/null; then
-        export BREW_PREFIX="$("$BREW_BIN" --prefix)"
-        if [[ -n $BREW_PREFIX/opt/*/bin(#qN) ]]; then
-          for bindir in "$BREW_PREFIX/opt/"*"/bin"; do export PATH=$bindir:$PATH; done
-        fi
-      fi
-
       if command -v "switcher" >/dev/null 2>&1; then
         source <(switcher init zsh)
-        alias switch="AWS_PROFILE=kube switch"
       fi
-      # END HACK
 
       unsetopt extendedglob
     '';

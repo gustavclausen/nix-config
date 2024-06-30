@@ -35,6 +35,7 @@
             kind
             kubectl
             kubernetes-helm
+            kubeswitch
             kustomize
             kyverno
             ngrok
