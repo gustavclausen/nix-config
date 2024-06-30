@@ -112,6 +112,7 @@
       alias n="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
       alias lg="lazygit"
       alias ks="switch"
+      alias ave="aws-vault exec"
 
       if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
         tmux new-session -A -s main
