@@ -130,6 +130,7 @@
       fi
 
       eval "$(/opt/homebrew/bin/brew shellenv)"
+      export PATH="$(npm get prefix)/bin:$PATH"
 
       # HACK BEGIN
       # WAITING FOR KUBESWITCH TO WORK WITH NIX: https://github.com/NixOS/nixpkgs/pull/288162
