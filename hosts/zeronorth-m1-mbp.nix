@@ -217,4 +217,6 @@
     }
     {path = "/Applications/Pritunl.app/";}
   ];
+
+  local.zn-scripts.enable = true;
 }

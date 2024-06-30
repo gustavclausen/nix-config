@@ -136,6 +136,17 @@
         source <(switcher init zsh)
       fi
 
+      if [[ -n $HOME/.scripts/**/*.zsh(#qN) ]]; then
+        for file in $HOME/.scripts/**/*.zsh; do
+            source "$file"
+        done
+
+        script_dirs=($HOME/.scripts/**/)
+        for script_dir in $script_dirs; do
+          PATH="$script_dir:$PATH"
+        done
+      fi
+
       unsetopt extendedglob
     '';
   };
