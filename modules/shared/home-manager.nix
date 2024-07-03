@@ -473,6 +473,15 @@
       };
     };
 
+    views = {
+      views = {
+        "v1/nodes" = {
+          sortColumn = "AGE:desc";
+          columns = ["NAME" "AGE" "STATUS" "TAINTS" "PODS" "LABELS" "%CPU" "%MEM"];
+        };
+      };
+    };
+
     settings = {
       k9s = {
         ui = {
