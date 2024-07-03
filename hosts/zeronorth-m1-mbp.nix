@@ -15,6 +15,16 @@
 
   homebrew = {
     casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["another-redis-desktop-manager" "aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion" "pritunl"];};
+    taps = [
+      {
+        name = "argoproj/tap";
+      }
+    ];
+    brews = [
+      {
+        name = "argoproj/tap/kubectl-argo-rollouts";
+      }
+    ];
   };
 
   home-manager = {
@@ -47,6 +57,50 @@
             terraform-docs
             tflint
           ];
+        };
+      };
+      programs = {
+        k9s = {
+          plugin = {
+            plugins = {
+              argo-rollouts-get = {
+                shortCut = "g";
+                confirm = false;
+                description = "Get details";
+                scopes = ["rollouts"];
+                command = "bash";
+                background = false;
+                args = ["-c" "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE |& less"];
+              };
+              argo-rollouts-watch = {
+                shortCut = "w";
+                confirm = false;
+                description = "Watch progress";
+                scopes = ["rollouts"];
+                command = "bash";
+                background = false;
+                args = ["-c" "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE -w |& less"];
+              };
+              argo-rollouts-promote = {
+                shortCut = "p";
+                confirm = true;
+                description = "Promote";
+                scopes = ["rollouts"];
+                command = "bash";
+                background = false;
+                args = ["-c" "kubectl argo rollouts promote $NAME --context $CONTEXT -n $NAMESPACE |& less"];
+              };
+              argo-rollouts-restart = {
+                shortCut = "r";
+                confirm = true;
+                description = "Restart";
+                scopes = ["rollouts"];
+                command = "bash";
+                background = false;
+                args = ["-c" "kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less"];
+              };
+            };
+          };
         };
       };
     };
