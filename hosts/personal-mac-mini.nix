@@ -95,6 +95,15 @@
     group = "staff";
   };
 
+  age.secrets."aws" = {
+    symlink = true;
+    path = "${homePath}/.aws/config";
+    file = "${secrets}/systems/personal-mac-mini/aws.age";
+    mode = "600";
+    owner = "${currentSystemUser}";
+    group = "staff";
+  };
+
   system = {
     stateVersion = 4;
 
