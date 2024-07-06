@@ -33,5 +33,5 @@
 
   system.checks.verifyNixPath = false;
 
-  environment.systemPackages = [agenix.packages."${pkgs.system}".default] ++ (import ../modules/shared/packages.nix {inherit pkgs;});
+  environment.systemPackages = import ../modules/shared/packages.nix {inherit pkgs agenix;};
 }

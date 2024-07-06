@@ -31,6 +31,7 @@
     users.${currentSystemUser} = {
       home = {
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
+          inherit pkgs agenix;
           extra = with pkgs; [
             argocd
             aws-nuke

@@ -1,9 +1,10 @@
 {
   pkgs,
   extra,
+  agenix,
 }:
 with pkgs; let
-  shared-packages = import ../shared/packages.nix {inherit pkgs;};
+  shared-packages = import ../shared/packages.nix {inherit pkgs agenix;};
 in
   shared-packages
   ++ extra

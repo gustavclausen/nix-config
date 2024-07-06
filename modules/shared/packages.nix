@@ -1,4 +1,7 @@
-{pkgs}:
+{
+  pkgs,
+  agenix,
+}:
 with pkgs; [
   act
   age
@@ -52,4 +55,4 @@ with pkgs; [
   yubikey-manager
   zip
   zlib
-]
+] ++ [agenix.packages.${pkgs.system}.default]
