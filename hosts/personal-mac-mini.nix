@@ -23,6 +23,15 @@
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
           inherit pkgs agenix;
           extra = with pkgs; [
+            eksctl
+            helmfile
+            k9s
+            kind
+            kubectl
+            kubernetes-helm
+            kubeswitch
+            kustomize
+            opentofu
           ];
         };
       };
