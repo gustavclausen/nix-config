@@ -1,5 +1,6 @@
 {pkgs}:
 with pkgs; [
+  act
   age
   age-plugin-yubikey
   alacritty
@@ -8,6 +9,7 @@ with pkgs; [
   awscli2
   bash-completion
   bashInteractive
+  bruno
   cargo
   colima
   corepack_22
@@ -15,6 +17,7 @@ with pkgs; [
   diffutils
   docker
   docker-compose
+  doggo
   eza
   findutils
   fzf
