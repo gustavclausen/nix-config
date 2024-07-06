@@ -125,11 +125,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1720188602,
-        "narHash": "sha256-lC3byBmhVZFzWl/dCic8+cKUEEAXAswWOYjq4paFmbo=",
+        "lastModified": 1720289319,
+        "narHash": "sha256-E3CjSsXNDWYqoNjrKQLPdEZDLR+mVI9HMa+jY//FjBY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e3582e5151498bc4d757e8361431ace8529e7bb7",
+        "rev": "10486e6b311b3c5ae1c3477fee058704cea7cb4a",
         "type": "github"
       },
       "original": {
@@ -157,11 +157,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1720283980,
-        "narHash": "sha256-NNLnOsiZ/JCoAdWxtEIbJrI54glME7Gb8vQp9rmlgcw=",
+        "lastModified": 1720296431,
+        "narHash": "sha256-8IP4yRGAXQUYNLmvbs/hMHfK7OOWDAmHbqXuWFNvXGQ=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "4f5c464e03432800d48d791578cac6fc22b583c4",
+        "rev": "99c6d3d0db442a5fea0441c55a76a64937f46f75",
         "type": "github"
       },
       "original": {
@@ -173,11 +173,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1720285456,
-        "narHash": "sha256-LlQAZERjGtsIgR8pqw8TLcHpRPywRO4JTwgBPRSaQJw=",
+        "lastModified": 1720296205,
+        "narHash": "sha256-kUq8ktqKVi9P3JqdQQu7ZGT5gCVu6au0SH6j+LswDpE=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "fd2b1b13816183e6f6a339e3a35d1c7615eaa14c",
+        "rev": "48cbfe61536eb88a3b54cc00151ad63e9895a69d",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1719780861,
-        "narHash": "sha256-erOgUsKvyN0WSXhYTBTyXAzrnX4/glYqNZUgqLfkp18=",
+        "lastModified": 1720296234,
+        "narHash": "sha256-A6OaqeTJlfKPyjs4XZ9B9Hie/FarfswiTNGSemh3140=",
         "ref": "refs/heads/main",
-        "rev": "99efc5778535d4a03e8705a7978f7a0df6836048",
-        "revCount": 19,
+        "rev": "bda1d8910bb28f8f9645915ef9c6c50962f53c02",
+        "revCount": 20,
         "type": "git",
         "url": "ssh://git@github.com/gustavclausen/nix-secrets.git"
       },
