@@ -19,6 +19,10 @@
 
   home-manager = {
     users.${currentSystemUser} = {
+      config,
+      pkgs,
+      ...
+    }: {
       home = {
         packages = pkgs.callPackage ../modules/darwin/packages.nix {
           inherit pkgs agenix;
@@ -33,6 +37,9 @@
             kustomize
             opentofu
           ];
+        };
+        file = {
+          "${homePath}/.local/share/bin/terraform".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.opentofu}/bin/tofu";
         };
       };
     };
