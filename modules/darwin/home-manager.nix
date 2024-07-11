@@ -9,8 +9,6 @@
   ...
 }: let
   user = currentSystemUser;
-  sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName homePath;};
-  additionalFiles = import ./files.nix {inherit user config pkgs homePath;};
 in {
   users.users.${user} = {
     name = user;
@@ -44,7 +42,10 @@ in {
       config,
       lib,
       ...
-    }: {
+    }: let
+      sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName homePath;};
+      additionalFiles = import ./files.nix {inherit user config pkgs homePath;};
+    in {
       xdg.enable = true;
       home = {
         enableNixpkgsReleaseCheck = false;
