@@ -316,11 +316,13 @@
         '';
       }
     ];
-    terminal = "xterm-256color";
+    terminal = "screen-256color";
     prefix = "C-a";
     escapeTime = 10;
     historyLimit = 10000;
     extraConfig = ''
+      set-option -a terminal-features 'xterm-256color:RGB'
+
       set-option -g focus-events on
       set-option -g pane-border-lines heavy
       set-option -g allow-rename off
