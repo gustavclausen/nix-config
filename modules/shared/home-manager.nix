@@ -122,6 +122,7 @@
       GPG_TTY=$(tty)
 
       export GOPATH="$HOME/go"
+      export GOBIN="$GOPATH/bin"
       export PATH="$GOPATH:$HOME/go/bin:$PATH"
 
       setopt extendedglob
