@@ -20,7 +20,7 @@
         name = "argoproj/tap";
       }
     ];
-    brews = [
+    brews = pkgs.callPackage ../modules/darwin/brews.nix {extra = [
       {
         name = "argoproj/tap/kubectl-argo-rollouts";
       }

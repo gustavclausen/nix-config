@@ -15,6 +15,7 @@
 
   homebrew = {
     casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["ticktick"];};
+    brews = pkgs.callPackage ../modules/darwin/brews.nix {extra = [];};
   };
 
   home-manager = {
