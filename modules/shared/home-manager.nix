@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   pyenv = {
@@ -291,13 +292,6 @@
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
       {
-        plugin = tmuxPlugins.dracula;
-        extraConfig = ''
-          set -g @dracula-show-left-icon 🚀
-          set -g @dracula-plugins " "
-        '';
-      }
-      {
         plugin = tmuxPlugins.resurrect;
 
         # Use XDG data directory
@@ -315,6 +309,13 @@
           set -g @continuum-restore 'on'
         '';
       }
+      {
+        plugin = inputs.minimal-tmux.packages.x86_64-darwin.default;
+        extraConfig = ''
+          set -g @minimal-tmux-indicator-str "  🔒  "
+          set -g @minimal-tmux-bg "#53f980"
+        '';
+      }
     ];
     terminal = "screen-256color";
     prefix = "C-a";
@@ -326,6 +327,7 @@
       set-option -g focus-events on
       set-option -g pane-border-lines heavy
       set-option -g allow-rename off
+      set-option -g renumber-windows on
 
       setw -g mode-keys vi
       bind 'v' copy-mode

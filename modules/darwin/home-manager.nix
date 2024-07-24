@@ -6,6 +6,7 @@
   currentSystem,
   flakeName,
   homePath,
+  inputs,
   ...
 }: let
   user = currentSystemUser;
@@ -59,7 +60,7 @@ in {
             {fonts = ["JetBrainsMono"];})
         ];
       };
-      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem;};
+      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs;};
       fonts.fontconfig.enable = true;
     };
   };

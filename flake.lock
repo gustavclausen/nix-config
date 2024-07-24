@@ -186,6 +186,26 @@
         "type": "github"
       }
     },
+    "minimal-tmux": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721133318,
+        "narHash": "sha256-lDPT3XRH14Z5WTdtWhgiYa8FjQHeYFCY7Dpy9xU8vyM=",
+        "owner": "niksingh710",
+        "repo": "minimal-tmux-status",
+        "rev": "86de1697b6b0522ebd36b5fe83c5fd9b7e30f15f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "niksingh710",
+        "repo": "minimal-tmux-status",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
@@ -310,6 +330,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "minimal-tmux": "minimal-tmux",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_5",
         "secrets": "secrets"

@@ -27,6 +27,10 @@
       url = "git+ssh://git@github.com/gustavclausen/nix-secrets.git";
       flake = false;
     };
+    minimal-tmux = {
+      url = "github:niksingh710/minimal-tmux-status";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
@@ -39,6 +43,7 @@
     nixpkgs,
     agenix,
     secrets,
+    minimal-tmux,
   } @ inputs: let
     darwinSystems = ["aarch64-darwin"];
     forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
