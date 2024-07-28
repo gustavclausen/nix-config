@@ -314,6 +314,7 @@
         extraConfig = ''
           set -g @minimal-tmux-indicator-str "  🔒  "
           set -g @minimal-tmux-bg "#53f980"
+          set -g @minimal-tmux-right false
         '';
       }
     ];
