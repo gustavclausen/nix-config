@@ -211,7 +211,7 @@
         };
 
         primary = {
-          background = "0x282a36";
+          background = "0x31363c";
           foreground = "0xf8f8f2";
         };
       };
