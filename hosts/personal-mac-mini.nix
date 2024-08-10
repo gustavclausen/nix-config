@@ -29,6 +29,7 @@
           inherit pkgs agenix;
           extra = with pkgs; [
             eksctl
+            helm-docs
             helmfile
             k9s
             kind
@@ -37,6 +38,7 @@
             kubeswitch
             kustomize
             opentofu
+            terraform-docs
           ];
         };
         file = {
