@@ -58,6 +58,37 @@ in {
       rm -rf ~/.local/state/nvim
     '';
   };
+  "${homePath}/.scripts/kubernetes/aws-vault-kubeswitch" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      set -e
+
+      aws-vault export --format=json "$KUBESWITCH_AWS_PROFILE"
+    '';
+  };
+  "${homePath}/.scripts/kubernetes/aws-vault-kubeswitch.zsh" = {
+    executable = true;
+    text = ''
+      avswitch () {
+        KUBESWITCH_AWS_PROFILE="$1"
+        if [ -z $KUBESWITCH_AWS_PROFILE ]; then
+          echo "AWS profile not passed as argument"
+          return
+        fi
+        export KUBESWITCH_AWS_PROFILE
+
+        AWS_REGION="$2"
+        if [ -z $2 ]; then
+          AWS_REGION=$(aws configure get region --profile $KUBESWITCH_AWS_PROFILE || aws configure get region --profile common)
+        fi
+        export AWS_REGION
+
+        AWS_PROFILE=kube switch
+      }
+    '';
+  };
 
   "${homePath}/.editorconfig" = {
     text = ''
