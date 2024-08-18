@@ -13,4 +13,5 @@ in
     gawk
     pinentry_mac
     (pkgs.writeShellScriptBin "gsed" "exec ${pkgs.gnused}/bin/sed \"$@\"")
+    darwin.trash
   ]
