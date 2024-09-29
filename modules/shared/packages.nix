@@ -15,6 +15,7 @@ with pkgs;
     bashInteractive
     bruno
     cargo
+    check-jsonschema
     colima
     corepack_22
     coreutils
@@ -36,6 +37,7 @@ with pkgs;
     gzip
     inetutils
     jq
+    json-schema-for-humans
     killall
     lazygit
     lua
