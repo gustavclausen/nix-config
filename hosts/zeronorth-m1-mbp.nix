@@ -260,13 +260,9 @@
       path = "/Applications/Linear.app/";
     }
     {path = "/Applications/Obsidian.app/";}
-    {path = "/Applications/Notion.app/";}
-    {path = "/Applications/1Password.app/";}
-    {path = "/Applications/Spotify.app/";}
     {
       path = "${pkgs.alacritty}/Applications/Alacritty.app/";
     }
-    {path = "/Applications/Pritunl.app/";}
   ];
 
   local.zn-scripts.enable = true;
