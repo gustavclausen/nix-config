@@ -46,6 +46,7 @@ with pkgs;
     nodejs_22
     openssh
     openssl
+    parallel
     pre-commit
     python3
     ranger
