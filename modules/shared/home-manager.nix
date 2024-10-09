@@ -322,29 +322,36 @@
     prefix = "C-a";
     escapeTime = 10;
     historyLimit = 10000;
-    extraConfig = ''
-      set-option -a terminal-features 'xterm-256color:RGB'
+    shell = "${pkgs.zsh}/bin/zsh";
+    extraConfig = lib.mkMerge [
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
+        ''
+          set -g default-command "${pkgs.reattach-to-user-namespace}/bin/reattach-to-user-namespace -l ${pkgs.zsh}/bin/zsh"
+        '')
+      ''
+        set-option -a terminal-features 'xterm-256color:RGB'
 
-      set-option -g focus-events on
-      set-option -g pane-border-lines heavy
-      set-option -g allow-rename off
-      set-option -g renumber-windows on
+        set-option -g focus-events on
+        set-option -g pane-border-lines heavy
+        set-option -g allow-rename off
+        set-option -g renumber-windows on
 
-      setw -g mode-keys vi
-      bind 'v' copy-mode
+        setw -g mode-keys vi
+        bind 'v' copy-mode
 
-      bind C-v split-window -c "#{pane_current_path}" -h
-      bind C-x split-window -c "#{pane_current_path}" -v
-      unbind '"'
-      unbind %
+        bind C-v split-window -c "#{pane_current_path}" -h
+        bind C-x split-window -c "#{pane_current_path}" -v
+        unbind '"'
+        unbind %
 
-      bind c new-window -c "#{pane_current_path}"
+        bind c new-window -c "#{pane_current_path}"
 
-      bind -r M-k resize-pane -U 5
-      bind -r M-j resize-pane -D 5
-      bind -r M-h resize-pane -L 5
-      bind -r M-l resize-pane -R 5
-    '';
+        bind -r M-k resize-pane -U 5
+        bind -r M-j resize-pane -D 5
+        bind -r M-h resize-pane -L 5
+        bind -r M-l resize-pane -R 5
+      ''
+    ];
   };
 
   lazygit = {

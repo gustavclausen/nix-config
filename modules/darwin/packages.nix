@@ -14,4 +14,5 @@ in
     pinentry_mac
     (pkgs.writeShellScriptBin "gsed" "exec ${pkgs.gnused}/bin/sed \"$@\"")
     darwin.trash
+    reattach-to-user-namespace
   ]
