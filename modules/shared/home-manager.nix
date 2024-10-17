@@ -292,24 +292,6 @@
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
       {
-        plugin = tmuxPlugins.resurrect;
-
-        # Use XDG data directory
-        # https://github.com/tmux-plugins/tmux-resurrect/issues/348
-        extraConfig = ''
-          set -g @resurrect-dir '~/.cache/tmux/resurrect'
-          set -g @resurrect-capture-pane-contents 'on'
-          set -g @resurrect-pane-contents-area 'visible'
-        '';
-      }
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-save-interval '5'
-          set -g @continuum-restore 'on'
-        '';
-      }
-      {
         plugin = inputs.minimal-tmux.packages.x86_64-darwin.default;
         extraConfig = ''
           set -g @minimal-tmux-indicator-str "  🔒  "
