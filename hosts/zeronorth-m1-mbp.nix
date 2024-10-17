@@ -33,6 +33,7 @@
             aws-nuke
             cloud-custodian
             copier
+            eks-node-viewer
             eksctl
             helm-docs
             helmfile
