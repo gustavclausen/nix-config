@@ -264,6 +264,9 @@
     {
       path = "${pkgs.alacritty}/Applications/Alacritty.app/";
     }
+    {
+      path = "/Users/${currentSystemUser}/Applications/Chrome Apps.localized/Excalidraw.app/";
+    }
   ];
 
   local.zn-scripts.enable = true;
