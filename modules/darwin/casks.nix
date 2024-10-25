@@ -3,7 +3,7 @@ extra
 ++ [
   "1password"
   "google-chrome"
-  "logi-options-plus"
+  "logi-options+"
   "monitorcontrol"
   "obsidian"
   "raycast"
