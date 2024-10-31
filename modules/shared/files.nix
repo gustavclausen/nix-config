@@ -1,13 +1,10 @@
 {
   flakeName,
   homePath,
-  config,
   ...
 }: let
   xdg_dataHome = "${homePath}/.local/share";
-  link = config.lib.file.mkOutOfStoreSymlink;
 in {
-  "${homePath}/.colima/docker.sock".source = link "/var/run/docker.sock";
   "${xdg_dataHome}/bin/nix-reload" = {
     executable = true;
     text = ''
