@@ -39,6 +39,7 @@ with pkgs;
     jq
     json-schema-for-humans
     killall
+    krew
     lazygit
     lua
     mkdocs

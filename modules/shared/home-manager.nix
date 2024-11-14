@@ -151,6 +151,8 @@
         done
       fi
 
+      export PATH="$HOME/.krew/bin:$PATH"
+
       unsetopt extendedglob
     '';
   };
