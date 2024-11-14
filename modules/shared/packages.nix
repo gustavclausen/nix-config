@@ -23,6 +23,7 @@ with pkgs;
     docker
     docker-compose
     doggo
+    dotnet-sdk_8
     eza
     fd
     findutils

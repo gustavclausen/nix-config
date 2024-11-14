@@ -33,7 +33,6 @@
             aws-nuke
             cloud-custodian
             copier
-            dotnet-sdk_8
             eks-node-viewer
             eksctl
             helm-docs

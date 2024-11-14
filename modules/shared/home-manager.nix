@@ -126,6 +126,8 @@
       export GOBIN="$GOPATH/bin"
       export PATH="$GOPATH:$HOME/go/bin:$PATH"
 
+      export DOTNET_ROOT="${pkgs.dotnet-sdk_8}"
+
       setopt extendedglob
       if [[ -n $HOME/.secrets/*.env(#qN) ]]; then
         for file in $HOME/.secrets/*.env; do
