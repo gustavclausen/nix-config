@@ -38,7 +38,6 @@ with pkgs;
     gzip
     inetutils
     jq
-    json-schema-for-humans
     killall
     krew
     lazygit
