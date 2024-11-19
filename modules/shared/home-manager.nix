@@ -221,7 +221,7 @@
       };
 
       font = {
-        size = 15.0;
+        size = 17.0;
         normal.family = "JetBrainsMono Nerd Font";
         normal.style = "Medium";
       };
