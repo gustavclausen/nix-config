@@ -86,6 +86,32 @@ in {
       }
     '';
   };
+  "${homePath}/.scripts/utils/dev-navigator" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      # Based on: https://github.com/ThePrimeagen/.dotfiles/blob/602019e902634188ab06ea31251c01c1a43d1621/bin/.local/scripts/tmux-sessionizer
+
+      set -e
+
+      selected_dir=$(find "$HOME/dev" -mindepth 1 -maxdepth 1 -type d | fzf)
+
+      if [[ -z $selected_dir ]]; then
+        exit 0
+      fi
+
+      selected_dir_name=$(basename "$selected_dir" | tr . _)
+      is_tmux_running=$(pgrep tmux)
+
+      if [[ -z $TMUX ]] && [[ -z $is_tmux_running ]]; then
+        echo "Script must be run in tmux environment"
+        exit 1
+      fi
+
+      tmux new-window -n "$selected_dir_name" -c "$selected_dir"
+    '';
+  };
 
   "${homePath}/.editorconfig" = {
     text = ''

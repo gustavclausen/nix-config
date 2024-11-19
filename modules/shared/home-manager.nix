@@ -114,7 +114,7 @@
       alias lg="lazygit"
       alias ks="switch"
       alias ave="aws-vault exec"
-      alias cdd="cd $HOME/dev"
+      alias cdd="dev-navigator"
 
       if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
         tmux new-session -A -s main
