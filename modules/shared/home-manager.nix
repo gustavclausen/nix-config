@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  homePath,
   ...
 }: {
   pyenv = {
@@ -336,6 +337,8 @@
         bind -r M-j resize-pane -D 5
         bind -r M-h resize-pane -L 5
         bind -r M-l resize-pane -R 5
+
+        bind -r N display-popup -E "${homePath}/.scripts/utils/tmux-navigator.sh"
       ''
     ];
   };

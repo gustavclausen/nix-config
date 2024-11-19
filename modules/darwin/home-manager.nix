@@ -60,7 +60,7 @@ in {
             {fonts = ["JetBrainsMono"];})
         ];
       };
-      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs;};
+      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs homePath;};
       fonts.fontconfig.enable = true;
     };
   };

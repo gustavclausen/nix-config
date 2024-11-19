@@ -86,7 +86,7 @@ in {
       }
     '';
   };
-  "${homePath}/.scripts/utils/dev-navigator" = {
+  "${homePath}/.scripts/utils/tmux-navigator.sh" = {
     executable = true;
     text = ''
       #!/usr/bin/env bash
