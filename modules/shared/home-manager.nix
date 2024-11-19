@@ -323,6 +323,10 @@
         set-option -g allow-rename off
         set-option -g renumber-windows on
 
+        set -Fg "status-format[1]" "#{status-format[0]}"
+        set -g "status-format[0]" ""
+        set -g status 2
+
         setw -g mode-keys vi
         bind 'v' copy-mode
 
