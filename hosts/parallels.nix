@@ -2,6 +2,7 @@
   pkgs,
   currentSystemUser,
   homePath,
+  outputs,
 }: {
   imports = [
     ./default.nix
