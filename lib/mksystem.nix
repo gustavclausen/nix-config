@@ -10,7 +10,7 @@
   secrets,
   inputs,
   outputs,
-}: name: {
+}: { name, isHomeConfiguration}: {
   system,
   user,
 }: let
@@ -64,16 +64,19 @@ in
       ];
     }
   else
-    home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = system;
-        config.allowUnfree = true;
-      };
-      extraSpecialArgs = {
-        inherit inputs outputs agenix secrets homePath;
-        flakeName = "${name}";
-      };
-      modules = [
-        hostConfig
-      ];
-    }
+    if isHomeConfiguration
+    then
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = system;
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {
+          inherit inputs outputs agenix secrets homePath isHomeConfiguration;
+          flakeName = "${name}";
+        };
+        modules = [
+          hostConfig
+        ];
+      }
+    else {}

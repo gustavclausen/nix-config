@@ -2,14 +2,20 @@
   pkgs,
   currentSystemUser,
   agenix,
+  isHomeConfiguration,
+  lib,
   ...
-}: {
+}: let 
+  nonHomeManagerSettings = if !isHomeConfiguration then {
+    services.nix-daemon.enable = true;
+    system.checks.verifyNixPath = false;
+    environment.systemPackages = import ../modules/shared/packages.nix {inherit pkgs agenix;};
+  } else {};
+in {
   imports = [
     ../modules/shared/secrets.nix
     ../modules/shared
   ];
-
-  services.nix-daemon.enable = true;
 
   nix = {
     package = pkgs.nixVersions.git;
@@ -31,7 +37,4 @@
     '';
   };
 
-  system.checks.verifyNixPath = false;
-
-  environment.systemPackages = import ../modules/shared/packages.nix {inherit pkgs agenix;};
-}
+} // nonHomeManagerSettings

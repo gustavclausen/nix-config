@@ -74,18 +74,18 @@
     devShells = forAllSystems devShell;
 
     darwinConfigurations = {
-      "personal-mac-mini" = mkSystem "personal-mac-mini" {
+      "personal-mac-mini" = mkSystem "personal-mac-mini" false {
         system = "aarch64-darwin";
         user = "gustavclausen";
       };
-      "zeronorth-m1-mbp" = mkSystem "zeronorth-m1-mbp" {
+      "zeronorth-m1-mbp" = mkSystem "zeronorth-m1-mbp" false {
         system = "aarch64-darwin";
         user = "gustavclausen";
       };
     };
 
     homeConfigurations = {
-      "parallels" = mkSystem "parallels" {
+      "parallels" = mkSystem "parallels" true {
         system = "aarch64-linux";
         user = "gustavclausen";
       };
