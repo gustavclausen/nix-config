@@ -10,9 +10,10 @@
   secrets,
   inputs,
   outputs,
-}: { name, isHomeConfiguration}: {
+}: name: {
   system,
   user,
+  isHomeConfiguration,
 }: let
   hostConfig = ../hosts/${name}.nix;
 

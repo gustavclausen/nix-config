@@ -77,17 +77,20 @@
       "personal-mac-mini" = mkSystem "personal-mac-mini" false {
         system = "aarch64-darwin";
         user = "gustavclausen";
+        isHomeManagerConfiguration = false;
       };
       "zeronorth-m1-mbp" = mkSystem "zeronorth-m1-mbp" false {
         system = "aarch64-darwin";
         user = "gustavclausen";
+        isHomeManagerConfiguration = false;
       };
     };
 
     homeConfigurations = {
-      "parallels" = mkSystem "parallels" true {
+      "parallels" = mkSystem "parallels" {
         system = "aarch64-linux";
         user = "gustavclausen";
+        isHomeManagerConfiguration = true;
       };
     };
   };
