@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./nvim
-    ./git-user
+    # ./git-user
     ./zn-scripts
   ];
 
