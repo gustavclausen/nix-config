@@ -24,5 +24,5 @@
   };
   programs = {
     home-manager.enable = true;
-  } // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs homePath;};
+  } // import ../modules/shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs homePath;};
 }

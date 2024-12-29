@@ -12,6 +12,8 @@
     environment.systemPackages = import ../modules/shared/packages.nix {inherit pkgs agenix;};
   } else {};
 in {
+  inherit currentSystemUser;
+
   imports = [
     ../modules/shared/secrets.nix
     ../modules/shared

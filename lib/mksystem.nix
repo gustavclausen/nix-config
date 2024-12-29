@@ -18,6 +18,7 @@
   hostConfig = ../hosts/${name}.nix;
 
   isDarwinHost = nixpkgs.lib.strings.hasInfix "darwin" system;
+  currentSystemUser = user;
 
   homePath =
     if isDarwinHost
@@ -73,7 +74,7 @@ in
           config.allowUnfree = true;
         };
         extraSpecialArgs = {
-          inherit inputs outputs agenix secrets homePath isHomeManagerConfiguration;
+          inherit inputs outputs agenix secrets homePath isHomeManagerConfiguration currentSystemUser;
           flakeName = "${name}";
         };
         modules = [
