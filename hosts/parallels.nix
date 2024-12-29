@@ -1,4 +1,5 @@
 {
+  agenix,
   pkgs,
   currentSystemUser,
   homePath,
@@ -6,6 +7,7 @@
 }: {
   imports = [
     ./default.nix
+    agenix.homeManagerModules.default
   ];
 
   home = {
