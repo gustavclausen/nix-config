@@ -69,7 +69,10 @@ in
         system = system;
         config.allowUnfree = true;
       };
-      extraSpecialArgs = {inherit inputs outputs;};
+      extraSpecialArgs = {
+        inherit inputs outputs agenix secrets homePath;
+        flakeName = "${name}";
+      };
       modules = [
         hostConfig
       ];

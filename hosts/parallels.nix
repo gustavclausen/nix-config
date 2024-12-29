@@ -2,7 +2,6 @@
   pkgs,
   currentSystemUser,
   homePath,
-  lib,
   ...
 }: {
   imports = [
