@@ -3,6 +3,10 @@
   pkgs,
   currentSystemUser,
   homePath,
+  config,
+  lib,
+  currentSystem,
+  inputs,
   ...
 }: {
   imports = [
@@ -18,5 +22,7 @@
       neofetch
     ];
   };
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+  } // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs homePath;};
 }
