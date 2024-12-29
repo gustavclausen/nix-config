@@ -2,11 +2,11 @@
   pkgs,
   currentSystemUser,
   agenix,
-  isHomeConfiguration,
+  isHomeManagerConfiguration,
   lib,
   ...
 }: let 
-  nonHomeManagerSettings = if !isHomeConfiguration then {
+  nonHomeManagerSettings = if !isHomeManagerConfiguration then {
     services.nix-daemon.enable = true;
     system.checks.verifyNixPath = false;
     environment.systemPackages = import ../modules/shared/packages.nix {inherit pkgs agenix;};

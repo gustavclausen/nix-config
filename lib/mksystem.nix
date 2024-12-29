@@ -13,7 +13,7 @@
 }: name: {
   system,
   user,
-  isHomeConfiguration,
+  isHomeManagerConfiguration,
 }: let
   hostConfig = ../hosts/${name}.nix;
 
@@ -65,7 +65,7 @@ in
       ];
     }
   else
-    if isHomeConfiguration
+    if isHomeManagerConfiguration
     then
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
@@ -73,7 +73,7 @@ in
           config.allowUnfree = true;
         };
         extraSpecialArgs = {
-          inherit inputs outputs agenix secrets homePath isHomeConfiguration;
+          inherit inputs outputs agenix secrets homePath isHomeManagerConfiguration;
           flakeName = "${name}";
         };
         modules = [
