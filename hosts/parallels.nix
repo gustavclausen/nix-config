@@ -2,6 +2,7 @@
   pkgs,
   currentSystemUser,
   homePath,
+  inputs,
   outputs,
 }: {
   imports = [
