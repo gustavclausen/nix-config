@@ -9,6 +9,7 @@
   agenix,
   secrets,
   inputs,
+  outputs,
 }: name: {
   system,
   user,
@@ -21,20 +22,32 @@
     if isDarwinHost
     then "/Users/${user}"
     else "/home/${user}";
+in
+  if isDarwinHost
+  then
+    darwin.lib.darwinSystem {
+      inherit system;
 
-  systemFunc =
-    if isDarwinHost
-    then darwin.lib.darwinSystem
-    else home-manager.lib.homeManagerConfiguration;
-  homeManagerModules =
-    if isDarwinHost
-    then home-manager.darwinModules
-    else {};
+      specialArgs = {
+        inherit inputs;
+        inherit agenix;
+        inherit secrets;
+        inherit homePath;
+        flakeName = "${name}";
+      };
 
-  nixBrew =
-    if isDarwinHost
-    then
-      (nix-homebrew.darwinModules.nix-homebrew
+      modules = [
+        hostConfig
+        home-manager.darwinModules.home-manager
+        {
+          config._module.args = {
+            currentSystem = system;
+            currentSystemName = name;
+            currentSystemUser = user;
+            inputs = inputs;
+          };
+        }
+        nix-homebrew.darwinModules.nix-homebrew
         {
           lib = nixpkgs.lib;
           nix-homebrew = {
@@ -47,37 +60,17 @@
             };
             mutableTaps = false;
           };
-        })
-    else {};
-in
-  systemFunc rec {
-    inherit system;
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
+        }
+      ];
+    }
+  else
+    home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = system;
+        config.allowUnfree = true;
       };
-    };
-
-    specialArgs = {
-      inherit inputs;
-      inherit agenix;
-      inherit secrets;
-      inherit homePath;
-      flakeName = "${name}";
-    };
-    modules = [
-      hostConfig
-      homeManagerModules.home-manager
-      {
-        config._module.args = {
-          currentSystem = system;
-          currentSystemName = name;
-          currentSystemUser = user;
-          inputs = inputs;
-        };
-      }
-      nixBrew
-    ];
-  }
+      extraSpecialArgs = {inherit inputs outputs;};
+      modules = [
+        hostConfig
+      ];
+    }

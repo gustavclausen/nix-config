@@ -1,4 +1,3 @@
-
 {
   description = "gustavclausen's Nix config";
   inputs = {
@@ -49,6 +48,7 @@
     secrets,
     minimal-tmux,
   } @ inputs: let
+    inherit (self) outputs;
     darwinSystems = ["aarch64-darwin"];
     linuxSystems = ["x86_64-linux" "aarch64-linux"];
     forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
@@ -59,7 +59,7 @@
     in {
       default = with pkgs;
         mkShell {
-          nativeBuildInputs = with pkgs; [ bashInteractive git yubikey-manager age age-plugin-yubikey nix pkgs.home-manager ];
+          nativeBuildInputs = with pkgs; [bashInteractive git yubikey-manager age age-plugin-yubikey nix pkgs.home-manager];
           NIX_CONFIG = "experimental-features = nix-command flakes";
           shellHook = ''
             export EDITOR=vim
@@ -68,7 +68,7 @@
     };
 
     mkSystem = import ./lib/mksystem.nix {
-      inherit nixpkgs inputs nix-homebrew home-manager homebrew-core homebrew-cask homebrew-bundle darwin agenix secrets;
+      inherit nixpkgs inputs outputs nix-homebrew home-manager homebrew-core homebrew-cask homebrew-bundle darwin agenix secrets;
     };
   in {
     devShells = forAllSystems devShell;
@@ -85,19 +85,10 @@
     };
 
     homeConfigurations = {
-      "parallels" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "aarch64-linux";
-          config = {
-            allowUnfree = true;
-          };
-        };
-        # extraSpecialArgs = { inherit inputs outputs; };
-        modules = [
-          ./hosts/parallels.nix
-        ];
+      "parallels" = mkSystem "parallels" {
+        system = "aarch64-linux";
+        user = "gustavclausen";
       };
     };
   };
 }
-
