@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./default.nix
+    ../modules/shared/home-manager.nix
     agenix.homeManagerModules.default
   ];
 
