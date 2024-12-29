@@ -1,9 +1,13 @@
+
 {
   description = "gustavclausen's Nix config";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     agenix.url = "github:ryantm/agenix";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,13 +50,17 @@
     minimal-tmux,
   } @ inputs: let
     darwinSystems = ["aarch64-darwin"];
-    forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
+    linuxSystems = ["x86_64-linux" "aarch64-linux"];
+    forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
     devShell = system: let
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+      };
     in {
       default = with pkgs;
         mkShell {
-          nativeBuildInputs = with pkgs; [bashInteractive git yubikey-manager age age-plugin-yubikey];
+          nativeBuildInputs = with pkgs; [ bashInteractive git yubikey-manager age age-plugin-yubikey nix pkgs.home-manager ];
+          NIX_CONFIG = "experimental-features = nix-command flakes";
           shellHook = ''
             export EDITOR=vim
           '';
@@ -75,5 +83,21 @@
         user = "gustavclausen";
       };
     };
+
+    homeConfigurations = {
+      "parallels" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "aarch64-linux";
+          config = {
+            allowUnfree = true;
+          };
+        };
+        # extraSpecialArgs = { inherit inputs outputs; };
+        modules = [
+          ./hosts/parallels.nix
+        ];
+      };
+    };
   };
 }
+

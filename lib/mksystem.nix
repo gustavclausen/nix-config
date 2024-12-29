@@ -25,11 +25,11 @@
   systemFunc =
     if isDarwinHost
     then darwin.lib.darwinSystem
-    else nixpkgs.lib.nixosSystem;
+    else home-manager.lib.homeManagerConfiguration;
   homeManagerModules =
     if isDarwinHost
     then home-manager.darwinModules
-    else home-manager.nixosModules;
+    else {};
 
   nixBrew =
     if isDarwinHost
@@ -52,6 +52,13 @@
 in
   systemFunc rec {
     inherit system;
+
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+      };
+    };
 
     specialArgs = {
       inherit inputs;

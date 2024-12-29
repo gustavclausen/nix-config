@@ -20,6 +20,12 @@ else
 	echo "Non-Darwin installations not supported yet."
 endif
 
+hm-switch:
+	home-manager switch --flake .#${FLAKENAME}
+
+bootstrap:
+	nix run --extra-experimental-features "nix-command flakes" nixpkgs#home-manager -- --extra-experimental-features "nix-command flakes" switch --flake .#${FLAKENAME}
+
 rollback: check-env
 		/run/current-system/sw/bin/darwin-rebuild --list-generations; \
 		echo "Generation number: "; \
