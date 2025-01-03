@@ -70,10 +70,6 @@ in {
           ".ssh/pgp_github.pub" = {
             text = cfg.signing.publicKey;
           };
-
-          "test.txt" = {
-            text = cfg.signing.privateKey;
-          };
         };
 
         activation.setup-gpg = lib.hm.dag.entryAfter ["installPackages"] ''
