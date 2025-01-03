@@ -1,14 +1,13 @@
 {
   config,
-  pkgs,
   lib,
   homePath,
+  currentSystemUser,
   ...
 }:
 with lib; let
   xdg_configHome = "${homePath}/.config";
   cfg = config.local.nvim;
-  inherit (pkgs) git;
 in {
   options = {
     local.nvim.enable = mkOption {
@@ -21,20 +20,28 @@ in {
   config =
     mkIf cfg.enable
     {
-      system.activationScripts.postUserActivation.text = ''
-        git_cmd="${git}/bin/git"
+      home-manager.users.${currentSystemUser} = {
+        lib,
+        config,
+        ...
+      }: {
+        home = {
+          activation.pullNvimConfig = lib.hm.dag.entryAfter ["installPackages"] ''
+            PATH="${config.home.path}/bin:$PATH"
 
-        REPOSRC="https://github.com/gustavclausen/nvim.config.git"
-        LOCALREPO="${xdg_configHome}/nvim"
+            REPOSRC="https://github.com/gustavclausen/nvim.config.git"
+            LOCALREPO="${xdg_configHome}/nvim"
 
-        LOCALREPO_VC_DIR="$LOCALREPO/.git"
+            LOCALREPO_VC_DIR="$LOCALREPO/.git"
 
-        if [ ! -d "$LOCALREPO_VC_DIR" ]
-        then
-        	$git_cmd clone "$REPOSRC" "$LOCALREPO"
-        else
-        	$git_cmd -C "$LOCALREPO" pull
-        fi
-      '';
+            if [ ! -d "$LOCALREPO_VC_DIR" ]
+            then
+              git clone "$REPOSRC" "$LOCALREPO"
+            else
+              git -C "$LOCALREPO" pull
+            fi
+          '';
+        };
+      };
     };
 }

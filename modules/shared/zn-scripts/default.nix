@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   homePath,
   ...
@@ -8,7 +7,6 @@
 with lib; let
   scriptsHome = "${homePath}/.scripts";
   cfg = config.local.zn-scripts;
-  inherit (pkgs) git;
 in {
   options = {
     local.zn-scripts.enable = mkOption {
@@ -21,20 +19,28 @@ in {
   config =
     mkIf cfg.enable
     {
-      system.activationScripts.postUserActivation.text = ''
-        git_cmd="${git}/bin/git"
+      home-manager.users.${currentSystemUser} = {
+        lib,
+        config,
+        ...
+      }: {
+        home = {
+          activation.pullZNScripts = lib.hm.dag.entryAfter ["installPackages"] ''
+            PATH="${config.home.path}/bin:$PATH"
 
-        REPOSRC="https://github.com/gustavclausen/zn-scripts.git"
-        LOCALREPO="${scriptsHome}/zn-scripts"
+            REPOSRC="https://github.com/gustavclausen/zn-scripts.git"
+            LOCALREPO="${scriptsHome}/zn-scripts"
 
-        LOCALREPO_VC_DIR="$LOCALREPO/.git"
+            LOCALREPO_VC_DIR="$LOCALREPO/.git"
 
-        if [ ! -d "$LOCALREPO_VC_DIR" ]
-        then
-        	$git_cmd clone "$REPOSRC" "$LOCALREPO"
-        else
-        	$git_cmd -C "$LOCALREPO" pull
-        fi
-      '';
+            if [ ! -d "$LOCALREPO_VC_DIR" ]
+            then
+              git clone "$REPOSRC" "$LOCALREPO"
+            else
+              git -C "$LOCALREPO" pull
+            fi
+          '';
+        };
+      };
     };
 }
