@@ -10,11 +10,11 @@ in {
     text = ''
       #!/usr/bin/env zsh -e
 
-      cd ~/nix-config
+      cd ${homePath}/nix-config
 
       just switch ${host}
       echo "Reloading tmux..."
-      tmux source-file ~/.config/tmux/tmux.conf
+      tmux source-file ${homePath}/.config/tmux/tmux.conf
       echo "Reloading zsh shell..."
       exec zsh
     '';
@@ -24,7 +24,7 @@ in {
     text = ''
       #!/usr/bin/env zsh -e
 
-      cd ~/nix-config
+      cd ${homePath}/nix-config
 
       just rollback ${host}
     '';
@@ -51,8 +51,8 @@ in {
     text = ''
       #!/usr/bin/env zsh -e
 
-      rm -rf ~/.cache/nvim
-      rm -rf ~/.local/state/nvim
+      rm -rf ${homePath}/.cache/nvim
+      rm -rf ${homePath}/.local/state/nvim
     '';
   };
   "${homePath}/.scripts/kubernetes/aws-vault-kubeswitch" = {
