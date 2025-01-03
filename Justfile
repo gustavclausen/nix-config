@@ -15,7 +15,7 @@ clean:
 [macos]
 [group('nix')]
 build host:
-	NIXPKGS_ALLOW_UNFREE=1 nix build --extra-experimental-features 'nix-command flakes' ".#darwinConfigurations.{{host}}.system"
+  NIXPKGS_ALLOW_UNFREE=1 nix build --extra-experimental-features 'nix-command flakes' ".#darwinConfigurations.{{host}}.system"
 
 [macos]
 [group('nix')]
