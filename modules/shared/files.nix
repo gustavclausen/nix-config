@@ -12,7 +12,7 @@ in {
 
       cd ~/nix-config
 
-      FLAKENAME=${flakeName} make switch
+      just switch ${flakeName}
       echo "Reloading tmux..."
       tmux source-file ~/.config/tmux/tmux.conf
       echo "Reloading zsh shell..."
@@ -26,7 +26,7 @@ in {
 
       cd ~/nix-config
 
-      FLAKENAME=${flakeName} make rollback
+      just rollback ${flakeName}
     '';
   };
   "${xdg_dataHome}/bin/spawn-zsh" = {

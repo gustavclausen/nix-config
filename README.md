@@ -41,6 +41,5 @@ Thanks for the inspiration.
 5. Deploy configuration:
 
    ```shell
-   FLAKENAME="<system config name>" make build
-   FLAKENAME="<system config name>" make switch
+   just switch "<system config name>"
    ```

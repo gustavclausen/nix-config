@@ -38,6 +38,7 @@ with pkgs;
     gzip
     inetutils
     jq
+    just
     killall
     krew
     lazygit
