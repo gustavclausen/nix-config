@@ -1,4 +1,18 @@
 {
+  pkgs,
+  currentSystemUser,
+  homePath,
+  ...
+}: let
+  user = currentSystemUser;
+in {
+  users.users.${user} = {
+    name = user;
+    home = homePath;
+    isHidden = false;
+    shell = pkgs.zsh;
+  };
+
   system = {
     stateVersion = 4;
 

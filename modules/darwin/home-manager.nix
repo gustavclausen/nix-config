@@ -1,5 +1,4 @@
 {
-  pkgs,
   currentSystemUser,
   currentSystem,
   host,
@@ -9,27 +8,6 @@
 }: let
   user = currentSystemUser;
 in {
-  users.users.${user} = {
-    name = user;
-    home = homePath;
-    isHidden = false;
-    shell = pkgs.zsh;
-  };
-
-  homebrew = {
-    enable = true;
-
-    # These app IDs are from using the mas CLI app
-    # mas = mac app store
-    # https://github.com/mas-cli/mas
-    #
-    # $ nix shell nixpkgs#mas
-    # $ mas search <app name>
-    #
-    masApps = {
-    };
-  };
-
   home-manager = {
     useGlobalPkgs = true;
     users.${user} = {
@@ -50,7 +28,7 @@ in {
         ];
         stateVersion = "24.11";
       };
-      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs homePath;};
+      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem host inputs homePath;};
       fonts.fontconfig.enable = true;
     };
   };
