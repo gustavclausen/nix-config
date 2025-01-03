@@ -66,7 +66,7 @@ in
       inherit agenix;
       inherit secrets;
       inherit homePath;
-      flakeName = "${host}";
+      host = "${host}";
     };
 
     modules = [

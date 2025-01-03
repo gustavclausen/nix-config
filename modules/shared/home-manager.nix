@@ -3,6 +3,7 @@
   lib,
   inputs,
   homePath,
+  host,
   ...
 }: {
   pyenv = {
@@ -157,6 +158,8 @@
       export PATH="$HOME/.krew/bin:$PATH"
 
       unsetopt extendedglob
+
+      export NIX_HOST_NAME="${host}"
     '';
   };
 

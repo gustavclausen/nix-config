@@ -1,5 +1,5 @@
 {
-  flakeName,
+  host,
   homePath,
   ...
 }: let
@@ -12,7 +12,7 @@ in {
 
       cd ~/nix-config
 
-      just switch ${flakeName}
+      just switch ${host}
       echo "Reloading tmux..."
       tmux source-file ~/.config/tmux/tmux.conf
       echo "Reloading zsh shell..."
@@ -26,7 +26,7 @@ in {
 
       cd ~/nix-config
 
-      just rollback ${flakeName}
+      just rollback ${host}
     '';
   };
   "${xdg_dataHome}/bin/spawn-zsh" = {

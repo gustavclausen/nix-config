@@ -2,7 +2,7 @@
   pkgs,
   currentSystemUser,
   currentSystem,
-  flakeName,
+  host,
   homePath,
   inputs,
   ...
@@ -38,7 +38,7 @@ in {
       lib,
       ...
     }: let
-      sharedFiles = import ../shared/files.nix {inherit user config pkgs lib flakeName homePath;};
+      sharedFiles = import ../shared/files.nix {inherit user config pkgs lib host homePath;};
       additionalFiles = import ./files.nix {inherit user config pkgs homePath;};
     in {
       xdg.enable = true;
