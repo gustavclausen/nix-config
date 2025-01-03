@@ -11,10 +11,8 @@ in {
       #!/usr/bin/env zsh -e
 
       cd ${homePath}/nix-config
-
       just switch ${host}
-      echo "Reloading tmux..."
-      tmux source-file ${homePath}/.config/tmux/tmux.conf
+
       echo "Reloading zsh shell..."
       exec zsh
     '';

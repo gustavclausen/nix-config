@@ -342,6 +342,8 @@
       bind -r M-l resize-pane -R 5
 
       bind -r N display-popup -E "${homePath}/.scripts/utils/tmux-navigator.sh"
+      bind r source-file ${homePath}/.config/tmux/tmux.conf \; display-message "Tmux config is reloaded"
+
       set-option -g default-command ${pkgs.zsh}/bin/zsh
     '';
   };
