@@ -59,19 +59,19 @@
         };
     };
 
-    mkSystem = import ./lib/mksystem.nix {
+    mkDarwinSystem = import ./lib/mkDarwinSystem.nix {
       inherit nixpkgs inputs nix-homebrew home-manager homebrew-core homebrew-cask homebrew-bundle darwin agenix secrets;
     };
   in {
     devShells = forAllSystems devShell;
 
     darwinConfigurations = {
-      "personal-mac-mini" = mkSystem "personal-mac-mini" {
-        system = "aarch64-darwin";
+      "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
+        arch = "aarch64";
         user = "gustavclausen";
       };
-      "zeronorth-m1-mbp" = mkSystem "zeronorth-m1-mbp" {
-        system = "aarch64-darwin";
+      "zeronorth-m1-mbp" = mkDarwinSystem "zeronorth-m1-mbp" {
+        arch = "aarch64";
         user = "gustavclausen";
       };
     };

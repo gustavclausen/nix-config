@@ -7,26 +7,26 @@
   ...
 }: {
   imports = [
-    ./default.nix
-    ../modules/darwin/home-manager.nix
-    ../modules/darwin/dock
+    ../default.nix
+    ../../modules/darwin/home-manager.nix
+    ../../modules/darwin/dock
     agenix.darwinModules.default
   ];
 
   homebrew = {
-    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["another-redis-desktop-manager" "aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion" "pritunl"];};
+    casks = pkgs.callPackage ../../modules/darwin/casks.nix {extra = ["another-redis-desktop-manager" "aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion" "pritunl"];};
     taps = [
       {
         name = "argoproj/tap";
       }
     ];
-    brews = pkgs.callPackage ../modules/darwin/brews.nix {extra = ["argoproj/tap/kubectl-argo-rollouts"];};
+    brews = pkgs.callPackage ../../modules/darwin/brews.nix {extra = ["argoproj/tap/kubectl-argo-rollouts"];};
   };
 
   home-manager = {
     users.${currentSystemUser} = {
       home = {
-        packages = pkgs.callPackage ../modules/darwin/packages.nix {
+        packages = pkgs.callPackage ../../modules/darwin/packages.nix {
           inherit pkgs agenix;
           extra = with pkgs; [
             argocd

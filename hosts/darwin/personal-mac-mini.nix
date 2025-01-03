@@ -7,15 +7,15 @@
   ...
 }: {
   imports = [
-    ./default.nix
-    ../modules/darwin/home-manager.nix
-    ../modules/darwin/dock
+    ../default.nix
+    ../../modules/darwin/home-manager.nix
+    ../../modules/darwin/dock
     agenix.darwinModules.default
   ];
 
   homebrew = {
-    casks = pkgs.callPackage ../modules/darwin/casks.nix {extra = ["ticktick"];};
-    brews = pkgs.callPackage ../modules/darwin/brews.nix {extra = [];};
+    casks = pkgs.callPackage ../../modules/darwin/casks.nix {extra = ["ticktick"];};
+    brews = pkgs.callPackage ../../modules/darwin/brews.nix {extra = [];};
   };
 
   home-manager = {
@@ -25,7 +25,7 @@
       ...
     }: {
       home = {
-        packages = pkgs.callPackage ../modules/darwin/packages.nix {
+        packages = pkgs.callPackage ../../modules/darwin/packages.nix {
           inherit pkgs agenix;
           extra = with pkgs; [
             eksctl
