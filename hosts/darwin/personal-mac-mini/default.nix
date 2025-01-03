@@ -1,16 +1,10 @@
 {
-  agenix,
   pkgs,
   currentSystemUser,
   secrets,
   homePath,
   ...
 }: {
-  homebrew = {
-    casks = pkgs.callPackage ../../modules/darwin/casks.nix {extra = ["ticktick"];};
-    brews = pkgs.callPackage ../../modules/darwin/brews.nix {extra = [];};
-  };
-
   home-manager = {
     users.${currentSystemUser} = {
       config,
@@ -18,22 +12,6 @@
       ...
     }: {
       home = {
-        packages = pkgs.callPackage ../../modules/darwin/packages.nix {
-          inherit pkgs agenix;
-          extra = with pkgs; [
-            eksctl
-            helm-docs
-            helmfile
-            k9s
-            kind
-            kubectl
-            kubernetes-helm
-            kubeswitch
-            kustomize
-            opentofu
-            terraform-docs
-          ];
-        };
         file = {
           "${homePath}/.local/share/bin/terraform".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.opentofu}/bin/tofu";
         };

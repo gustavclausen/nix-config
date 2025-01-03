@@ -26,6 +26,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-argoproj = {
+      url = "github:argoproj/homebrew-tap";
+      flake = false;
+    };
     secrets = {
       url = "git+ssh://git@github.com/gustavclausen/nix-secrets.git";
       flake = false;
@@ -42,6 +46,7 @@
     homebrew-bundle,
     homebrew-core,
     homebrew-cask,
+    homebrew-argoproj,
     home-manager,
     nixpkgs,
     agenix,

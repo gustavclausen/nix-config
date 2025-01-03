@@ -1,103 +1,10 @@
 {
-  agenix,
   pkgs,
   currentSystemUser,
   secrets,
   homePath,
   ...
 }: {
-  homebrew = {
-    casks = pkgs.callPackage ../../modules/darwin/casks.nix {extra = ["another-redis-desktop-manager" "aws-vpn-client" "inkscape" "google-drive" "linear-linear" "notion" "pritunl"];};
-    taps = [
-      {
-        name = "argoproj/tap";
-      }
-    ];
-    brews = pkgs.callPackage ../../modules/darwin/brews.nix {extra = ["argoproj/tap/kubectl-argo-rollouts"];};
-  };
-
-  home-manager = {
-    users.${currentSystemUser} = {
-      home = {
-        packages = pkgs.callPackage ../../modules/darwin/packages.nix {
-          inherit pkgs agenix;
-          extra = with pkgs; [
-            argocd
-            aws-nuke
-            cloud-custodian
-            copier
-            eks-node-viewer
-            eksctl
-            helm-docs
-            helmfile
-            istioctl
-            k6
-            k9s
-            kind
-            kubectl
-            kubernetes-helm
-            kubeswitch
-            kustomize
-            kyverno
-            ngrok
-            poetry
-            postgresql
-            pyenv
-            redis
-            slack
-            terraform
-            terraform-docs
-            tflint
-          ];
-        };
-      };
-      programs = {
-        k9s = {
-          plugin = {
-            plugins = {
-              argo-rollouts-get = {
-                shortCut = "g";
-                confirm = false;
-                description = "Get details";
-                scopes = ["rollouts"];
-                command = "bash";
-                background = false;
-                args = ["-c" "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE |& less"];
-              };
-              argo-rollouts-watch = {
-                shortCut = "w";
-                confirm = false;
-                description = "Watch progress";
-                scopes = ["rollouts"];
-                command = "bash";
-                background = false;
-                args = ["-c" "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE -w |& less"];
-              };
-              argo-rollouts-promote = {
-                shortCut = "p";
-                confirm = true;
-                description = "Promote";
-                scopes = ["rollouts"];
-                command = "bash";
-                background = false;
-                args = ["-c" "kubectl argo rollouts promote $NAME --context $CONTEXT -n $NAMESPACE |& less"];
-              };
-              argo-rollouts-restart = {
-                shortCut = "r";
-                confirm = true;
-                description = "Restart";
-                scopes = ["rollouts"];
-                command = "bash";
-                background = false;
-                args = ["-c" "kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less"];
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-
   local.git = {
     enable = true;
     userName = "gustavclausen";
