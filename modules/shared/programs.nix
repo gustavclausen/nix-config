@@ -89,7 +89,10 @@
     '';
 
     initExtra = ''
-      COMMON_COLORS_CURRENT_DIR=green
+      COMMON_COLORS_CURRENT_DIR=yellow
+      COMMON_COLORS_RETURN_STATUS_TRUE=yellow
+      COMMON_COLORS_RETURN_STATUS_FALSE=red
+      COMMON_PROMPT_SYMBOL="|"
 
       ctx() {
         if [[ $AWS_VAULT ]]; then
@@ -303,8 +306,8 @@
       {
         plugin = inputs.minimal-tmux.packages.x86_64-darwin.default;
         extraConfig = ''
-          set -g @minimal-tmux-indicator-str "  🔒  "
-          set -g @minimal-tmux-bg "#53f980"
+          set -g @minimal-tmux-indicator-str "🔒"
+          set -g @minimal-tmux-bg "#effa87"
           set -g @minimal-tmux-right false
         '';
       }
@@ -319,6 +322,8 @@
 
       set-option -g focus-events on
       set-option -g pane-border-lines heavy
+      set -g pane-active-border-style fg=color228
+      set -g pane-border-style fg=grey
       set-option -g allow-rename off
       set-option -g renumber-windows on
 
