@@ -114,9 +114,9 @@
       export EDITOR=nvim
 
       alias r=". ranger"
-      alias nvim="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
-      alias vim="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
-      alias n="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe"
+      alias nvim="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-\#{window_id}-\#{pane_id}' 2>/dev/null || echo 'main').pipe"
+      alias vim="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-\#{window_id}-\#{pane_id}' 2>/dev/null || echo 'main').pipe"
+      alias n="nvim --listen /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-\#{window_id}-\#{pane_id}' 2>/dev/null || echo 'main').pipe"
       alias lg="lazygit"
       alias ks="switch"
       alias ave="aws-vault exec"
@@ -354,9 +354,9 @@
 
     settings = {
       os = {
-        edit = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}')<CR>\"";
-        editAtLine = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
-        open = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
+        edit = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}')<CR>\"";
+        editAtLine = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
+        open = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
       };
       keybinding = {
         commits = {
