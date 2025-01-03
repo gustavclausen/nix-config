@@ -2,6 +2,7 @@
   extraUserPackages = with pkgs; [
     argocd
     aws-nuke
+    check-jsonschema
     cloud-custodian
     copier
     eks-node-viewer

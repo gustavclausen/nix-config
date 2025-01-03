@@ -4,7 +4,6 @@
 }:
 with pkgs;
   [
-    act
     age
     age-plugin-yubikey
     alacritty
@@ -13,9 +12,7 @@ with pkgs;
     awscli2
     bash-completion
     bashInteractive
-    bruno
     cargo
-    check-jsonschema
     colima
     corepack_22
     coreutils
@@ -52,7 +49,6 @@ with pkgs;
     pre-commit
     python3
     ranger
-    ripgrep
     ripgrep
     shellcheck
     tmux
