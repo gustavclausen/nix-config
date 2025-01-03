@@ -1,15 +1,11 @@
 {
   pkgs,
   currentSystemUser,
-  agenix,
   ...
 }: {
-  imports = [
-    ../modules/shared/secrets.nix
-    ../modules/shared
-  ];
-
   services.nix-daemon.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  system.checks.verifyNixPath = false;
 
   nix = {
     package = pkgs.nixVersions.git;
@@ -30,8 +26,4 @@
       experimental-features = nix-command flakes
     '';
   };
-
-  system.checks.verifyNixPath = false;
-
-  environment.systemPackages = import ../modules/shared/packages.nix {inherit pkgs agenix;};
 }

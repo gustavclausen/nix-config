@@ -28,6 +28,7 @@ in
     };
 
     modules = [
+      ../modules/darwin
       ../hosts/darwin/${host}.nix
       home-manager.darwinModules.home-manager
       {
@@ -52,5 +53,6 @@ in
           mutableTaps = false;
         };
       }
+      agenix.darwinModules.default
     ];
   }

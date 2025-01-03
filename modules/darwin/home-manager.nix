@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   currentSystemUser,
   currentSystem,
   flakeName,
@@ -32,10 +30,6 @@ in {
     };
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   home-manager = {
     useGlobalPkgs = true;
     users.${user} = {
@@ -55,10 +49,6 @@ in {
           additionalFiles
         ];
         stateVersion = "24.11";
-        packages = [
-          (pkgs.nerdfonts.override
-            {fonts = ["JetBrainsMono"];})
-        ];
       };
       programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem inputs homePath;};
       fonts.fontconfig.enable = true;
