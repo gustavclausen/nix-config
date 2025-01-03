@@ -54,7 +54,7 @@ in {
           sharedFiles
           additionalFiles
         ];
-        stateVersion = "23.11";
+        stateVersion = "24.11";
         packages = [
           (pkgs.nerdfonts.override
             {fonts = ["JetBrainsMono"];})
