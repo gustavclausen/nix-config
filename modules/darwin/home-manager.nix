@@ -28,7 +28,7 @@ in {
         ];
         stateVersion = "24.11";
       };
-      programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib currentSystemUser currentSystem host inputs homePath;};
+      programs = {} // import ../shared/programs.nix {inherit config pkgs lib currentSystemUser currentSystem host inputs homePath;};
       fonts.fontconfig.enable = true;
     };
   };

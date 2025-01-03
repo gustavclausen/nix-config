@@ -9,6 +9,7 @@
   pyenv = {
     enable = true;
   };
+
   zsh = {
     enable = true;
     autocd = false;
