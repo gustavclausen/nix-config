@@ -3,6 +3,7 @@
   currentSystemUser,
   secrets,
   homePath,
+  lib,
   ...
 }: {
   local.git = {
@@ -89,7 +90,7 @@
     group = "staff";
   };
 
-  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = true;
+  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = lib.mkForce true;
 
   local.dock.enable = true;
   local.dock.entries = [
