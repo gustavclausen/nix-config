@@ -2,6 +2,7 @@
   config,
   lib,
   homePath,
+  currentSystemUser,
   ...
 }:
 with lib; let
