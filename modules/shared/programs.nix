@@ -354,9 +354,9 @@
 
     settings = {
       os = {
-        edit = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}')<CR>\"";
-        editAtLine = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
-        open = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
+        edit = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('scripts.lazygit-open-file')('{{filename}}')<CR>\"";
+        editAtLine = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
+        open = "nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}' 2>/dev/null || echo 'main').pipe --remote-send \"<cmd>lua require('scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>\"";
       };
       keybinding = {
         commits = {
