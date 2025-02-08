@@ -78,10 +78,6 @@
         arch = "aarch64";
         user = "gustavclausen";
       };
-      "zeronorth-m1-mbp" = mkDarwinSystem "zeronorth-m1-mbp" {
-        arch = "aarch64";
-        user = "gustavclausen";
-      };
     };
   };
 }

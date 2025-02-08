@@ -2,7 +2,6 @@
   imports = [
     ./nvim
     ./git-user
-    ./zn-scripts
     ./secrets.nix
   ];
 
