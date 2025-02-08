@@ -123,22 +123,6 @@
         "type": "github"
       }
     },
-    "homebrew-argoproj": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1727199309,
-        "narHash": "sha256-UQbNtVYRj7m1tGeZOBgEAHcO4xDWgk0GidwF38FM/h8=",
-        "owner": "argoproj",
-        "repo": "homebrew-tap",
-        "rev": "a10c19d3a860ada425733e89758216ba0ccb4c28",
-        "type": "github"
-      },
-      "original": {
-        "owner": "argoproj",
-        "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
     "homebrew-bundle": {
       "flake": false,
       "locked": {
@@ -311,7 +295,6 @@
         "agenix": "agenix",
         "darwin": "darwin_2",
         "home-manager": "home-manager_2",
-        "homebrew-argoproj": "homebrew-argoproj",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",

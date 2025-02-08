@@ -1,14 +1,12 @@
 {pkgs}: {
   extraUserPackages = with pkgs; [
+    alacritty
+    aws-vault
+    awscli2
+    colima
     eksctl
     helm-docs
     helmfile
-    k9s
-    kind
-    kubectl
-    kubernetes-helm
-    kubeswitch
-    kustomize
     opentofu
     terraform-docs
   ];

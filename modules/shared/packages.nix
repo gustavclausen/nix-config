@@ -6,14 +6,10 @@ with pkgs;
   [
     age
     age-plugin-yubikey
-    alacritty
     alejandra
-    aws-vault
-    awscli2
     bash-completion
     bashInteractive
     cargo
-    colima
     corepack_22
     coreutils
     diffutils
@@ -36,8 +32,13 @@ with pkgs;
     inetutils
     jq
     just
+    k9s
     killall
+    kind
     krew
+    kubectl
+    kubeswitch
+    kustomize
     lazygit
     lua
     mkdocs
@@ -46,9 +47,7 @@ with pkgs;
     openssh
     openssl
     parallel
-    pre-commit
     python3
-    ranger
     ripgrep
     shellcheck
     tmux
