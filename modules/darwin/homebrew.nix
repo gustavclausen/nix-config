@@ -10,6 +10,7 @@
     # $ mas search <app name>
     #
     masApps = {
+      rdp = 1295203466;
     };
   };
 }
