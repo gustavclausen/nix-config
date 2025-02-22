@@ -107,5 +107,11 @@
     {
       path = "${pkgs.alacritty}/Applications/Alacritty.app/";
     }
+    {
+      path = "/Applications/Cisco/Cisco\ AnyConnect\ Secure\ Mobility\ Client.app/";
+    }
+    {
+      path = "/Applications/Windows App.app/";
+    }
   ];
 }
