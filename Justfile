@@ -22,6 +22,11 @@ build host:
 switch host: (build host)
   ./result/sw/bin/darwin-rebuild switch --flake "$(pwd)#{{host}}"
 
+[linux]
+[group('nix')]
+switch host: (build host)
+  nix run home-manager/master -- switch --flake "$(pwd)#{{host}}"
+
 [macos]
 [group('nix')]
 rollback host:

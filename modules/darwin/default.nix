@@ -2,9 +2,8 @@
   imports = [
     ./core.nix
     ./system.nix
-    ./home-manager.nix
+    ./home-manager
     ./homebrew.nix
     ./dock
-    ../shared
   ];
 }

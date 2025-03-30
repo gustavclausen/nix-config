@@ -5,17 +5,13 @@
   ...
 }:
 with lib; let
-  cfg = config.local.dock;
-  inherit (pkgs) stdenv dockutil;
+  cfg = config.custom.darwin.dock;
+  inherit (pkgs) dockutil;
 in {
   options = {
-    local.dock.enable = mkOption {
-      description = "Enable dock";
-      default = stdenv.isDarwin;
-      example = false;
-    };
+    custom.darwin.dock.enable = mkEnableOption "Dock";
 
-    local.dock.entries =
+    custom.darwin.dock.entries =
       mkOption
       {
         description = "Entries on the Dock";

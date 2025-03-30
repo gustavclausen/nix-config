@@ -1,14 +1,11 @@
 {
   pkgs,
   currentSystemUser,
-  homePath,
   ...
-}: let
-  user = currentSystemUser;
-in {
-  users.users.${user} = {
-    name = user;
-    home = homePath;
+}: {
+  users.users.${currentSystemUser} = {
+    name = currentSystemUser;
+    home = "/Users/${currentSystemUser}";
     isHidden = false;
     shell = pkgs.zsh;
   };

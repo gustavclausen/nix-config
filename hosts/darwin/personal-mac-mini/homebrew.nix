@@ -1,4 +1,0 @@
-{inputs}: {
-  extraCasks = ["ticktick"];
-  extraBrews = [];
-}

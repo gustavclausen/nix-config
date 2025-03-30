@@ -65,6 +65,10 @@
     mkDarwinSystem = import ./lib/mkDarwinSystem.nix {
       inherit nixpkgs inputs nix-homebrew home-manager homebrew-core homebrew-cask homebrew-bundle darwin agenix secrets;
     };
+
+    mkHomeManagerSystem = import ./lib/mkHomeManagerSystem.nix {
+      inherit nixpkgs inputs home-manager agenix secrets;
+    };
   in {
     devShells = forAllSystems devShell;
 
@@ -72,7 +76,10 @@
       "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
         arch = "aarch64";
         user = "gustavclausen";
+        hostConfig = import ./hosts/personal-mac-mini.nix;
       };
     };
+
+    homeConfigurations = {};
   };
 }

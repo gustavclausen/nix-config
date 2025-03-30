@@ -1,5 +1,0 @@
-{extra}:
-extra
-++ [
-  "luarocks"
-]

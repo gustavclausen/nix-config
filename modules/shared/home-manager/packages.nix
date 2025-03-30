@@ -1,58 +1,29 @@
 {
   pkgs,
   agenix,
+  ...
 }:
 with pkgs;
   [
     age
     age-plugin-yubikey
-    alejandra
     bash-completion
     bashInteractive
-    cargo
-    corepack_22
     coreutils
     diffutils
-    docker
-    docker-compose
     doggo
-    dotnet-sdk_8
-    eza
-    fd
     findutils
-    fzf
-    gh
     gnumake
-    gnupg
     gnused
-    go
-    gopls
-    goreleaser
     gzip
     inetutils
-    jq
     just
-    k9s
     killall
-    kind
-    krew
-    kubectl
-    kubeswitch
-    kustomize
-    lazygit
-    lua
-    mkdocs
-    neovim
-    nodejs_22
     openssh
     openssl
     parallel
     python3
-    ripgrep
-    shellcheck
-    tmux
     tree
-    tree-sitter
     wget
     xz
     yq-go
