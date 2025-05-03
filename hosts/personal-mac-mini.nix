@@ -115,6 +115,7 @@
   homebrew = {
     casks = [
       "microsoft-teams"
+      "messenger"
     ];
     masApps = {
       rdp = 1295203466;
@@ -128,6 +129,7 @@
       {path = "/System/Applications/Mail.app/";}
       {path = "/System/Applications/Calendar.app/";}
       {path = "/System/Applications/Messages.app/";}
+      {path = "/Applications/Messenger.app/";}
       {path = "/Applications/Microsoft Teams.app/";}
       {path = "/Applications/Obsidian.app/";}
       {path = "/Applications/TickTick.app/";}
