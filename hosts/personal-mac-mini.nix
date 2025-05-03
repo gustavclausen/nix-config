@@ -16,6 +16,8 @@
             source = config.lib.file.mkOutOfStoreSymlink "${config.age.secrets."github-pat".path}";
           };
         };
+
+        packages = with pkgs; [jetbrains.rider];
       };
 
       age = {
@@ -129,6 +131,9 @@
       {path = "/Applications/Spotify.app/";}
       {
         path = "${pkgs.alacritty}/Applications/Alacritty.app/";
+      }
+      {
+        path = "${pkgs.jetbrains.rider}/Applications/Rider.app/";
       }
       {
         path = "/Applications/Cisco/Cisco\ AnyConnect\ Secure\ Mobility\ Client.app/";
