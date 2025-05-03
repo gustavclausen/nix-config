@@ -12,10 +12,10 @@ in
     };
 
     config = mkIf cfg.enable {
-      home.packages = with pkgs; [dotnet-sdk_8];
+      home.packages = with pkgs; [dotnet-sdk_9];
 
       programs.zsh.initExtra = ''
-        export DOTNET_ROOT="${pkgs.dotnet-sdk_8}"
+        export DOTNET_ROOT="${pkgs.dotnet-sdk_9}"
       '';
     };
   }
