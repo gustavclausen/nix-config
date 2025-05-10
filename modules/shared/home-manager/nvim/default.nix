@@ -61,7 +61,7 @@ with lib; {
         activation.neovim = hm.dag.entryAfter ["installPackages"] ''
           export XDG_CONFIG_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}"
 
-          REPO_SRC="https://github.com/gustavclausen/nvim.config.git"
+          REPO_SRC="git@github.com:gustavclausen/nvim.config.git"
           LOCAL_PATH="$XDG_CONFIG_HOME/nvim"
 
           export PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH"
