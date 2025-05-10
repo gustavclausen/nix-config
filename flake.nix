@@ -12,7 +12,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
+      # TODO: Revisit after Nix upgrade to 25.11
+      url = "github:zhaofengli/nix-homebrew/4945f477bc346d6cd432c67642621f33e6a9b201";
     };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
