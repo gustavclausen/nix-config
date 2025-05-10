@@ -17,6 +17,7 @@ in
           [
             docker
             docker-compose
+            lazydocker
           ]
           (lib.mkIf pkgs.stdenv.isDarwin [colima])
         ];
