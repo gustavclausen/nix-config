@@ -20,7 +20,7 @@ build host:
 [macos]
 [group('nix')]
 switch host: (build host)
-  ./result/sw/bin/darwin-rebuild switch --flake "$(pwd)#{{host}}"
+  sudo ./result/sw/bin/darwin-rebuild switch --flake "$(pwd)#{{host}}"
 
 [linux]
 [group('nix')]

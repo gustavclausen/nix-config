@@ -18,10 +18,11 @@
         packages = import ./packages.nix {inherit pkgs;};
       };
       imports = [
+        (import ./dock)
         (import ../../shared/home-manager {inherit pkgs inputs host agenix lib config;})
       ];
       fonts.fontconfig.enable = true;
-      programs.zsh.initExtra = ''
+      programs.zsh.initContent = ''
         eval "$(/opt/homebrew/bin/brew shellenv)"
       '';
     };

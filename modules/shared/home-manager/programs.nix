@@ -63,7 +63,7 @@
       '';
     };
 
-    initExtraFirst = ''
+    initContent = ''
       if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
         . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
@@ -75,9 +75,7 @@
       export HISTIGNORE="pwd:ls:cd"
 
       alias ls='ls --color=auto'
-    '';
 
-    initExtra = ''
       COMMON_COLORS_CURRENT_DIR=yellow
       COMMON_COLORS_RETURN_STATUS_TRUE=yellow
       COMMON_COLORS_RETURN_STATUS_FALSE=red

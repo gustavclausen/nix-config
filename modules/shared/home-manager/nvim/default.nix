@@ -81,7 +81,7 @@ with lib; {
           defaultEditor = true;
         };
 
-        zsh.initExtra = lib.mkMerge [
+        zsh.initContent = lib.mkMerge [
           ''
             alias vim="nvim"
             alias n="nvim"

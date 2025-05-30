@@ -65,7 +65,7 @@ in
         };
       };
 
-      programs.zsh.initExtra = ''
+      programs.zsh.initContent = ''
         alias ave="aws-vault exec"
       '';
     };

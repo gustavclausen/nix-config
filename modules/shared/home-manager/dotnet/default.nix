@@ -14,7 +14,7 @@ in
     config = mkIf cfg.enable {
       home.packages = with pkgs; [dotnet-sdk_9];
 
-      programs.zsh.initExtra = ''
+      programs.zsh.initContent = ''
         export DOTNET_ROOT="${pkgs.dotnet-sdk_9}"
       '';
     };

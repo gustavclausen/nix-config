@@ -4,6 +4,5 @@
     ./system.nix
     ./home-manager
     ./homebrew.nix
-    ./dock
   ];
 }

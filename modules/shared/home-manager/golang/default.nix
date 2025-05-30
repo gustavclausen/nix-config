@@ -14,7 +14,7 @@ in
     config = mkIf cfg.enable {
       home.packages = with pkgs; [go gopls goreleaser];
 
-      programs.zsh.initExtra = ''
+      programs.zsh.initContent = ''
         export GOPATH="$HOME/go"
         export GOBIN="$GOPATH/bin"
         export PATH="$GOPATH:$HOME/go/bin:$PATH"

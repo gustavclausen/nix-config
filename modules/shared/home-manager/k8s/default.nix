@@ -157,7 +157,7 @@ in
           };
         };
 
-        zsh.initExtra = ''
+        zsh.initContent = ''
           if command -v "switcher" >/dev/null 2>&1; then
             source <(switcher init zsh)
           fi

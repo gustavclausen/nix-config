@@ -12,9 +12,9 @@ in
     };
 
     config = mkIf cfg.enable {
-      home.packages = with pkgs; [nodejs_23 corepack_23];
+      home.packages = with pkgs; [nodejs_24 corepack_24];
 
-      programs.zsh.initExtra = ''
+      programs.zsh.initContent = ''
         export PATH="$(npm get prefix)/bin:$PATH"
       '';
     };

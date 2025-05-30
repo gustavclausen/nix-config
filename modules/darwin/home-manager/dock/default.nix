@@ -6,31 +6,33 @@
 }:
 with lib; let
   cfg = config.custom.darwin.dock;
-  inherit (pkgs) dockutil;
+  inherit (pkgs) dockutil killall;
 in {
   options = {
-    custom.darwin.dock.enable = mkEnableOption "Dock";
+    custom.darwin.dock = {
+      enable = mkEnableOption "Dock";
 
-    custom.darwin.dock.entries =
-      mkOption
-      {
-        description = "Entries on the Dock";
-        type = with types;
-          listOf (submodule {
-            options = {
-              path = lib.mkOption {type = str;};
-              section = lib.mkOption {
-                type = str;
-                default = "apps";
+      entries =
+        mkOption
+        {
+          description = "Entries on the Dock";
+          type = with types;
+            listOf (submodule {
+              options = {
+                path = lib.mkOption {type = str;};
+                section = lib.mkOption {
+                  type = str;
+                  default = "apps";
+                };
+                options = lib.mkOption {
+                  type = str;
+                  default = "";
+                };
               };
-              options = lib.mkOption {
-                type = str;
-                default = "";
-              };
-            };
-          });
-        readOnly = true;
-      };
+            });
+          readOnly = true;
+        };
+    };
   };
 
   config =
@@ -58,14 +60,14 @@ in {
           (entry: "${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}\n")
           cfg.entries;
       in {
-        system.activationScripts.postUserActivation.text = ''
+        home.activation.setup-dock = ''
           echo >&2 "Setting up the Dock..."
           haveURIs="$(${dockutil}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
           if ! diff -wu <(echo -n "$haveURIs") <(echo -n '${wantURIs}') >&2 ; then
             echo >&2 "Resetting Dock."
             ${dockutil}/bin/dockutil --no-restart --remove all
             ${createEntries}
-            killall Dock
+            ${killall}/bin/killall Dock
           else
             echo >&2 "Dock setup complete."
           fi

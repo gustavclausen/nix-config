@@ -5,5 +5,5 @@ with pkgs; [
   (pkgs.writeShellScriptBin "gsed" "exec ${pkgs.gnused}/bin/sed \"$@\"")
   darwin.trash
   reattach-to-user-namespace
-  (pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];})
+  nerd-fonts.jetbrains-mono
 ]

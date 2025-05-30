@@ -3,7 +3,6 @@
   currentSystemUser,
   ...
 }: {
-  services.nix-daemon.enable = true;
   nixpkgs.config.allowUnfree = true;
   system.checks.verifyNixPath = false;
 
@@ -12,7 +11,6 @@
     settings.trusted-users = ["@admin" "${currentSystemUser}"];
 
     gc = {
-      user = "root";
       automatic = true;
       interval = {
         Weekday = 0;
