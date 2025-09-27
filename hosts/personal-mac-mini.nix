@@ -56,12 +56,6 @@
             {
               path = "${pkgs.jetbrains.rider}/Applications/Rider.app/";
             }
-            {
-              path = "/Applications/Cisco/Cisco\ AnyConnect\ Secure\ Mobility\ Client.app/";
-            }
-            {
-              path = "/Applications/Windows App.app/";
-            }
           ];
         };
         neovim.enable = true;
