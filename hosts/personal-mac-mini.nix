@@ -17,7 +17,7 @@
           };
         };
 
-        packages = with pkgs; [jetbrains.rider claude-code];
+        packages = with pkgs; [claude-code];
       };
 
       age = {
@@ -43,18 +43,14 @@
             {path = "/Applications/Google Chrome.app/";}
             {path = "/System/Applications/Mail.app/";}
             {path = "/System/Applications/Calendar.app/";}
+            {path = "/System/Applications/Notes.app/";}
             {path = "/System/Applications/Messages.app/";}
-            {path = "/Applications/Messenger.app/";}
             {path = "/Applications/Microsoft Teams.app/";}
-            {path = "/Applications/Obsidian.app/";}
             {path = "/Applications/TickTick.app/";}
             {path = "/Applications/1Password.app/";}
             {path = "/Applications/Spotify.app/";}
             {
               path = "${pkgs.alacritty}/Applications/Alacritty.app/";
-            }
-            {
-              path = "${pkgs.jetbrains.rider}/Applications/Rider.app/";
             }
           ];
         };
@@ -136,10 +132,6 @@
   homebrew = {
     casks = [
       "microsoft-teams"
-      "messenger"
     ];
-    masApps = {
-      rdp = 1295203466;
-    };
   };
 }

@@ -7,7 +7,6 @@
       "google-chrome"
       "logi-options+"
       "monitorcontrol"
-      "obsidian"
       "raycast"
       "rectangle-pro"
       "spotify"
