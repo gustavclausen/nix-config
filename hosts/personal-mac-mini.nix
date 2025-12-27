@@ -17,7 +17,7 @@
           };
         };
 
-        packages = with pkgs; [jetbrains.rider];
+        packages = with pkgs; [jetbrains.rider claude-code];
       };
 
       age = {
