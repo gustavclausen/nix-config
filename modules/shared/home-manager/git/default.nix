@@ -160,8 +160,6 @@ in
         programs = {
           git = {
             enable = true;
-            userName = cfg.userName;
-            userEmail = cfg.email;
             ignores = [
               ".idea"
               "*.DS_Store"
@@ -174,8 +172,8 @@ in
             lfs = {
               enable = true;
             };
-            extraConfig =
-              {
+            settings = let
+              base = {
                 init.defaultBranch = "main";
                 core = {
                   editor = "nvim";
@@ -184,20 +182,35 @@ in
                 pull.rebase = true;
                 push.default = "current";
                 rebase.autoStash = true;
-              }
-              // lib.mkIf cfg.sshAuth.enable (lib.foldl (
-                  attrs: host:
-                    attrs
-                    // {
-                      "url.\"ssh://git@${host}/\".insteadOf" = "https://${host}/";
-                    }
-                ) {}
-                cfg.sshAuth.hostnames)
-              // lib.mkIf cfg.gpgCommitSigning.enable {
-                commit.gpgsign = true;
-                gpg.program = "${pkgs.gnupg}/bin/gpg";
-                user.signingkey = cfg.gpgCommitSigning.keyId;
+                user = {
+                  name = cfg.userName;
+                  email = cfg.email;
+                };
               };
+
+              sshExtra =
+                if cfg.sshAuth.enable
+                then
+                  (
+                    lib.foldl (attrs: host:
+                      attrs
+                      // {
+                        url."ssh://git@${host}/".insteadOf = "https://${host}/";
+                      }) {}
+                    cfg.sshAuth.hostnames
+                  )
+                else {};
+
+              gpgExtra =
+                if cfg.gpgCommitSigning.enable
+                then {
+                  commit.gpgsign = true;
+                  gpg.program = "${pkgs.gnupg}/bin/gpg";
+                  user.signingkey = cfg.gpgCommitSigning.keyId;
+                }
+                else {};
+            in
+              lib.recursiveUpdate (lib.recursiveUpdate base sshExtra) gpgExtra;
           };
 
           ssh = {
