@@ -12,7 +12,7 @@
     }: {
       home = {
         file = {
-          "~/.secrets/github-pat.env" = {
+          "${config.home.homeDirectory}/.secrets/github-pat.env" = {
             source = config.lib.file.mkOutOfStoreSymlink "${config.age.secrets."github-pat".path}";
           };
         };
