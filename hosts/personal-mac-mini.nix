@@ -64,7 +64,6 @@
         nodejs.enable = true;
         k8s.enable = true;
         docker.enable = true;
-        dotnet.enable = true;
         tmux.enable = true;
         git = {
           enable = true;
