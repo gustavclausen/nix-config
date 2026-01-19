@@ -17,7 +17,7 @@
           };
         };
 
-        packages = with pkgs; [claude-code];
+        packages = with pkgs; [claude-code vscode slack];
       };
 
       age = {
@@ -45,13 +45,16 @@
             {path = "/System/Applications/Calendar.app/";}
             {path = "/System/Applications/Notes.app/";}
             {path = "/System/Applications/Messages.app/";}
+            {path = "${pkgs.slack}/Applications/Slack.app/";}
             {path = "/Applications/Microsoft Teams.app/";}
             {path = "/Applications/TickTick.app/";}
+            {path = "/Applications/Claude.app/";}
             {path = "/Applications/1Password.app/";}
             {path = "/Applications/Spotify.app/";}
             {
               path = "${pkgs.alacritty}/Applications/Alacritty.app/";
             }
+            {path = "${pkgs.vscode}/Applications/Visual Studio Code.app/";}
           ];
         };
         neovim.enable = true;
