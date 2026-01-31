@@ -1,5 +1,4 @@
 {
-  pkgs,
   currentSystemUser,
   secrets,
   ...
@@ -32,6 +31,7 @@
           "aws".file = "${secrets}/systems/personal-mac-mini/aws.age";
           "github-ssh-key".file = "${secrets}/systems/personal-mac-mini/github-ssh-key.age";
           "github-signing-key".file = "${secrets}/users/gustavclausen_com/github-signing-key.age";
+          "hetzner-ssh-key".file = "${secrets}/systems/hetzner/hetzner_id_ed25519.age";
         };
       };
 
@@ -125,6 +125,24 @@
               -----END PGP PUBLIC KEY BLOCK-----
             '';
             privateKeyPath = config.age.secrets."github-signing-key".path;
+          };
+        };
+        ssh = {
+          enable = true;
+          keys = {
+            "hetzner" = {
+              name = "hetzner_id_ed25519";
+              publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLw7BlYR88VJgYtlMlwDRLocFtWW9fkfwhScAkyJ685";
+              privateKeyPath = config.age.secrets."hetzner-ssh-key".path;
+            };
+          };
+          hosts = {
+            "zoltar" = {
+              hostname = "89.167.6.208";
+              user = "root";
+              port = 22;
+              keyName = "hetzner";
+            };
           };
         };
       };

@@ -26,6 +26,7 @@
     ./k8s
     ./nodejs
     ./nvim
+    ./ssh
     (import ./tmux {inherit pkgs lib inputs config;})
   ];
 }
