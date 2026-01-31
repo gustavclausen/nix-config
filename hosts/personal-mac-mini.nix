@@ -139,7 +139,7 @@
           hosts = {
             "zoltar" = {
               hostname = "89.167.6.208";
-              user = "root";
+              user = "nixos";
               port = 22;
               keyName = "hetzner";
             };
