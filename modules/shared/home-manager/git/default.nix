@@ -168,6 +168,7 @@ in
               "*.iml"
               "pyrightconfig.json"
               "*.swp"
+              ".claude/*.local.*"
             ];
             lfs = {
               enable = true;
