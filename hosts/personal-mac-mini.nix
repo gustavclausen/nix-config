@@ -16,7 +16,7 @@
           };
         };
 
-        packages = with pkgs; [claude-code vscode slack];
+        packages = with pkgs; [claude-code vscode slack deploy-rs];
       };
 
       age = {
