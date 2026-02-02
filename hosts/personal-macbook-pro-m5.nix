@@ -49,6 +49,7 @@
           ];
         };
         neovim.enable = true;
+        golang.enable = true;
         nodejs.enable = true;
         docker.enable = true;
         tmux.enable = true;
