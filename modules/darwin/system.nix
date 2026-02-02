@@ -16,7 +16,6 @@
 
     defaults = {
       NSGlobalDomain = {
-        AppleInterfaceStyle = "Dark";
         AppleShowAllExtensions = true;
         ApplePressAndHoldEnabled = false;
 
