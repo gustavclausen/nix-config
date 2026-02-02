@@ -1,6 +1,7 @@
 {
   pkgs,
   currentSystemUser,
+  lib,
   ...
 }: {
   users.users.${currentSystemUser} = {
@@ -27,7 +28,7 @@
 
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.sound.beep.feedback" = 0;
-        "com.apple.swipescrolldirection" = false;
+        "com.apple.swipescrolldirection" = lib.mkDefault false;
 
         NSAutomaticSpellingCorrectionEnabled = false;
         NSAutomaticCapitalizationEnabled = false;
