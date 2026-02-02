@@ -78,6 +78,12 @@
         user = "gustavclausen";
         hostConfig = import ./hosts/personal-mac-mini.nix;
       };
+
+      "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
+        arch = "aarch64";
+        user = "gustavkc";
+        hostConfig = import ./hosts/personal-macbook-pro-m5.nix;
+      };
     };
 
     homeConfigurations = {};
