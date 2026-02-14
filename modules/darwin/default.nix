@@ -4,5 +4,6 @@
     ./system.nix
     ./home-manager
     ./homebrew.nix
+    ./overlays.nix
   ];
 }
