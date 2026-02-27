@@ -70,6 +70,7 @@
       fi
 
       export PATH=$HOME/.local/share/bin:$PATH
+      export PATH=$HOME/.local/bin:$PATH
       export PATH=$HOME/.local/scripts:$PATH
 
       export HISTIGNORE="pwd:ls:cd"
