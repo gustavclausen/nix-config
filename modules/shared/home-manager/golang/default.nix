@@ -12,7 +12,7 @@ in
     };
 
     config = mkIf cfg.enable {
-      home.packages = with pkgs; [go gopls goreleaser];
+      home.packages = with pkgs; [go gopls goreleaser protobuf];
 
       programs.zsh.initContent = ''
         export GOPATH="$HOME/go"
