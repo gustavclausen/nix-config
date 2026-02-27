@@ -23,6 +23,7 @@ with pkgs;
     openssl
     parallel
     python3
+    ripgrep
     tree
     wget
     xz
