@@ -10,7 +10,7 @@
       ...
     }: {
       home = {
-        packages = with pkgs; [claude-code vscode slack deploy-rs];
+        packages = with pkgs; [vscode slack deploy-rs];
       };
 
       age = {
