@@ -25,6 +25,11 @@ in
     };
 
     modules = [
+      {
+        nixpkgs.overlays = [
+          (import ../overlays/colima.nix {nixpkgs-unstable = inputs.nixpkgs-unstable;})
+        ];
+      }
       ../modules/darwin
       hostConfig
       agenix.darwinModules.default

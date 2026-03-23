@@ -34,6 +34,7 @@
       url = "github:niksingh710/minimal-tmux-status";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/6c9a78c09ff4d6c21d0319114873508a6ec01655";
   };
   outputs = {
     self,
@@ -47,6 +48,7 @@
     agenix,
     secrets,
     minimal-tmux,
+    nixpkgs-unstable,
   } @ inputs: let
     darwinSystems = ["aarch64-darwin"];
     forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
