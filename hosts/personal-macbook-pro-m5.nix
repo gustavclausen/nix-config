@@ -128,6 +128,12 @@
               port = 22;
               keyName = "hetzner";
             };
+            "esmeralda" = {
+              hostname = "204.168.228.39";
+              user = "nixos";
+              port = 22;
+              keyName = "hetzner";
+            };
           };
         };
       };
