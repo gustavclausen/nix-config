@@ -10,7 +10,7 @@
       ...
     }: {
       home = {
-        packages = with pkgs; [vscode slack deploy-rs ffmpeg_7];
+        packages = with pkgs; [vscode slack deploy-rs ffmpeg_7 awscli2 uv];
       };
 
       age = {
