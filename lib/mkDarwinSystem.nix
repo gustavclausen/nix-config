@@ -28,6 +28,7 @@ in
       {
         nixpkgs.overlays = [
           (import ../overlays/colima.nix {nixpkgs-unstable = inputs.nixpkgs-unstable;})
+          (import ../overlays/direnv.nix)
         ];
       }
       ../modules/darwin
