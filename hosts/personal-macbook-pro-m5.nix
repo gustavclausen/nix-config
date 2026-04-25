@@ -135,6 +135,12 @@
               port = 22;
               keyName = "hetzner";
             };
+            "paperclip" = {
+              hostname = "178.104.213.37";
+              user = "nixos";
+              port = 22;
+              keyName = "hetzner";
+            };
           };
         };
       };
