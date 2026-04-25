@@ -136,7 +136,7 @@
               keyName = "hetzner";
             };
             "paperclip" = {
-              hostname = "178.104.213.37";
+              hostname = "paperclip.tail695ae9.ts.net";
               user = "nixos";
               port = 22;
               keyName = "hetzner";
