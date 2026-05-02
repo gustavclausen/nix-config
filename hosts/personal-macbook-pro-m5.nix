@@ -22,6 +22,7 @@
             uv
             nixfmt
             mkpasswd
+            open-policy-agent
           ];
         };
 
