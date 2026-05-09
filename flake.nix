@@ -34,60 +34,91 @@
       url = "github:niksingh710/minimal-tmux-status";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/6c9a78c09ff4d6c21d0319114873508a6ec01655";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
-  outputs = {
-    self,
-    darwin,
-    nix-homebrew,
-    homebrew-bundle,
-    homebrew-core,
-    homebrew-cask,
-    home-manager,
-    nixpkgs,
-    agenix,
-    secrets,
-    minimal-tmux,
-    nixpkgs-unstable,
-  } @ inputs: let
-    darwinSystems = ["aarch64-darwin"];
-    forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
-    devShell = system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      default = with pkgs;
-        mkShell {
-          nativeBuildInputs = with pkgs; [bashInteractive git yubikey-manager age age-plugin-yubikey just];
-          shellHook = ''
-            export EDITOR=vim
-          '';
+  outputs =
+    {
+      self,
+      darwin,
+      nix-homebrew,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
+      home-manager,
+      nixpkgs,
+      agenix,
+      secrets,
+      minimal-tmux,
+      nixpkgs-unstable,
+    }@inputs:
+    let
+      darwinSystems = [ "aarch64-darwin" ];
+      forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
+      devShell =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default =
+            with pkgs;
+            mkShell {
+              nativeBuildInputs = with pkgs; [
+                bashInteractive
+                git
+                yubikey-manager
+                age
+                age-plugin-yubikey
+                just
+              ];
+              shellHook = ''
+                export EDITOR=vim
+              '';
+            };
         };
-    };
 
-    mkDarwinSystem = import ./lib/mkDarwinSystem.nix {
-      inherit nixpkgs inputs nix-homebrew home-manager homebrew-core homebrew-cask homebrew-bundle darwin agenix secrets;
-    };
-
-    mkHomeManagerSystem = import ./lib/mkHomeManagerSystem.nix {
-      inherit nixpkgs inputs home-manager agenix secrets;
-    };
-  in {
-    devShells = forAllSystems devShell;
-
-    darwinConfigurations = {
-      "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
-        arch = "aarch64";
-        user = "gustavclausen";
-        hostConfig = import ./hosts/personal-mac-mini.nix;
+      mkDarwinSystem = import ./lib/mkDarwinSystem.nix {
+        inherit
+          nixpkgs
+          inputs
+          nix-homebrew
+          home-manager
+          homebrew-core
+          homebrew-cask
+          homebrew-bundle
+          darwin
+          agenix
+          secrets
+          ;
       };
 
-      "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
-        arch = "aarch64";
-        user = "gustavkc";
-        hostConfig = import ./hosts/personal-macbook-pro-m5.nix;
+      mkHomeManagerSystem = import ./lib/mkHomeManagerSystem.nix {
+        inherit
+          nixpkgs
+          inputs
+          home-manager
+          agenix
+          secrets
+          ;
       };
-    };
+    in
+    {
+      devShells = forAllSystems devShell;
 
-    homeConfigurations = {};
-  };
+      darwinConfigurations = {
+        "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
+          arch = "aarch64";
+          user = "gustavclausen";
+          hostConfig = import ./hosts/personal-mac-mini.nix;
+        };
+
+        "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
+          arch = "aarch64";
+          user = "gustavkc";
+          hostConfig = import ./hosts/personal-macbook-pro-m5.nix;
+        };
+      };
+
+      homeConfigurations = { };
+    };
 }

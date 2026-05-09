@@ -24,6 +24,9 @@
             mkpasswd
             nil
             nixd
+            claude-code
+            codex
+            ctx7
           ];
         };
 

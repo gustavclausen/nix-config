@@ -5,14 +5,16 @@
   inputs,
   ...
 }:
-with lib; {
+with lib;
+{
   options.custom.tmux = {
     enable = mkEnableOption "Tmux configuration";
   };
 
-  config = let
-    cfg = config.custom.tmux;
-  in
+  config =
+    let
+      cfg = config.custom.tmux;
+    in
     mkIf cfg.enable {
       home = {
         file = {
@@ -95,12 +97,6 @@ with lib; {
             set-option -g default-command ${pkgs.zsh}/bin/zsh
           '';
         };
-
-        zsh.initContent = ''
-          if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-            tmux new-session -A -s main
-          fi
-        '';
       };
     };
 }
