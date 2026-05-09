@@ -22,6 +22,8 @@
             uv
             nixfmt
             mkpasswd
+            nil
+            nixd
           ];
         };
 
