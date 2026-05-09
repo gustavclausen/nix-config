@@ -61,6 +61,7 @@
                 path = "${pkgs.alacritty}/Applications/Alacritty.app/";
               }
               { path = "${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
+              { path = "/Applications/Zed.app/"; }
             ];
           };
           neovim.enable = true;
