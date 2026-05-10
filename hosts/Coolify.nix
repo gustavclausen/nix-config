@@ -35,7 +35,9 @@
 
   services.openssh.enable = true;
 
-  environment.systemPackages = [ "git" ];
+  environment.systemPackages = with pkgs; [
+    "git"
+  ];
 
   users.users.nixos = {
     isNormalUser = true;
