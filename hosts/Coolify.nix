@@ -1,10 +1,28 @@
 {
   lib,
   pkgs,
+  currentSystemUser,
   ...
 }:
 {
   imports = [ ];
+  home-manager = {
+    users.${currentSystemUser} =
+      {
+        config,
+        pkgs,
+        ...
+      }:
+      {
+        home = {
+          packages = with pkgs; [ ];
+        };
+
+        custom = {
+          nodejs.enable = true;
+        };
+      };
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
