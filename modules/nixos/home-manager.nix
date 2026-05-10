@@ -1,7 +1,5 @@
 {
   currentSystemUser,
-  host,
-  inputs,
   ...
 }:
 {
@@ -10,9 +8,6 @@
     useUserPackages = true;
     users.${currentSystemUser} =
       {
-        pkgs,
-        config,
-        lib,
         ...
       }:
       {
@@ -24,15 +19,7 @@
         xdg.enable = true;
 
         imports = [
-          (import ../shared/home-manager {
-            inherit
-              pkgs
-              inputs
-              host
-              lib
-              config
-              ;
-          })
+          ../shared/home-manager
         ];
 
         fonts.fontconfig.enable = true;

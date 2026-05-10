@@ -1,7 +1,6 @@
 {
   pkgs,
-  agenix ? null,
-  inputs,
+  agenix,
   host,
   lib,
   config,
@@ -18,8 +17,6 @@
   programs = import ./programs.nix {
     inherit
       pkgs
-      inputs
-      host
       lib
       config
       ;
@@ -36,13 +33,6 @@
     ./nodejs
     ./nvim
     ./ssh
-    (import ./tmux {
-      inherit
-        pkgs
-        lib
-        inputs
-        config
-        ;
-    })
+    ./tmux
   ];
 }

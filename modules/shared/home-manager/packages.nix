@@ -1,12 +1,8 @@
 {
   pkgs,
-  agenix ? null,
+  agenix,
   ...
 }:
-let
-  agenixPackage =
-    if agenix == null then [ ] else [ agenix.packages.${pkgs.stdenv.hostPlatform.system}.default ];
-in
 with pkgs;
 [
   age
@@ -35,5 +31,5 @@ with pkgs;
   yubikey-manager
   zip
   zlib
+  agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
 ]
-++ agenixPackage

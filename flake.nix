@@ -55,7 +55,7 @@
       minimal-tmux,
       disko,
       nixpkgs-unstable,
-    }@inputs:
+    }:
     let
       systems = [
         "aarch64-darwin"
@@ -86,72 +86,90 @@
             };
         };
 
-      mkDarwinSystem = import ./lib/mkDarwinSystem.nix {
-        inherit
-          nixpkgs
-          inputs
-          nix-homebrew
-          home-manager
-          homebrew-core
-          homebrew-cask
-          homebrew-bundle
-          darwin
-          agenix
-          secrets
-          ;
-      };
-
-      mkHomeManagerSystem = import ./lib/mkHomeManagerSystem.nix {
-        inherit
-          nixpkgs
-          inputs
-          home-manager
-          agenix
-          secrets
-          ;
-      };
-
-      mkNixosSystem = import ./lib/mkNixosSystem.nix {
-        inherit
-          nixpkgs
-          inputs
-          home-manager
-          ;
-      };
+      mkDarwinSystem = import ./lib/mkDarwinSystem.nix;
+      mkNixosSystem = import ./lib/mkNixosSystem.nix;
     in
     {
       devShells = forAllSystems devShell;
 
       darwinConfigurations = {
-        "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
-          arch = "aarch64";
-          user = "gustavclausen";
-          hostConfig = import ./hosts/personal-mac-mini.nix;
-        };
+        "personal-mac-mini" =
+          mkDarwinSystem "personal-mac-mini"
+            {
+              arch = "aarch64";
+              user = "gustavclausen";
+              hostConfig =
+                { currentSystemUser, ... }@args:
+                import ./hosts/personal-mac-mini.nix (
+                  args
+                  // {
+                    inherit currentSystemUser secrets;
+                  }
+                );
+            }
+            {
+              inherit
+                nixpkgs
+                nixpkgs-unstable
+                nix-homebrew
+                home-manager
+                homebrew-core
+                homebrew-cask
+                homebrew-bundle
+                darwin
+                agenix
+                minimal-tmux
+                ;
+            };
 
-        "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
-          arch = "aarch64";
-          user = "gustavkc";
-          hostConfig = import ./hosts/personal-macbook-pro-m5.nix;
-        };
+        "personal-macbook-pro-m5" =
+          mkDarwinSystem "personal-macbook-pro-m5"
+            {
+              arch = "aarch64";
+              user = "gustavkc";
+              hostConfig =
+                { currentSystemUser, ... }@args:
+                import ./hosts/personal-macbook-pro-m5.nix (
+                  args
+                  // {
+                    inherit currentSystemUser secrets;
+                  }
+                );
+            }
+            {
+              inherit
+                nixpkgs
+                nixpkgs-unstable
+                nix-homebrew
+                home-manager
+                homebrew-core
+                homebrew-cask
+                homebrew-bundle
+                darwin
+                agenix
+                minimal-tmux
+                ;
+            };
       };
 
       nixosConfigurations = {
-        "Coolify" = mkNixosSystem "Coolify" {
-          system = "aarch64-linux";
-          user = "nixos";
-          hostConfig = import ./hosts/Coolify.nix;
-        };
-
-        # Add NixOS hosts here, for example:
-        #
-        # "my-nixos-host" = mkNixosSystem "my-nixos-host" {
-        #   system = "x86_64-linux";
-        #   user = "gustavkc";
-        #   hostConfig = import ./hosts/my-nixos-host.nix;
-        # };
+        "Coolify" =
+          mkNixosSystem "Coolify"
+            {
+              system = "aarch64-linux";
+              user = "nixos";
+              hostConfig = import ./hosts/Coolify.nix;
+            }
+            {
+              inherit
+                nixpkgs
+                nixpkgs-unstable
+                home-manager
+                agenix
+                disko
+                minimal-tmux
+                ;
+            };
       };
-
-      homeConfigurations = { };
     };
 }

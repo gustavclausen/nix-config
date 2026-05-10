@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  inputs,
+  minimal-tmux,
   ...
 }:
 with lib;
@@ -53,7 +53,7 @@ with lib;
           plugins = with pkgs; [
             tmuxPlugins.vim-tmux-navigator
             {
-              plugin = inputs.minimal-tmux.packages.x86_64-darwin.default;
+              plugin = minimal-tmux.packages.x86_64-darwin.default;
               extraConfig = ''
                 set -g @minimal-tmux-indicator-str "🔒"
                 set -g @minimal-tmux-bg "#effa87"

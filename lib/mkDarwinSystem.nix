@@ -1,5 +1,12 @@
+host:
+{
+  arch,
+  user,
+  hostConfig,
+}:
 {
   nixpkgs,
+  nixpkgs-unstable,
   nix-homebrew,
   home-manager,
   homebrew-core,
@@ -7,14 +14,7 @@
   homebrew-bundle,
   darwin,
   agenix,
-  secrets,
-  inputs,
-}:
-host:
-{
-  arch,
-  user,
-  hostConfig,
+  minimal-tmux,
 }:
 let
   system = "${arch}-darwin";
@@ -23,7 +23,7 @@ darwin.lib.darwinSystem {
   inherit system;
 
   specialArgs = {
-    inherit inputs agenix secrets;
+    inherit agenix minimal-tmux;
     host = "${host}";
   };
 
@@ -32,7 +32,7 @@ darwin.lib.darwinSystem {
       nixpkgs.config.permittedInsecurePackages = [ "lima-full-1.2.2" ];
       nixpkgs.overlays = [
         (import ../overlays/direnv.nix)
-        (import ../overlays/unstable-packages.nix { nixpkgs-unstable = inputs.nixpkgs-unstable; })
+        (import ../overlays/unstable-packages.nix { inherit nixpkgs-unstable; })
       ];
     }
     ../modules/darwin
@@ -53,11 +53,16 @@ darwin.lib.darwinSystem {
     }
     home-manager.darwinModules.home-manager
     {
-      config._module.args = {
-        currentSystem = system;
-        currentSystemName = host;
-        currentSystemUser = user;
-        inputs = inputs;
+      config = {
+        _module.args = {
+          currentSystem = system;
+          currentSystemName = host;
+          currentSystemUser = user;
+        };
+        home-manager.extraSpecialArgs = {
+          inherit agenix minimal-tmux;
+          host = "${host}";
+        };
       };
     }
     nix-homebrew.darwinModules.nix-homebrew

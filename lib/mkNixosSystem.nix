@@ -1,19 +1,22 @@
-{
-  nixpkgs,
-  home-manager,
-  inputs,
-}:
 host:
 {
   system,
   user,
   hostConfig,
 }:
+{
+  nixpkgs,
+  nixpkgs-unstable,
+  home-manager,
+  agenix,
+  disko,
+  minimal-tmux,
+}:
 nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
-    inherit inputs;
+    inherit agenix minimal-tmux;
     host = "${host}";
   };
 
@@ -21,19 +24,24 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         (import ../overlays/direnv.nix)
-        (import ../overlays/unstable-packages.nix { nixpkgs-unstable = inputs.nixpkgs-unstable; })
+        (import ../overlays/unstable-packages.nix { inherit nixpkgs-unstable; })
       ];
     }
-    inputs.disko.nixosModules.disko
+    disko.nixosModules.disko
     ../modules/nixos
     hostConfig
     home-manager.nixosModules.home-manager
     {
-      config._module.args = {
-        currentSystem = system;
-        currentSystemName = host;
-        currentSystemUser = user;
-        inputs = inputs;
+      config = {
+        _module.args = {
+          currentSystem = system;
+          currentSystemName = host;
+          currentSystemUser = user;
+        };
+        home-manager.extraSpecialArgs = {
+          inherit agenix minimal-tmux;
+          host = "${host}";
+        };
       };
     }
   ];
