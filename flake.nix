@@ -34,6 +34,10 @@
       url = "github:niksingh710/minimal-tmux-status";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
   outputs =
@@ -49,11 +53,16 @@
       agenix,
       secrets,
       minimal-tmux,
+      disko,
       nixpkgs-unstable,
     }@inputs:
     let
-      darwinSystems = [ "aarch64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs darwinSystems f;
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs systems f;
       devShell =
         system:
         let
@@ -101,6 +110,16 @@
           secrets
           ;
       };
+
+      mkNixosSystem = import ./lib/mkNixosSystem.nix {
+        inherit
+          nixpkgs
+          inputs
+          home-manager
+          agenix
+          secrets
+          ;
+      };
     in
     {
       devShells = forAllSystems devShell;
@@ -117,6 +136,25 @@
           user = "gustavkc";
           hostConfig = import ./hosts/personal-macbook-pro-m5.nix;
         };
+      };
+
+      nixosConfigurations = {
+        "Coolify" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/Coolify.nix
+          ];
+        };
+
+        # Add NixOS hosts here, for example:
+        #
+        # "my-nixos-host" = mkNixosSystem "my-nixos-host" {
+        #   system = "x86_64-linux";
+        #   user = "gustavkc";
+        #   hostConfig = import ./hosts/my-nixos-host.nix;
+        # };
       };
 
       homeConfigurations = { };
