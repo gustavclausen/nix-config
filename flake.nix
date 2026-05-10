@@ -114,6 +114,10 @@
       };
     in
     {
+      lib = {
+        inherit mkDarwinSystem mkNixosSystem;
+      };
+
       devShells = forAllSystems devShell;
 
       darwinConfigurations = {
