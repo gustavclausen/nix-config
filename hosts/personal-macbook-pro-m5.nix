@@ -1,11 +1,11 @@
 {
-  currentSystemUser,
+  systemConfig,
   secrets,
   ...
 }:
 {
   home-manager = {
-    users.${currentSystemUser} =
+    users.${systemConfig.user} =
       {
         config,
         pkgs,

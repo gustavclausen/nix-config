@@ -1,14 +1,18 @@
 {
   pkgs,
-  currentSystemUser,
+  systemConfig,
   ...
-}: {
+}:
+{
   nixpkgs.config.allowUnfree = true;
   system.checks.verifyNixPath = false;
 
   nix = {
     package = pkgs.nixVersions.git;
-    settings.trusted-users = ["@admin" "${currentSystemUser}"];
+    settings.trusted-users = [
+      "@admin"
+      systemConfig.user
+    ];
 
     gc = {
       automatic = true;

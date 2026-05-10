@@ -1,7 +1,7 @@
 {
   pkgs,
   agenix,
-  host,
+  systemConfig,
   lib,
   config,
   ...
@@ -10,7 +10,7 @@
   home = {
     enableNixpkgsReleaseCheck = false;
     stateVersion = "24.11";
-    file = import ./files.nix { inherit host; };
+    file = import ./files.nix { host = systemConfig.name; };
     packages = import ./packages.nix { inherit pkgs agenix; };
   };
 

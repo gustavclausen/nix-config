@@ -1,14 +1,13 @@
 {
   lib,
   pkgs,
-  currentSystemUser,
-  host,
+  systemConfig,
   ...
 }:
 {
   nixpkgs.config.allowUnfree = true;
 
-  networking.hostName = lib.mkDefault host;
+  networking.hostName = lib.mkDefault systemConfig.name;
 
   nix = {
     package = pkgs.nixVersions.git;
@@ -19,7 +18,7 @@
       ];
       trusted-users = [
         "@wheel"
-        currentSystemUser
+        systemConfig.user
       ];
     };
 
@@ -30,9 +29,9 @@
     };
   };
 
-  users.users.${currentSystemUser} = {
+  users.users.${systemConfig.user} = {
     isNormalUser = true;
-    home = "/home/${currentSystemUser}";
+    home = "/home/${systemConfig.user}";
     shell = pkgs.zsh;
     extraGroups = [
       "wheel"

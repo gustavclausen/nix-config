@@ -12,12 +12,18 @@ host:
   disko,
   minimal-tmux,
 }:
+let
+  systemConfig = {
+    name = host;
+    user = user;
+    system = system;
+  };
+in
 nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
-    inherit agenix minimal-tmux;
-    host = "${host}";
+    inherit agenix minimal-tmux systemConfig;
   };
 
   modules = [
@@ -33,14 +39,9 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     {
       config = {
-        _module.args = {
-          currentSystem = system;
-          currentSystemName = host;
-          currentSystemUser = user;
-        };
+        _module.args = { inherit systemConfig; };
         home-manager.extraSpecialArgs = {
-          inherit agenix minimal-tmux;
-          host = "${host}";
+          inherit agenix minimal-tmux systemConfig;
         };
       };
     }

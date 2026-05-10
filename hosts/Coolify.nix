@@ -1,21 +1,18 @@
 {
   lib,
-  pkgs,
-  currentSystemUser,
+  systemConfig,
   ...
 }:
 {
   imports = [ ];
   home-manager = {
-    users.${currentSystemUser} =
+    users.${systemConfig.user} =
       {
-        config,
-        pkgs,
         ...
       }:
       {
         home = {
-          packages = with pkgs; [ ];
+          packages = [ ];
         };
 
         custom = {
@@ -41,12 +38,6 @@
       efiSysMountPoint = "/boot";
     };
   };
-
-  services.openssh.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    git
-  ];
 
   disko.devices.disk.main = {
     device = "/dev/vda";

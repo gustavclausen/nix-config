@@ -1,11 +1,11 @@
 {
-  currentSystemUser,
+  systemConfig,
   ...
 }:
 {
   home-manager = {
     useGlobalPkgs = true;
-    users.${currentSystemUser} =
+    users.${systemConfig.user} =
       {
         pkgs,
         ...

@@ -42,7 +42,6 @@
   };
   outputs =
     {
-      self,
       darwin,
       nix-homebrew,
       homebrew-bundle,
@@ -55,6 +54,7 @@
       minimal-tmux,
       disko,
       nixpkgs-unstable,
+      ...
     }:
     let
       systems = [
@@ -88,88 +88,68 @@
 
       mkDarwinSystem = import ./lib/mkDarwinSystem.nix;
       mkNixosSystem = import ./lib/mkNixosSystem.nix;
+      darwinSystemArgs = {
+        inherit
+          nixpkgs
+          nixpkgs-unstable
+          nix-homebrew
+          home-manager
+          homebrew-core
+          homebrew-cask
+          homebrew-bundle
+          darwin
+          agenix
+          minimal-tmux
+          ;
+      };
+      nixosSystemArgs = {
+        inherit
+          nixpkgs
+          nixpkgs-unstable
+          home-manager
+          agenix
+          disko
+          minimal-tmux
+          ;
+      };
     in
     {
       devShells = forAllSystems devShell;
 
       darwinConfigurations = {
-        "personal-mac-mini" =
-          mkDarwinSystem "personal-mac-mini"
-            {
-              arch = "aarch64";
-              user = "gustavclausen";
-              hostConfig =
-                { currentSystemUser, ... }@args:
-                import ./hosts/personal-mac-mini.nix (
-                  args
-                  // {
-                    inherit currentSystemUser secrets;
-                  }
-                );
-            }
-            {
-              inherit
-                nixpkgs
-                nixpkgs-unstable
-                nix-homebrew
-                home-manager
-                homebrew-core
-                homebrew-cask
-                homebrew-bundle
-                darwin
-                agenix
-                minimal-tmux
-                ;
-            };
+        "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
+          arch = "aarch64";
+          user = "gustavclausen";
+          hostConfig =
+            { systemConfig, ... }@args:
+            import ./hosts/personal-mac-mini.nix (
+              args
+              // {
+                inherit systemConfig secrets;
+              }
+            );
+        } darwinSystemArgs;
 
-        "personal-macbook-pro-m5" =
-          mkDarwinSystem "personal-macbook-pro-m5"
-            {
-              arch = "aarch64";
-              user = "gustavkc";
-              hostConfig =
-                { currentSystemUser, ... }@args:
-                import ./hosts/personal-macbook-pro-m5.nix (
-                  args
-                  // {
-                    inherit currentSystemUser secrets;
-                  }
-                );
-            }
-            {
-              inherit
-                nixpkgs
-                nixpkgs-unstable
-                nix-homebrew
-                home-manager
-                homebrew-core
-                homebrew-cask
-                homebrew-bundle
-                darwin
-                agenix
-                minimal-tmux
-                ;
-            };
+        "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
+          arch = "aarch64";
+          user = "gustavkc";
+          hostConfig =
+            { systemConfig, ... }@args:
+            import ./hosts/personal-macbook-pro-m5.nix (
+              args
+              // {
+                inherit systemConfig secrets;
+              }
+            );
+        } darwinSystemArgs;
       };
 
       nixosConfigurations = {
-        "Coolify" =
-          mkNixosSystem "Coolify"
-            {
-              system = "aarch64-linux";
-              user = "nixos";
-              hostConfig = import ./hosts/Coolify.nix;
-            }
-            {
-              inherit
-                nixpkgs
-                nixpkgs-unstable
-                home-manager
-                agenix
-                disko
-                minimal-tmux
-                ;
-            };
+        "Coolify" = mkNixosSystem "Coolify" {
+          system = "aarch64-linux";
+          user = "nixos";
+          hostConfig = import ./hosts/Coolify.nix;
+        } nixosSystemArgs;
       };
     };
 }

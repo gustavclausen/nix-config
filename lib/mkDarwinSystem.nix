@@ -18,13 +18,17 @@ host:
 }:
 let
   system = "${arch}-darwin";
+  systemConfig = {
+    name = host;
+    user = user;
+    system = system;
+  };
 in
 darwin.lib.darwinSystem {
   inherit system;
 
   specialArgs = {
-    inherit agenix minimal-tmux;
-    host = "${host}";
+    inherit agenix minimal-tmux systemConfig;
   };
 
   modules = [
@@ -54,14 +58,9 @@ darwin.lib.darwinSystem {
     home-manager.darwinModules.home-manager
     {
       config = {
-        _module.args = {
-          currentSystem = system;
-          currentSystemName = host;
-          currentSystemUser = user;
-        };
+        _module.args = { inherit systemConfig; };
         home-manager.extraSpecialArgs = {
-          inherit agenix minimal-tmux;
-          host = "${host}";
+          inherit agenix minimal-tmux systemConfig;
         };
       };
     }

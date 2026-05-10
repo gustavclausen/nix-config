@@ -1,19 +1,19 @@
 {
-  currentSystemUser,
+  systemConfig,
   ...
 }:
 {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.${currentSystemUser} =
+    users.${systemConfig.user} =
       {
         ...
       }:
       {
         home = {
-          username = currentSystemUser;
-          homeDirectory = "/home/${currentSystemUser}";
+          username = systemConfig.user;
+          homeDirectory = "/home/${systemConfig.user}";
         };
 
         xdg.enable = true;
