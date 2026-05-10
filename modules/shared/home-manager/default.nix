@@ -1,20 +1,29 @@
 {
   pkgs,
-  agenix,
+  agenix ? null,
   inputs,
   host,
   lib,
   config,
   ...
-}: {
+}:
+{
   home = {
     enableNixpkgsReleaseCheck = false;
     stateVersion = "24.11";
-    file = import ./files.nix {inherit host;};
-    packages = import ./packages.nix {inherit pkgs agenix;};
+    file = import ./files.nix { inherit host; };
+    packages = import ./packages.nix { inherit pkgs agenix; };
   };
 
-  programs = import ./programs.nix {inherit pkgs inputs host lib config;};
+  programs = import ./programs.nix {
+    inherit
+      pkgs
+      inputs
+      host
+      lib
+      config
+      ;
+  };
 
   imports = [
     ./aws
@@ -27,6 +36,13 @@
     ./nodejs
     ./nvim
     ./ssh
-    (import ./tmux {inherit pkgs lib inputs config;})
+    (import ./tmux {
+      inherit
+        pkgs
+        lib
+        inputs
+        config
+        ;
+    })
   ];
 }

@@ -116,8 +116,6 @@
           nixpkgs
           inputs
           home-manager
-          agenix
-          secrets
           ;
       };
     in
@@ -139,13 +137,10 @@
       };
 
       nixosConfigurations = {
-        "Coolify" = nixpkgs.lib.nixosSystem {
+        "Coolify" = mkNixosSystem "Coolify" {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            disko.nixosModules.disko
-            ./hosts/Coolify.nix
-          ];
+          user = "nixos";
+          hostConfig = import ./hosts/Coolify.nix;
         };
 
         # Add NixOS hosts here, for example:

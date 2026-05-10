@@ -7,7 +7,6 @@
   imports = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
-  nixpkgs.config.allowUnfree = true;
 
   networking = {
     hostName = "coolify";
@@ -16,14 +15,6 @@
 
   time.timeZone = "Europe/Copenhagen";
   console.keyMap = "dk";
-
-  nix = {
-    package = pkgs.nixVersions.git;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-  };
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -38,14 +29,6 @@
   environment.systemPackages = with pkgs; [
     git
   ];
-
-  users.users.nixos = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-  };
-
-  programs.zsh.enable = true;
 
   disko.devices.disk.main = {
     device = "/dev/vda";

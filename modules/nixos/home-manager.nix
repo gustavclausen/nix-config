@@ -2,7 +2,6 @@
   currentSystemUser,
   host,
   inputs,
-  agenix,
   ...
 }:
 {
@@ -30,7 +29,6 @@
               pkgs
               inputs
               host
-              agenix
               lib
               config
               ;
