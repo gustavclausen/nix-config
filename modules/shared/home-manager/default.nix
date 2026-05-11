@@ -1,38 +1,43 @@
 {
   pkgs,
-  agenix,
   systemConfig,
-  lib,
-  config,
   ...
 }:
 {
-  home = {
-    enableNixpkgsReleaseCheck = false;
-    stateVersion = "24.11";
-    file = import ./files.nix { host = systemConfig.name; };
-    packages = import ./packages.nix { inherit pkgs agenix; };
-  };
+  home-manager = {
+    useGlobalPkgs = true;
+    users.${systemConfig.user} =
+      {
+        ...
+      }:
+      {
+        home = {
+          username = systemConfig.user;
+          enableNixpkgsReleaseCheck = false;
+          stateVersion = "25.11";
+          packages = with pkgs; [
+            python3
+            xz
+            zlib
+            nerd-fonts.jetbrains-mono
+          ];
+        };
 
-  programs = import ./programs.nix {
-    inherit
-      pkgs
-      lib
-      config
-      ;
-  };
+        xdg.enable = true;
+        fonts.fontconfig.enable = true;
 
-  imports = [
-    ./aws
-    ./docker
-    ./dotnet
-    ./git
-    ./golang
-    ./iac
-    ./k8s
-    ./nodejs
-    ./nvim
-    ./ssh
-    ./tmux
-  ];
+        imports = [
+          ./age
+          ./docker
+          ./dotnet
+          ./git
+          ./golang
+          ./k8s
+          ./nodejs
+          ./shell.nix
+          ./ssh
+          ./tmux
+        ];
+      };
+  };
 }

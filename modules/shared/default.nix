@@ -4,8 +4,11 @@
   ...
 }:
 {
+  imports = [
+    ./home-manager
+  ];
+
   nixpkgs.config.allowUnfree = true;
-  system.checks.verifyNixPath = false;
 
   nix = {
     package = pkgs.nixVersions.git;
@@ -27,5 +30,9 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+  };
+
+  users.users.${systemConfig.user} = {
+    shell = pkgs.zsh;
   };
 }

@@ -121,19 +121,6 @@
       devShells = forAllSystems devShell;
 
       darwinConfigurations = {
-        "personal-mac-mini" = mkDarwinSystem "personal-mac-mini" {
-          arch = "aarch64";
-          user = "gustavclausen";
-          hostConfig =
-            { systemConfig, ... }@args:
-            import ./hosts/personal-mac-mini.nix (
-              args
-              // {
-                inherit systemConfig secrets;
-              }
-            );
-        } darwinSystemArgs;
-
         "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
           arch = "aarch64";
           user = "gustavkc";
@@ -149,10 +136,10 @@
       };
 
       nixosConfigurations = {
-        "Coolify" = mkNixosSystem "Coolify" {
+        "coolify" = mkNixosSystem "coolify" {
           system = "aarch64-linux";
           user = "nixos";
-          hostConfig = import ./hosts/Coolify.nix;
+          hostConfig = import ./hosts/coolify.nix;
         } nixosSystemArgs;
       };
     };

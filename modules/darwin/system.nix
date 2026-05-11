@@ -1,17 +1,9 @@
 {
-  pkgs,
   systemConfig,
   lib,
   ...
 }:
 {
-  users.users.${systemConfig.user} = {
-    name = systemConfig.user;
-    home = "/Users/${systemConfig.user}";
-    isHidden = false;
-    shell = pkgs.zsh;
-  };
-
   system = {
     stateVersion = 4;
     primaryUser = systemConfig.user;

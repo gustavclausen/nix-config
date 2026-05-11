@@ -27,6 +27,7 @@
             claude-code
             codex
             ctx7
+            ghostty-bin
           ];
         };
 
@@ -67,7 +68,7 @@
               { path = "/Applications/Zed.app/"; }
             ];
           };
-          neovim.enable = true;
+          age.enable = true;
           golang.enable = true;
           nodejs.enable = true;
           docker.enable = true;

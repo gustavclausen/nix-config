@@ -2,15 +2,18 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.custom.ssh;
 in
-  with lib; {
-    options.custom.ssh = {
-      enable = mkEnableOption "SSH configuration management";
+with lib;
+{
+  options.custom.ssh = {
+    enable = mkEnableOption "SSH configuration management";
 
-      keys = mkOption {
-        type = types.attrsOf (types.submodule {
+    keys = mkOption {
+      type = types.attrsOf (
+        types.submodule {
           options = {
             name = mkOption {
               type = types.str;
@@ -25,13 +28,15 @@ in
               description = "Path to private SSH key (typically config.age.secrets.\"<name>\".path)";
             };
           };
-        });
-        default = {};
-        description = "SSH keys to manage. Attribute name is a unique identifier for the key.";
-      };
+        }
+      );
+      default = { };
+      description = "SSH keys to manage. Attribute name is a unique identifier for the key.";
+    };
 
-      hosts = mkOption {
-        type = types.attrsOf (types.submodule {
+    hosts = mkOption {
+      type = types.attrsOf (
+        types.submodule {
           options = {
             hostname = mkOption {
               type = types.str;
@@ -51,94 +56,116 @@ in
               description = "Reference to key ID defined in custom.ssh.keys";
             };
           };
-        });
-        default = {};
-        description = "SSH host configurations. Attribute name becomes the SSH Host alias.";
-      };
+        }
+      );
+      default = { };
+      description = "SSH host configurations. Attribute name becomes the SSH Host alias.";
     };
+  };
 
-    config = let
+  config =
+    let
       sshHome = "${config.home.homeDirectory}/.ssh";
 
       # Generate private key symlinks
-      sshKeyFiles =
-        lib.mapAttrs' (keyId: keyConfig: {
-          name = "${sshHome}/${keyConfig.name}";
-          value = {
-            source = config.lib.file.mkOutOfStoreSymlink keyConfig.privateKeyPath;
-          };
-        })
-        cfg.keys;
+      sshKeyFiles = lib.mapAttrs' (keyId: keyConfig: {
+        name = "${sshHome}/${keyConfig.name}";
+        value = {
+          source = config.lib.file.mkOutOfStoreSymlink keyConfig.privateKeyPath;
+        };
+      }) cfg.keys;
 
       # Generate public key files
-      sshPublicKeyFiles =
-        lib.mapAttrs' (keyId: keyConfig: {
-          name = "${sshHome}/${keyConfig.name}.pub";
-          value = {
-            text = keyConfig.publicKey;
-          };
-        })
-        cfg.keys;
+      sshPublicKeyFiles = lib.mapAttrs' (keyId: keyConfig: {
+        name = "${sshHome}/${keyConfig.name}.pub";
+        value = {
+          text = keyConfig.publicKey;
+        };
+      }) cfg.keys;
 
       # Generate host config files
-      sshHostConfigs =
-        lib.mapAttrs' (
-          hostAlias: hostConfig: let
-            keyConfig = cfg.keys.${hostConfig.keyName};
-            keyPath = "${sshHome}/${keyConfig.name}";
-          in {
-            name = "${sshHome}/config.d/${hostAlias}";
-            value = {
-              text = ''
-                Host ${hostAlias}
-                  HostName ${hostConfig.hostname}
-                  User ${hostConfig.user}
-                  Port ${toString hostConfig.port}
-                  IdentityFile ${keyPath}
-              '';
-            };
-          }
-        )
-        cfg.hosts;
+      sshHostConfigs = lib.mapAttrs' (
+        hostAlias: hostConfig:
+        let
+          keyConfig = cfg.keys.${hostConfig.keyName};
+          keyPath = "${sshHome}/${keyConfig.name}";
+        in
+        {
+          name = "${sshHome}/config.d/${hostAlias}";
+          value = {
+            text = ''
+              Host ${hostAlias}
+                HostName ${hostConfig.hostname}
+                User ${hostConfig.user}
+                Port ${toString hostConfig.port}
+                IdentityFile ${keyPath}
+            '';
+          };
+        }
+      ) cfg.hosts;
     in
-      mkIf cfg.enable {
-        assertions = lib.mkMerge [
-          # Validate referenced keys exist
-          (lib.mapAttrsToList (hostAlias: hostConfig: {
-              assertion = cfg.keys ? ${hostConfig.keyName};
-              message = "custom.ssh.hosts.${hostAlias}.keyName references '${hostConfig.keyName}', but this key is not defined in custom.ssh.keys";
-            })
-            cfg.hosts)
+    mkIf cfg.enable {
+      assertions = lib.mkMerge [
+        # Validate referenced keys exist
+        (lib.mapAttrsToList (hostAlias: hostConfig: {
+          assertion = cfg.keys ? ${hostConfig.keyName};
+          message = "custom.ssh.hosts.${hostAlias}.keyName references '${hostConfig.keyName}', but this key is not defined in custom.ssh.keys";
+        }) cfg.hosts)
 
-          # Validate key fields are non-empty
-          (lib.flatten (lib.mapAttrsToList (keyId: keyConfig: [
-              {
-                assertion = keyConfig.publicKey != "";
-                message = "custom.ssh.keys.${keyId}.publicKey must be set";
-              }
-              {
-                assertion = keyConfig.privateKeyPath != "";
-                message = "custom.ssh.keys.${keyId}.privateKeyPath must be set";
-              }
-              {
-                assertion = keyConfig.name != "";
-                message = "custom.ssh.keys.${keyId}.name must be set";
-              }
-            ])
-            cfg.keys))
+        # Validate key fields are non-empty
+        (lib.flatten (
+          lib.mapAttrsToList (keyId: keyConfig: [
+            {
+              assertion = keyConfig.publicKey != "";
+              message = "custom.ssh.keys.${keyId}.publicKey must be set";
+            }
+            {
+              assertion = keyConfig.privateKeyPath != "";
+              message = "custom.ssh.keys.${keyId}.privateKeyPath must be set";
+            }
+            {
+              assertion = keyConfig.name != "";
+              message = "custom.ssh.keys.${keyId}.name must be set";
+            }
+          ]) cfg.keys
+        ))
 
-          # Validate no duplicate key names
-          (let
+        # Validate no duplicate key names
+        (
+          let
             keyNames = lib.mapAttrsToList (_: v: v.name) cfg.keys;
             uniqueNames = lib.unique keyNames;
-          in [
+          in
+          [
             {
               assertion = (builtins.length keyNames) == (builtins.length uniqueNames);
               message = "custom.ssh.keys contains duplicate names. Each key must have a unique name.";
             }
-          ])
-        ];
+          ]
+        )
+      ];
 
-        home.file = sshKeyFiles // sshPublicKeyFiles // sshHostConfigs;
+      home.file = sshKeyFiles // sshPublicKeyFiles // sshHostConfigs;
+
+      programs = {
+        ssh = {
+          enable = true;
+
+          includes = [ "config.d/*" ];
+          enableDefaultConfig = false;
+          matchBlocks."*" = {
+            forwardAgent = false;
+            addKeysToAgent = "no";
+            compression = false;
+            serverAliveInterval = 0;
+            serverAliveCountMax = 3;
+            hashKnownHosts = false;
+            userKnownHostsFile = "${sshHome}/known_hosts";
+            controlMaster = "no";
+            controlPath = "${sshHome}/master-%r@%n:%p";
+            controlPersist = "no";
+          };
+        };
       };
-  }
+    };
+}

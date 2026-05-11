@@ -21,10 +21,10 @@
       };
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault systemConfig.system;
 
   networking = {
-    hostName = "coolify";
+    hostName = systemConfig.name;
     networkmanager.enable = true;
   };
 
