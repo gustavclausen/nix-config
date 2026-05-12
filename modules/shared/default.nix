@@ -29,4 +29,6 @@
   users.users.${systemConfig.user} = {
     shell = pkgs.zsh;
   };
+
+  programs.zsh.enable = true;
 }
