@@ -72,7 +72,7 @@
             owner = "jackharrisonsherlock";
             repo = "common";
             rev = "44b6b34d8feef721a6e4a7df272c740e3d2bd8f4";
-            sha256 = "mRtYtkYm5Yp3o+ADk8v4inM+miojaJV4KeVWDuiAOts=";
+            sha256 = "NmAZ/7FhdGzmXgEgWnqHViXH1+ksfsyS4K9i+S5Y8s4=";
           };
           file = "common.zsh-theme";
         }
