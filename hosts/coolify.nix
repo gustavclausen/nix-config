@@ -21,6 +21,8 @@
       };
   };
 
+  services.openssh.enable = true;
+
   nixpkgs.hostPlatform = lib.mkDefault systemConfig.system;
 
   networking = {
