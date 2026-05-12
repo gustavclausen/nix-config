@@ -1,6 +1,7 @@
 {
   lib,
   systemConfig,
+  pkgs,
   ...
 }:
 {
@@ -20,6 +21,10 @@
         };
       };
   };
+
+  environment.systemPackages = [
+    pkgs.ghostty.terminfo
+  ];
 
   services.openssh.enable = true;
 
