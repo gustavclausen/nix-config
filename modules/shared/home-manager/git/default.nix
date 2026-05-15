@@ -77,6 +77,12 @@ with lib;
       sshPrivateKeyPath = "${sshHome}/id_git";
       gpgPublicKeyPath = "${sshHome}/pgp_git.pub";
       gpgPrivateKeyPath = "${sshHome}/pgp_git.key";
+      gpgActivationDependencies = [
+        "installPackages"
+        "linkGeneration"
+        "onFilesChange"
+      ]
+      ++ lib.optional pkgs.stdenv.isDarwin "setupLaunchAgents";
     in
     mkIf cfg.enable {
       assertions = lib.mkMerge [
@@ -153,11 +159,22 @@ with lib;
           };
         };
         activation.setup-gpg = lib.mkIf cfg.gpgCommitSigning.enable (
-          hm.dag.entryAfter [ "linkGeneration" "installPackages" ] ''
+          hm.dag.entryAfter gpgActivationDependencies ''
             install -d -m 700 "$HOME/.gnupg"
             chmod 700 "$HOME/.gnupg"
             chmod 700 "$HOME/.gnupg/private-keys-v1.d" 2>/dev/null || true
             chmod 600 "$HOME/.gnupg/pubring.kbx" "$HOME/.gnupg/trustdb.gpg" "$HOME/.gnupg/pubring.kbx~" 2>/dev/null || true
+
+            for _ in {1..30}; do
+              [[ -s ${gpgPrivateKeyPath} ]] && break
+              verboseEcho "Waiting for GPG private key from agenix at ${gpgPrivateKeyPath}"
+              sleep 1
+            done
+
+            if [[ ! -s ${gpgPrivateKeyPath} ]]; then
+              errorEcho "GPG private key was not created by agenix: ${gpgPrivateKeyPath}"
+              exit 1
+            fi
 
             ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent
             ${pkgs.gnupg}/bin/gpg --import ${gpgPublicKeyPath}
