@@ -24,8 +24,8 @@ let
         continue
       fi
 
-      echo "Starting VM: $name ($status)"
-      "$utmctl" --hide start "$name"
+      echo "Starting VM: $name $uuid ($status)"
+      "$utmctl" start "$uuid"
     done
   '';
 in
