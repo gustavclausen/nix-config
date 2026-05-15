@@ -79,16 +79,9 @@
             with pkgs;
             mkShell {
               nativeBuildInputs = with pkgs; [
-                bashInteractive
-                git
-                yubikey-manager
-                age
-                age-plugin-yubikey
                 just
+                pkgs.deploy-rs
               ];
-              shellHook = ''
-                export EDITOR=vim
-              '';
             };
         };
 

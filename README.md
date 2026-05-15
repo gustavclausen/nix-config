@@ -1,79 +1,33 @@
 # nix-config
 
-Based on the following configs:
-
-- [dustinlyons](https://github.com/dustinlyons/nixos-config)
-- [Ryan4Yin](https://github.com/ryan4yin/nix-config)
-
-Thanks for the inspiration.
-
-## Overview
-
-My Nix configuration for macOS/Darwin (nix-darwin + home-manager).
+My Nix configuration for my Darwin and NixOS machines.
 
 ## Usage
 
 ### Setup
 
-#### OS-Specific
+See [docs](./docs/install/) for instructions on how to install new machines.
 
-<details>
-  <summary>macOS/Darwin</summary>
-  
-  1. Install base tools
-
-```shell
-# Command-line tools
-xcode-select --install
-
-# Rosetta
-sudo softwareupdate --install-rosetta
-
-# Nix
-sh <(curl -L https://nixos.org/nix/install)
-
-# Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Just
-brew install just
-```
-
-</details>
-
-#### Common
-
-1. Add system to [`flake.nix`](./flake.nix).
-
-2. Secrets setup:
-
-   1. Download
-      [gustavclausen/nix-secrets](https://github.com/gustavclausen/nix-secrets)
-      to local machine.
-
-   2. Follow instructions for setting up bootstrap secrets.
-
-3. Add GitHub Personal Access token to Nix config (default locations per OS
-   documented [here](https://nix.dev/manual/nix/2.22/command-ref/conf-file)):
-
-   ```nix
-   access-tokens = github.com=<PAT>
-   ```
-
-### Commands
+### Common Commands
 
 See [Justfile](./Justfile) for common commands.
 
-- Deploy new configuration:
+- Deploy configuration on current machine:
 
   ```shell
-  just switch "<system config name>"
+  just switch "<HOSTNAME>"
   ```
 
-- Rollback configuration:
+- Rollback configuration on current machine:
 
   ```shell
-  just rollback "<system config name>"
+  just rollback "<HOSTNAME>"
+  ```
+
+- Deploy remote host:
+
+  ```shell
+  just deploy "<HOSTNAME>"
   ```
 
 - Update Flakes:
@@ -82,6 +36,11 @@ See [Justfile](./Justfile) for common commands.
   just update
   ```
 
-### Other
+## Inspiration
 
-- `NIX_CONFIG="access-tokens = github.com=ghp_..." nix flake update`
+Based on the following configs:
+
+- [dustinlyons](https://github.com/dustinlyons/nixos-config)
+- [Ryan4Yin](https://github.com/ryan4yin/nix-config)
+
+Thanks for the inspiration.

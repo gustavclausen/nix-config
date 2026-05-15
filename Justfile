@@ -12,6 +12,10 @@ clean:
   # Unused nix store entries (user-specific)
   nix-collect-garbage --delete-older-than 14d
 
+[group('nix')]
+deploy host:
+  nix develop --command deploy "$(pwd)#{{host}}"
+
 [macos]
 [group('nix')]
 build host:

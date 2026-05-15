@@ -40,7 +40,6 @@
         home = {
           packages = with pkgs; [
             slack
-            deploy-rs
             ffmpeg_7
             awscli2
             uv
