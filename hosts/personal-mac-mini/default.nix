@@ -43,6 +43,7 @@
               }
             ];
           };
+          age.enable = true;
           git = {
             enable = true;
             userName = "gustavclausen";
