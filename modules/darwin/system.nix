@@ -1,19 +1,12 @@
 {
-  pkgs,
-  currentSystemUser,
+  systemConfig,
   lib,
   ...
-}: {
-  users.users.${currentSystemUser} = {
-    name = currentSystemUser;
-    home = "/Users/${currentSystemUser}";
-    isHidden = false;
-    shell = pkgs.zsh;
-  };
-
+}:
+{
   system = {
     stateVersion = 4;
-    primaryUser = currentSystemUser;
+    primaryUser = systemConfig.user;
 
     defaults = {
       NSGlobalDomain = {

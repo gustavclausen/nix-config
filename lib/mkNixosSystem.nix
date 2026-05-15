@@ -1,19 +1,15 @@
 host:
 {
-  arch,
+  system,
   user,
   hostConfig,
 }:
 {
   nixpkgs,
   nixpkgs-unstable,
-  nix-homebrew,
   home-manager,
-  homebrew-core,
-  homebrew-cask,
-  homebrew-bundle,
-  darwin,
   agenix,
+  disko,
   minimal-tmux,
   agent-skills,
   superpowers,
@@ -22,14 +18,13 @@ host:
   mkDeploySshHosts,
 }:
 let
-  system = "${arch}-darwin";
   systemConfig = {
     name = host;
     user = user;
     system = system;
   };
 in
-darwin.lib.darwinSystem {
+nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
@@ -47,29 +42,16 @@ darwin.lib.darwinSystem {
 
   modules = [
     {
-      nixpkgs.config.permittedInsecurePackages = [ "lima-full-1.2.2" ];
       nixpkgs.overlays = [
         (import ../overlays/direnv.nix)
         (import ../overlays/unstable-packages.nix { inherit nixpkgs-unstable; })
       ];
     }
-    ../modules/darwin
+    disko.nixosModules.disko
+    ../modules/nixos
     hostConfig
-    agenix.darwinModules.default
-    {
-      home-manager = {
-        users.${user} =
-          {
-            ...
-          }:
-          {
-            imports = [
-              agenix.homeManagerModules.default
-            ];
-          };
-      };
-    }
-    home-manager.darwinModules.home-manager
+    agenix.nixosModules.default
+    home-manager.nixosModules.home-manager
     {
       config = {
         _module.args = { inherit systemConfig; };
@@ -85,20 +67,6 @@ darwin.lib.darwinSystem {
             systemConfig
             ;
         };
-      };
-    }
-    nix-homebrew.darwinModules.nix-homebrew
-    {
-      lib = nixpkgs.lib;
-      nix-homebrew = {
-        enable = true;
-        user = "${user}";
-        taps = {
-          "homebrew/homebrew-core" = homebrew-core;
-          "homebrew/homebrew-cask" = homebrew-cask;
-          "homebrew/homebrew-bundle" = homebrew-bundle;
-        };
-        mutableTaps = false;
       };
     }
   ];

@@ -1,77 +1,48 @@
 {
-  currentSystemUser,
+  systemConfig,
   secrets,
+  deployHosts,
+  mkDeploySshHosts,
   ...
 }:
 {
+  custom.darwin.nix-access-tokens = {
+    enable = true;
+    secretFile = "${secrets}/systems/personal-mac-mini/nix-access-tokens.age";
+  };
+
   home-manager = {
-    users.${currentSystemUser} =
+    users.${systemConfig.user} =
       {
         config,
         pkgs,
         ...
       }:
+      let
+        deploySshHosts = mkDeploySshHosts { } deployHosts;
+      in
       {
         home = {
           packages = with pkgs; [
-            vscode
-            slack
-            deploy-rs
-            ffmpeg_7
-            awscli2
-            uv
-            nixfmt
-            mkpasswd
-            nil
-            nixd
-            claude-code
-            codex
-            ctx7
+            utm
           ];
         };
 
-        age = {
-          identityPaths = [
-            "${config.home.homeDirectory}/.ssh/id_ed25519"
-          ];
-          secretsDir = "${config.home.homeDirectory}/.agenix/agenix";
-          secretsMountPoint = "${config.home.homeDirectory}/.agenix/agenix.d";
-
-          secrets = {
-            "github-ssh-key".file = "${secrets}/systems/personal-macbook-pro-m5/github-ssh-key.age";
-            "github-signing-key".file = "${secrets}/users/gustavclausen_com/github-signing-key.age";
-            "hetzner-ssh-key".file = "${secrets}/systems/hetzner/hetzner_id_ed25519.age";
-          };
+        age.secrets = {
+          "github-ssh-key".file = "${secrets}/systems/personal-mac-mini/github-ssh-key.age";
+          "github-signing-key".file = "${secrets}/users/gustavclausen_com/github-signing-key.age";
+          "vm-ssh-key".file = "${secrets}/systems/vm/vm_ed25519.age";
         };
 
-        programs.alacritty.enable = true;
         custom = {
           darwin.dock = {
             enable = true;
             entries = [
-              { path = "/Applications/Google Chrome.app/"; }
-              { path = "/System/Applications/Mail.app/"; }
-              { path = "/System/Applications/Calendar.app/"; }
-              { path = "/Applications/Claude.app/"; }
-              { path = "/System/Applications/Notes.app/"; }
-              { path = "/System/Applications/Messages.app/"; }
-              { path = "${pkgs.slack}/Applications/Slack.app/"; }
-              { path = "/Applications/Microsoft Teams.app/"; }
-              { path = "/Applications/TickTick.app/"; }
-              { path = "/Applications/1Password.app/"; }
-              { path = "/Applications/Spotify.app/"; }
               {
-                path = "${pkgs.alacritty}/Applications/Alacritty.app/";
+                path = "${pkgs.utm}/Applications/UTM.app/";
               }
-              { path = "${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
-              { path = "/Applications/Zed.app/"; }
             ];
           };
-          neovim.enable = true;
-          golang.enable = true;
-          nodejs.enable = true;
-          docker.enable = true;
-          tmux.enable = true;
           git = {
             enable = true;
             userName = "gustavclausen";
@@ -134,41 +105,16 @@
           ssh = {
             enable = true;
             keys = {
-              "hetzner" = {
-                name = "hetzner_id_ed25519";
-                publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLw7BlYR88VJgYtlMlwDRLocFtWW9fkfwhScAkyJ685";
-                privateKeyPath = config.age.secrets."hetzner-ssh-key".path;
+              "vm" = {
+                name = "vm_ed25519";
+                publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjB/XELZ4R+nKj1MC6cNqextdFtiOo0bGvEiLMFOxO3 vm";
+                privateKeyPath = config.age.secrets."vm-ssh-key".path;
               };
             };
-            hosts = {
-              "zoltar" = {
-                hostname = "zoltar.tail695ae9.ts.net";
-                user = "nixos";
-                port = 22;
-                keyName = "hetzner";
-              };
-              "esmeralda" = {
-                hostname = "esmeralda.tail695ae9.ts.net";
-                user = "nixos";
-                port = 22;
-                keyName = "hetzner";
-              };
-              "paperclip" = {
-                hostname = "paperclip.tail695ae9.ts.net";
-                user = "nixos";
-                port = 22;
-                keyName = "hetzner";
-              };
-            };
+            hosts = deploySshHosts;
           };
         };
       };
-  };
-
-  homebrew = {
-    casks = [
-      "microsoft-teams"
-    ];
   };
 
   ids.gids.nixbld = 350;

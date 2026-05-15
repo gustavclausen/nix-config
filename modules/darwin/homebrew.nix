@@ -12,7 +12,6 @@
       "spotify"
       "ticktick"
     ];
-    brews = ["luarocks"];
 
     # These app IDs are from using the mas CLI app
     # mas = mac app store
@@ -21,6 +20,6 @@
     # $ nix shell nixpkgs#mas
     # $ mas search <app name>
     #
-    masApps = {};
+    masApps = { };
   };
 }

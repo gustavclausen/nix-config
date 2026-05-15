@@ -1,30 +1,36 @@
 {
-  currentSystemUser,
-  host,
-  inputs,
-  agenix,
+  systemConfig,
   ...
-}: {
+}:
+{
   home-manager = {
-    useGlobalPkgs = true;
-    users.${currentSystemUser} = {
-      pkgs,
-      config,
-      lib,
-      ...
-    }: {
-      xdg.enable = true;
-      home = {
-        packages = import ./packages.nix {inherit pkgs;};
+    users.${systemConfig.user} =
+      {
+        pkgs,
+        config,
+        ...
+      }:
+      {
+        home.packages = with pkgs; [
+          darwin.trash
+          reattach-to-user-namespace
+        ];
+
+        imports = [
+          ./dock
+        ];
+
+        age = {
+          identityPaths = [
+            "${config.home.homeDirectory}/.ssh/id_ed25519"
+          ];
+          secretsDir = "${config.home.homeDirectory}/.agenix/agenix";
+          secretsMountPoint = "${config.home.homeDirectory}/.agenix/agenix.d";
+        };
+
+        programs.zsh.initContent = ''
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        '';
       };
-      imports = [
-        (import ./dock)
-        (import ../../shared/home-manager {inherit pkgs inputs host agenix lib config;})
-      ];
-      fonts.fontconfig.enable = true;
-      programs.zsh.initContent = ''
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-      '';
-    };
   };
 }

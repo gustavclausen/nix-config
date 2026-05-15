@@ -1,22 +1,23 @@
 {
   pkgs,
-  currentSystemUser,
+  systemConfig,
   ...
-}: {
+}:
+{
+  imports = [
+    ./home-manager
+  ];
+
   nixpkgs.config.allowUnfree = true;
-  system.checks.verifyNixPath = false;
 
   nix = {
     package = pkgs.nixVersions.git;
-    settings.trusted-users = ["@admin" "${currentSystemUser}"];
+    settings.trusted-users = [
+      "@admin"
+      systemConfig.user
+    ];
 
     gc = {
-      automatic = true;
-      interval = {
-        Weekday = 0;
-        Hour = 2;
-        Minute = 0;
-      };
       options = "--delete-older-than 30d";
     };
 
@@ -24,4 +25,10 @@
       experimental-features = nix-command flakes
     '';
   };
+
+  users.users.${systemConfig.user} = {
+    shell = pkgs.zsh;
+  };
+
+  programs.zsh.enable = true;
 }
