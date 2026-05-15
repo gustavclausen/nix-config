@@ -52,8 +52,8 @@ in
       ProgramArguments = [ "${startScript}" ];
       RunAtLoad = true;
       UserName = systemConfig.user;
-      StandardOutPath = "/var/log/utm-autostart.out.log";
-      StandardErrorPath = "/var/log/utm-autostart.err.log";
+      StandardOutPath = "/Users/${systemConfig.user}/Library/Logs/utm-autostart.out.log";
+      StandardErrorPath = "/Users/${systemConfig.user}/Library/Logs/utm-autostart.err.log";
       ProcessType = "Background";
     };
   };
