@@ -26,6 +26,19 @@ let
 
       echo "Starting VM: $name $uuid ($status)"
       "$utmctl" start "$uuid"
+
+      for retry in 1 2; do
+        sleep 10
+        nextStatus="$("$utmctl" status "$uuid")"
+
+        if [ "$nextStatus" = "started" ] || [ "$nextStatus" = "starting" ]; then
+          echo "VM reached $nextStatus: $name $uuid"
+          break
+        fi
+
+        echo "Retrying VM start ($retry): $name $uuid ($nextStatus)"
+        "$utmctl" start "$uuid"
+      done
     done
   '';
 in
