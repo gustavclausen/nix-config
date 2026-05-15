@@ -11,6 +11,11 @@ host:
   agenix,
   disko,
   minimal-tmux,
+  agent-skills,
+  superpowers,
+  anthropic-skills,
+  context7-skills,
+  mkDeploySshHosts,
 }:
 let
   systemConfig = {
@@ -26,6 +31,11 @@ nixpkgs.lib.nixosSystem {
     inherit
       agenix
       minimal-tmux
+      agent-skills
+      superpowers
+      anthropic-skills
+      context7-skills
+      mkDeploySshHosts
       systemConfig
       ;
   };
@@ -46,7 +56,16 @@ nixpkgs.lib.nixosSystem {
       config = {
         _module.args = { inherit systemConfig; };
         home-manager.extraSpecialArgs = {
-          inherit agenix minimal-tmux systemConfig;
+          inherit
+            agenix
+            minimal-tmux
+            agent-skills
+            superpowers
+            anthropic-skills
+            context7-skills
+            mkDeploySshHosts
+            systemConfig
+            ;
         };
       };
     }

@@ -22,10 +22,6 @@
         home = {
           packages = [ ];
         };
-
-        custom = {
-          nodejs.enable = true;
-        };
       };
   };
 

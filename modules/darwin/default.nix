@@ -7,6 +7,7 @@
     ./system.nix
     ./home-manager
     ./homebrew.nix
+    ./nix-access-tokens.nix
   ];
 
   nix = {
@@ -23,4 +24,8 @@
     home = "/Users/${systemConfig.user}";
     isHidden = false;
   };
+
+  age.identityPaths = [
+    "/Users/${systemConfig.user}/.ssh/id_ed25519"
+  ];
 }

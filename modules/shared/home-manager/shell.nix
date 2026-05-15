@@ -15,14 +15,18 @@
       diffutils
       doggo
       findutils
-      git
       gawk
+      git
       gnumake
       gnused
       gzip
       inetutils
       just
       killall
+      nil
+      nixd
+      nixfmt
+      neovim
       openssh
       openssl
       parallel

@@ -2,71 +2,46 @@
   systemConfig,
   secrets,
   deployHosts,
-  config,
+  mkDeploySshHosts,
   ...
 }:
 {
-  age.identityPaths = [
-    "/Users/${systemConfig.user}/.ssh/id_ed25519"
-  ];
-  age.secrets.nix-access-tokens = {
-    file = "${secrets}/systems/personal-macbook-pro-m5/nix-access-tokens.age";
-    mode = "0400";
-    owner = systemConfig.user;
-    group = "staff";
+  custom.darwin.nix-access-tokens = {
+    enable = true;
+    secretFile = "${secrets}/systems/personal-macbook-pro-m5/nix-access-tokens.age";
   };
-
-  nix.extraOptions = ''
-    include ${config.age.secrets.nix-access-tokens.path}
-  '';
 
   home-manager = {
     users.${systemConfig.user} =
       {
         config,
-        lib,
         pkgs,
         ...
       }:
       let
-        deploySshHosts = lib.mapAttrs (_: deployHost: {
-          hostname = "${deployHost.hostname}.tail695ae9.ts.net";
-          user = deployHost.sshUser;
-          port = deployHost.sshPort or 22;
-          keyName = "vm";
-        }) deployHosts;
+        deploySshHosts = mkDeploySshHosts { } deployHosts;
       in
       {
         home = {
           packages = with pkgs; [
             slack
-            ffmpeg_7
-            awscli2
-            uv
-            nixfmt
-            mkpasswd
-            nil
-            nixd
-            claude-code
-            codex
-            ctx7
-            ghostty-bin
-            utm
           ];
         };
 
-        age = {
-          identityPaths = [
-            "${config.home.homeDirectory}/.ssh/id_ed25519"
-          ];
-          secretsDir = "${config.home.homeDirectory}/.agenix/agenix";
-          secretsMountPoint = "${config.home.homeDirectory}/.agenix/agenix.d";
+        age.secrets = {
+          "github-ssh-key".file = "${secrets}/systems/personal-macbook-pro-m5/github-ssh-key.age";
+          "github-signing-key".file = "${secrets}/users/gustavclausen_com/github-signing-key.age";
+          "hetzner-ssh-key".file = "${secrets}/systems/hetzner/hetzner_id_ed25519.age";
+          "vm-ssh-key".file = "${secrets}/systems/vm/vm_ed25519.age";
+        };
 
-          secrets = {
-            "github-ssh-key".file = "${secrets}/systems/personal-macbook-pro-m5/github-ssh-key.age";
-            "github-signing-key".file = "${secrets}/users/gustavclausen_com/github-signing-key.age";
-            "hetzner-ssh-key".file = "${secrets}/systems/hetzner/hetzner_id_ed25519.age";
-            "vm-ssh-key".file = "${secrets}/systems/vm/vm_ed25519.age";
+        programs.ghostty = {
+          enable = true;
+          package = pkgs.ghostty-bin;
+          settings = {
+            font-size = 18;
+            cursor-style = "block";
+            shell-integration-features = "no-cursor";
           };
         };
 
@@ -81,10 +56,8 @@
               { path = "/System/Applications/Notes.app/"; }
               { path = "/System/Applications/Messages.app/"; }
               { path = "${pkgs.slack}/Applications/Slack.app/"; }
-              { path = "/Applications/Microsoft Teams.app/"; }
               { path = "/Applications/TickTick.app/"; }
               { path = "/Applications/1Password.app/"; }
-              { path = "/Applications/Spotify.app/"; }
               { path = "/Applications/Zed.app/"; }
               {
                 path = "${pkgs.ghostty-bin}/Applications/Ghostty.app/";
@@ -96,6 +69,33 @@
           nodejs.enable = true;
           docker.enable = true;
           tmux.enable = true;
+          coding-agent = {
+            enable = true;
+            agents = {
+              claude-code.enable = true;
+              codex.enable = true;
+            };
+            skills.enable = [
+              "superpowers/brainstorming"
+              "superpowers/dispatching-parallel-agents"
+              "superpowers/executing-plans"
+              "superpowers/finishing-a-development-branch"
+              "superpowers/receiving-code-review"
+              "superpowers/requesting-code-review"
+              "superpowers/subagent-driven-development"
+              "superpowers/systematic-debugging"
+              "superpowers/test-driven-development"
+              "superpowers/using-git-worktrees"
+              "superpowers/using-superpowers"
+              "superpowers/verification-before-completion"
+              "superpowers/writing-plans"
+              "superpowers/writing-skills"
+              "anthropic/frontend-design"
+              "anthropic/skill-creator"
+              "context7/context7-cli"
+              "context7/find-docs"
+            ];
+          };
           git = {
             enable = true;
             userName = "gustavclausen";
@@ -192,12 +192,6 @@
           };
         };
       };
-  };
-
-  homebrew = {
-    casks = [
-      "microsoft-teams"
-    ];
   };
 
   ids.gids.nixbld = 350;

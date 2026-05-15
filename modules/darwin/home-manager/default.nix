@@ -7,6 +7,7 @@
     users.${systemConfig.user} =
       {
         pkgs,
+        config,
         ...
       }:
       {
@@ -18,6 +19,14 @@
         imports = [
           ./dock
         ];
+
+        age = {
+          identityPaths = [
+            "${config.home.homeDirectory}/.ssh/id_ed25519"
+          ];
+          secretsDir = "${config.home.homeDirectory}/.agenix/agenix";
+          secretsMountPoint = "${config.home.homeDirectory}/.agenix/agenix.d";
+        };
 
         programs.zsh.initContent = ''
           eval "$(/opt/homebrew/bin/brew shellenv)"

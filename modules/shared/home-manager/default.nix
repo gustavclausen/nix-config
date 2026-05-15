@@ -28,6 +28,7 @@
 
         imports = [
           ./age
+          ./coding-agent
           ./docker
           ./dotnet
           ./git

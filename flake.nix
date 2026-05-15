@@ -43,6 +43,23 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
+    anthropic-skills = {
+      url = "github:anthropics/skills";
+      flake = false;
+    };
+    context7-skills = {
+      url = "github:upstash/context7";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -60,6 +77,10 @@
       disko,
       nixpkgs-unstable,
       deploy-rs,
+      agent-skills,
+      superpowers,
+      anthropic-skills,
+      context7-skills,
       ...
     }:
     let
@@ -87,6 +108,7 @@
 
       mkDarwinSystem = import ./lib/mkDarwinSystem.nix;
       mkNixosSystem = import ./lib/mkNixosSystem.nix;
+      mkDeploySshHosts = import ./lib/mkDeploySshHosts.nix { lib = nixpkgs.lib; };
       darwinSystemArgs = {
         inherit
           nixpkgs
@@ -99,6 +121,11 @@
           darwin
           agenix
           minimal-tmux
+          agent-skills
+          superpowers
+          anthropic-skills
+          context7-skills
+          mkDeploySshHosts
           ;
       };
       nixosSystemArgs = {
@@ -109,6 +136,11 @@
           agenix
           disko
           minimal-tmux
+          agent-skills
+          superpowers
+          anthropic-skills
+          context7-skills
+          mkDeploySshHosts
           ;
       };
 
@@ -198,7 +230,11 @@
     in
     {
       lib = {
-        inherit mkDarwinSystem mkNixosSystem;
+        inherit
+          mkDarwinSystem
+          mkNixosSystem
+          mkDeploySshHosts
+          ;
       };
 
       devShells = forAllSystems devShell;

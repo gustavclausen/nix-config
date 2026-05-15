@@ -15,6 +15,11 @@ host:
   darwin,
   agenix,
   minimal-tmux,
+  agent-skills,
+  superpowers,
+  anthropic-skills,
+  context7-skills,
+  mkDeploySshHosts,
 }:
 let
   system = "${arch}-darwin";
@@ -31,6 +36,11 @@ darwin.lib.darwinSystem {
     inherit
       agenix
       minimal-tmux
+      agent-skills
+      superpowers
+      anthropic-skills
+      context7-skills
+      mkDeploySshHosts
       systemConfig
       ;
   };
@@ -64,7 +74,16 @@ darwin.lib.darwinSystem {
       config = {
         _module.args = { inherit systemConfig; };
         home-manager.extraSpecialArgs = {
-          inherit agenix minimal-tmux systemConfig;
+          inherit
+            agenix
+            minimal-tmux
+            agent-skills
+            superpowers
+            anthropic-skills
+            context7-skills
+            mkDeploySshHosts
+            systemConfig
+            ;
         };
       };
     }
