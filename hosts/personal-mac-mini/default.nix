@@ -6,6 +6,8 @@
   ...
 }:
 {
+  custom.darwin.utm-autostart.enable = true;
+
   custom.darwin.nix-access-tokens = {
     enable = true;
     secretFile = "${secrets}/systems/personal-mac-mini/nix-access-tokens.age";

@@ -8,6 +8,7 @@
     ./home-manager
     ./homebrew.nix
     ./nix-access-tokens.nix
+    ./utm-autostart.nix
   ];
 
   nix = {
