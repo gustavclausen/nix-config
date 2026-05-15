@@ -28,7 +28,11 @@ darwin.lib.darwinSystem {
   inherit system;
 
   specialArgs = {
-    inherit agenix minimal-tmux systemConfig;
+    inherit
+      agenix
+      minimal-tmux
+      systemConfig
+      ;
   };
 
   modules = [

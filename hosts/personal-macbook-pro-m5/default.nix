@@ -1,20 +1,44 @@
 {
   systemConfig,
   secrets,
+  deployHosts,
+  config,
   ...
 }:
 {
+  age.identityPaths = [
+    "/Users/${systemConfig.user}/.ssh/id_ed25519"
+  ];
+  age.secrets.nix-access-tokens = {
+    file = "${secrets}/systems/personal-macbook-pro-m5/nix-access-tokens.age";
+    mode = "0400";
+    owner = systemConfig.user;
+    group = "staff";
+  };
+
+  nix.extraOptions = ''
+    include ${config.age.secrets.nix-access-tokens.path}
+  '';
+
   home-manager = {
     users.${systemConfig.user} =
       {
         config,
+        lib,
         pkgs,
         ...
       }:
+      let
+        deploySshHosts = lib.mapAttrs (_: deployHost: {
+          hostname = "${deployHost.hostname}.tail695ae9.ts.net";
+          user = deployHost.sshUser;
+          port = deployHost.sshPort or 22;
+          keyName = "vm";
+        }) deployHosts;
+      in
       {
         home = {
           packages = with pkgs; [
-            vscode
             slack
             deploy-rs
             ffmpeg_7
@@ -28,6 +52,7 @@
             codex
             ctx7
             ghostty-bin
+            utm
           ];
         };
 
@@ -42,10 +67,10 @@
             "github-ssh-key".file = "${secrets}/systems/personal-macbook-pro-m5/github-ssh-key.age";
             "github-signing-key".file = "${secrets}/users/gustavclausen_com/github-signing-key.age";
             "hetzner-ssh-key".file = "${secrets}/systems/hetzner/hetzner_id_ed25519.age";
+            "vm-ssh-key".file = "${secrets}/systems/vm/vm_ed25519.age";
           };
         };
 
-        programs.alacritty.enable = true;
         custom = {
           darwin.dock = {
             enable = true;
@@ -61,11 +86,10 @@
               { path = "/Applications/TickTick.app/"; }
               { path = "/Applications/1Password.app/"; }
               { path = "/Applications/Spotify.app/"; }
-              {
-                path = "${pkgs.alacritty}/Applications/Alacritty.app/";
-              }
-              { path = "${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
               { path = "/Applications/Zed.app/"; }
+              {
+                path = "${pkgs.ghostty-bin}/Applications/Ghostty.app/";
+              }
             ];
           };
           age.enable = true;
@@ -140,8 +164,13 @@
                 publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILLw7BlYR88VJgYtlMlwDRLocFtWW9fkfwhScAkyJ685";
                 privateKeyPath = config.age.secrets."hetzner-ssh-key".path;
               };
+              "vm" = {
+                name = "vm_ed25519";
+                publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjB/XELZ4R+nKj1MC6cNqextdFtiOo0bGvEiLMFOxO3 vm";
+                privateKeyPath = config.age.secrets."vm-ssh-key".path;
+              };
             };
-            hosts = {
+            hosts = deploySshHosts // {
               "zoltar" = {
                 hostname = "zoltar.tail695ae9.ts.net";
                 user = "nixos";

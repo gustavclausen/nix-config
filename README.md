@@ -81,3 +81,7 @@ See [Justfile](./Justfile) for common commands.
   ```shell
   just update
   ```
+
+### Other
+
+- `NIX_CONFIG="access-tokens = github.com=ghp_..." nix flake update`

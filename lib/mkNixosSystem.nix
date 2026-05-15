@@ -23,7 +23,11 @@ nixpkgs.lib.nixosSystem {
   inherit system;
 
   specialArgs = {
-    inherit agenix minimal-tmux systemConfig;
+    inherit
+      agenix
+      minimal-tmux
+      systemConfig
+      ;
   };
 
   modules = [
@@ -36,6 +40,7 @@ nixpkgs.lib.nixosSystem {
     disko.nixosModules.disko
     ../modules/nixos
     hostConfig
+    agenix.nixosModules.default
     home-manager.nixosModules.home-manager
     {
       config = {

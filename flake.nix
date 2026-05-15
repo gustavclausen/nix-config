@@ -27,7 +27,7 @@
       flake = false;
     };
     secrets = {
-      url = "git+ssh://git@github.com/gustavclausen/nix-secrets.git";
+      url = "github:gustavclausen/nix-secrets";
       flake = false;
     };
     minimal-tmux = {
@@ -39,9 +39,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
+      self,
       darwin,
       nix-homebrew,
       homebrew-bundle,
@@ -54,6 +59,7 @@
       minimal-tmux,
       disko,
       nixpkgs-unstable,
+      deploy-rs,
       ...
     }:
     let
@@ -112,6 +118,90 @@
           minimal-tmux
           ;
       };
+
+      mkDeploy =
+        host:
+        {
+          hostname,
+          system,
+          sshUser ? "nixos",
+          user ? "root",
+          remoteBuild ? true,
+          ...
+        }:
+        {
+          inherit
+            hostname
+            sshUser
+            user
+            remoteBuild
+            ;
+
+          profiles.system = {
+            path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.${host};
+          };
+        };
+
+      mkDarwinHost = host: hostConfig: mkDarwinSystem host hostConfig darwinSystemArgs;
+      mkNixosHost =
+        host:
+        {
+          system,
+          user ? "nixos",
+          hostConfig,
+          ...
+        }:
+        mkNixosSystem host {
+          inherit system user hostConfig;
+        } nixosSystemArgs;
+
+      hosts = {
+        darwin = {
+          "personal-macbook-pro-m5" = {
+            arch = "aarch64";
+            user = "gustavkc";
+            hostConfig =
+              { ... }:
+              {
+                imports = [ ./hosts/personal-macbook-pro-m5 ];
+                _module.args = {
+                  inherit secrets deployHosts;
+                };
+              };
+          };
+        };
+
+        nixos = {
+          coolify = {
+            system = "aarch64-linux";
+            hostConfig =
+              { ... }:
+              {
+                imports = [ ./hosts/coolify ];
+                _module.args = {
+                  inherit secrets;
+                };
+              };
+            deploy = { };
+          };
+        };
+      };
+
+      deployHosts = nixpkgs.lib.mapAttrs (
+        host:
+        {
+          system,
+          deploy,
+          ...
+        }:
+        {
+          hostname = deploy.hostname or host;
+          sshUser = deploy.sshUser or "nixos";
+          user = deploy.user or "root";
+          remoteBuild = deploy.remoteBuild or true;
+          system = deploy.system or system;
+        }
+      ) (nixpkgs.lib.filterAttrs (_: hostConfig: hostConfig ? deploy) hosts.nixos);
     in
     {
       lib = {
@@ -120,27 +210,10 @@
 
       devShells = forAllSystems devShell;
 
-      darwinConfigurations = {
-        "personal-macbook-pro-m5" = mkDarwinSystem "personal-macbook-pro-m5" {
-          arch = "aarch64";
-          user = "gustavkc";
-          hostConfig =
-            { systemConfig, ... }@args:
-            import ./hosts/personal-macbook-pro-m5.nix (
-              args
-              // {
-                inherit systemConfig secrets;
-              }
-            );
-        } darwinSystemArgs;
-      };
+      darwinConfigurations = nixpkgs.lib.mapAttrs mkDarwinHost hosts.darwin;
 
-      nixosConfigurations = {
-        "coolify" = mkNixosSystem "coolify" {
-          system = "aarch64-linux";
-          user = "nixos";
-          hostConfig = import ./hosts/coolify.nix;
-        } nixosSystemArgs;
-      };
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkNixosHost hosts.nixos;
+
+      deploy.nodes = nixpkgs.lib.mapAttrs mkDeploy deployHosts;
     };
 }
