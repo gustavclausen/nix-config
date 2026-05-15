@@ -48,10 +48,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    launchd.daemons.utm-autostart.serviceConfig = {
+    launchd.user.agents.utm-autostart.serviceConfig = {
       ProgramArguments = [ "${startScript}" ];
       RunAtLoad = true;
-      UserName = systemConfig.user;
       StandardOutPath = "/Users/${systemConfig.user}/Library/Logs/utm-autostart.out.log";
       StandardErrorPath = "/Users/${systemConfig.user}/Library/Logs/utm-autostart.err.log";
       ProcessType = "Background";
