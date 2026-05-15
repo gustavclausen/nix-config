@@ -53,7 +53,7 @@
             sshAuth = {
               enable = true;
               hostnames = [ "github.com" ];
-              publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQ6WV1pi2fxCXVq1ItrLnM9h6Uy27FVKUk3tPP3o+xk";
+              publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAt2bSBID4x6m4joRnnxmpRZcKUzqKlOmB4UAkh2jTJi";
               privateKeyPath = config.age.secrets."github-ssh-key".path;
             };
             gpgCommitSigning = {
