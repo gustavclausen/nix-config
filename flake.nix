@@ -194,6 +194,18 @@
                 };
               };
           };
+          "personal-mac-mini" = {
+            arch = "aarch64";
+            user = "gustavclausen";
+            hostConfig =
+              { ... }:
+              {
+                imports = [ ./hosts/personal-mac-mini ];
+                _module.args = {
+                  inherit secrets deployHosts;
+                };
+              };
+          };
         };
 
         nixos = {
