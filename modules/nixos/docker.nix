@@ -15,6 +15,7 @@ with lib;
 
   config = mkIf cfg.enable {
     virtualisation.docker.enable = true;
+    virtualisation.oci-containers.backend = "docker";
 
     users.users.${systemConfig.user} = {
       extraGroups = [

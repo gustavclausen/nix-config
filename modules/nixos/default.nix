@@ -12,6 +12,7 @@
     ./tailscale.nix
     ./ssh.nix
     ./networking.nix
+    ./coolify.nix
   ];
 
   boot.loader = {
@@ -31,6 +32,10 @@
   users.users = {
     root = {
       hashedPassword = "!";
+
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICDR9Mj2ImPIQvXU3woymg+86e0wlquOPu6cfrNGhwug root@coolify"
+      ];
     };
 
     ${systemConfig.user} = {
