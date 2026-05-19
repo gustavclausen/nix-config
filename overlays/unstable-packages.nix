@@ -8,4 +8,5 @@ in
   codex = unstable.codex;
   colima = unstable.colima;
   ctx7 = unstable.ctx7;
+  zed-editor = unstable.zed-editor;
 }

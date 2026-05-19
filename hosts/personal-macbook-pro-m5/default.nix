@@ -59,12 +59,13 @@
               { path = "${pkgs.slack}/Applications/Slack.app/"; }
               { path = "/Applications/TickTick.app/"; }
               { path = "/Applications/1Password.app/"; }
-              { path = "/Applications/Zed.app/"; }
+              { path = "${pkgs.zed-editor}/Applications/Zed.app/"; }
               {
                 path = "${pkgs.ghostty-bin}/Applications/Ghostty.app/";
               }
             ];
           };
+          zed.enable = true;
           age.enable = true;
           golang.enable = true;
           nodejs.enable = true;
