@@ -36,6 +36,16 @@
           "vm-ssh-key".file = "${secrets}/systems/vm/vm_ed25519.age";
         };
 
+        programs.ghostty = {
+          enable = true;
+          package = pkgs.ghostty-bin;
+          settings = {
+            font-size = 18;
+            cursor-style = "block";
+            shell-integration-features = "no-cursor";
+          };
+        };
+
         custom = {
           darwin.dock = {
             enable = true;
