@@ -16,7 +16,6 @@
           enableNixpkgsReleaseCheck = false;
           stateVersion = "25.11";
           packages = with pkgs; [
-            python3
             xz
             zlib
             nerd-fonts.jetbrains-mono
@@ -35,6 +34,7 @@
           ./golang
           ./k8s
           ./nodejs
+          ./python
           ./shell.nix
           ./ssh
           ./tmux
