@@ -13,6 +13,13 @@
   time.timeZone = "Europe/Copenhagen";
   console.keyMap = "dk";
 
+  custom.serverProfile = {
+    enable = true;
+    coolifyAccess = true;
+  };
+
+  custom.docker.enable = true;
+
   home-manager = {
     users.${systemConfig.user} =
       {

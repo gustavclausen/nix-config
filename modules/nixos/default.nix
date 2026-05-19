@@ -1,7 +1,6 @@
 {
   lib,
   systemConfig,
-  pkgs,
   ...
 }:
 {
@@ -10,8 +9,7 @@
     ./docker.nix
     ./home-manager.nix
     ./tailscale.nix
-    ./ssh.nix
-    ./networking.nix
+    ./server-profile.nix
     ./coolify.nix
   ];
 
@@ -23,7 +21,6 @@
     };
   };
 
-  services.fail2ban.enable = true;
   security.sudo = {
     enable = true;
     wheelNeedsPassword = false;
@@ -32,10 +29,6 @@
   users.users = {
     root = {
       hashedPassword = "!";
-
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICDR9Mj2ImPIQvXU3woymg+86e0wlquOPu6cfrNGhwug root@coolify"
-      ];
     };
 
     ${systemConfig.user} = {
@@ -46,15 +39,8 @@
         "networkmanager"
         "${systemConfig.user}"
       ];
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjB/XELZ4R+nKj1MC6cNqextdFtiOo0bGvEiLMFOxO3 vm"
-      ];
     };
   };
-
-  environment.systemPackages = [
-    pkgs.ghostty.terminfo
-  ];
 
   system = {
     stateVersion = lib.mkDefault "25.11";
@@ -65,6 +51,4 @@
       fi
     '';
   };
-
-  age.identityPaths = [ "/etc/ssh/vm_ed25519" ];
 }

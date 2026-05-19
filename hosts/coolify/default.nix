@@ -13,6 +13,11 @@
   time.timeZone = "Europe/Copenhagen";
   console.keyMap = "dk";
 
+  custom.serverProfile = {
+    enable = true;
+    coolifyAccess = true;
+  };
+
   home-manager = {
     users.${systemConfig.user} =
       {
