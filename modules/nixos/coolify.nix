@@ -569,7 +569,6 @@ in
           "--health-interval=4s"
           "--health-timeout=2s"
           "--health-retries=5"
-          "--label=coolify.managed=true"
           "--label=coolify.proxy=true"
         ]
         ++ domainLabels;
