@@ -13,7 +13,6 @@ let
     "coolify-db"
     "coolify-redis"
     "coolify-realtime"
-    "coolify-proxy"
   ];
 
   containerUnits = map (name: "docker-${name}") containerNames;
@@ -21,26 +20,6 @@ let
 
   stateUser = toString cfg.stateUser;
   stateGroup = toString cfg.stateGroup;
-
-  domainLabels = [
-    "--label=traefik.enable=true"
-    "--label=traefik.http.routers.traefik.entrypoints=http"
-    "--label=traefik.http.routers.traefik.service=api@internal"
-    "--label=traefik.http.services.traefik.loadbalancer.server.port=8080"
-    "--label=traefik.http.routers.traefik.tls=true"
-    "--label=traefik.http.routers.traefik.tls.certresolver=${cfg.proxy.certResolver}"
-  ]
-  ++ lib.flatten (
-    lib.imap0 (
-      index: domain:
-      [
-        "--label=traefik.http.routers.traefik.tls.domains[${toString index}].main=${domain.main}"
-      ]
-      ++ lib.optionals (domain.sans != [ ]) [
-        "--label=traefik.http.routers.traefik.tls.domains[${toString index}].sans=${lib.concatStringsSep "," domain.sans}"
-      ]
-    ) cfg.proxy.domains
-  );
 in
 {
   options.services.coolify = {
@@ -106,12 +85,6 @@ in
         default = "ghcr.io/coollabsio/coolify-realtime:1.0.15";
         description = "Coolify realtime image";
       };
-
-      proxy = lib.mkOption {
-        type = lib.types.str;
-        default = "traefik:v3.7.1";
-        description = "Traefik proxy image";
-      };
     };
 
     secrets = {
@@ -121,60 +94,10 @@ in
         description = "Path to .env file for Coolify";
       };
 
-      proxyEnvironmentFile = lib.mkOption {
-        type = lib.types.str;
-        default = "${cfg.stateDir}/proxy/.env";
-        description = "Path to the .env file for traefik";
-      };
-
       sshKeyFile = lib.mkOption {
         type = lib.types.str;
         default = "${cfg.stateDir}/ssh/keys/id.root@host.docker.internal";
         description = "Path to the SSH key file for Coolify";
-      };
-    };
-
-    proxy = {
-      certResolver = lib.mkOption {
-        type = lib.types.str;
-        default = "letsencrypt";
-        description = "Traefik certificate resolver";
-      };
-
-      domains = lib.mkOption {
-        type = lib.types.listOf (
-          lib.types.submodule {
-            options = {
-              main = lib.mkOption {
-                type = lib.types.str;
-                description = "Primary TLS domain.";
-              };
-
-              sans = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                description = "TLS subject alternative names.";
-              };
-            };
-          }
-        );
-        default = [ ];
-        description = "TLS domains for the Traefik";
-      };
-
-      dnsProvider = lib.mkOption {
-        type = lib.types.str;
-        default = "hetzner";
-        description = "Traefik ACME DNS challenge provider.";
-      };
-
-      dnsResolvers = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [
-          "1.1.1.1:53"
-          "8.8.8.8:53"
-        ];
-        description = "Recursive DNS resolvers Traefik uses for ACME DNS challenge checks";
       };
     };
   };
@@ -202,9 +125,6 @@ in
       "d ${cfg.stateDir}/backups 0750 ${stateUser} ${stateGroup} -"
       "d ${cfg.stateDir}/services 0750 ${stateUser} ${stateGroup} -"
       "d ${cfg.stateDir}/webhooks-during-maintenance 0750 ${stateUser} ${stateGroup} -"
-      "d ${cfg.stateDir}/proxy 0750 ${stateUser} ${stateGroup} -"
-      "d ${cfg.stateDir}/proxy/dynamic 0750 ${stateUser} ${stateGroup} -"
-      "f ${cfg.stateDir}/proxy/acme.json 0600 ${stateUser} ${stateGroup} -"
     ];
 
     systemd.services = lib.mkMerge [
@@ -228,9 +148,7 @@ in
               ${lib.escapeShellArg "${cfg.stateDir}/databases"} \
               ${lib.escapeShellArg "${cfg.stateDir}/backups"} \
               ${lib.escapeShellArg "${cfg.stateDir}/services"} \
-              ${lib.escapeShellArg "${cfg.stateDir}/webhooks-during-maintenance"} \
-              ${lib.escapeShellArg "${cfg.stateDir}/proxy"} \
-              ${lib.escapeShellArg "${cfg.stateDir}/proxy/dynamic"}
+              ${lib.escapeShellArg "${cfg.stateDir}/webhooks-during-maintenance"}
 
             install -d -m 0700 -o ${stateUser} -g ${stateGroup} \
               ${lib.escapeShellArg "${cfg.stateDir}/ssh"} \
@@ -252,12 +170,6 @@ in
               chmod 0600 "$ssh_key_target"
             fi
 
-            if [ ! -e ${lib.escapeShellArg "${cfg.stateDir}/proxy/acme.json"} ]; then
-              install -m 0600 -o ${stateUser} -g ${stateGroup} /dev/null ${lib.escapeShellArg "${cfg.stateDir}/proxy/acme.json"}
-            else
-              chown ${stateUser}:${stateGroup} ${lib.escapeShellArg "${cfg.stateDir}/proxy/acme.json"}
-              chmod 0600 ${lib.escapeShellArg "${cfg.stateDir}/proxy/acme.json"}
-            fi
           '';
         };
 
@@ -426,6 +338,14 @@ in
       )
     ];
 
+    services.coolifyProxy = {
+      enable = lib.mkDefault true;
+      networkName = lib.mkDefault cfg.networkName;
+      stateDir = lib.mkDefault "${cfg.stateDir}/proxy";
+      stateUser = lib.mkDefault cfg.stateUser;
+      stateGroup = lib.mkDefault cfg.stateGroup;
+    };
+
     virtualisation.oci-containers.containers = {
       coolify = {
         image = cfg.images.coolify;
@@ -443,7 +363,7 @@ in
           PHP_FPM_PM_MIN_SPARE_SERVERS = "1";
           PHP_FPM_PM_MAX_SPARE_SERVERS = "10";
         };
-        ports = [ "${toString cfg.appPort}:8080" ];
+        ports = [ "8080" ];
         volumes = [
           "${cfg.secrets.environmentFile}:/var/www/html/.env:ro"
           "${cfg.stateDir}/ssh:/var/www/html/storage/app/ssh"
@@ -520,58 +440,6 @@ in
           "--health-retries=10"
           "--health-timeout=2s"
         ];
-      };
-
-      coolify-proxy = {
-        image = cfg.images.proxy;
-        autoStart = true;
-        environmentFiles = [ cfg.secrets.proxyEnvironmentFile ];
-        ports = [
-          "80:80"
-          "443:443"
-          "443:443/udp"
-          "8080:8080"
-        ];
-        volumes = [
-          "/var/run/docker.sock:/var/run/docker.sock:ro"
-          "${cfg.stateDir}/proxy:/traefik"
-        ];
-        cmd = [
-          "--ping=true"
-          "--ping.entrypoint=http"
-          "--api.dashboard=true"
-          "--entrypoints.http.address=:80"
-          "--entrypoints.https.address=:443"
-          "--entrypoints.http.http.encodequerysemicolons=true"
-          "--entryPoints.http.http2.maxConcurrentStreams=250"
-          "--entrypoints.https.http.encodequerysemicolons=true"
-          "--entryPoints.https.http2.maxConcurrentStreams=250"
-          "--entrypoints.https.http3"
-          "--providers.file.directory=/traefik/dynamic/"
-          "--providers.file.watch=true"
-          "--certificatesresolvers.${cfg.proxy.certResolver}.acme.dnschallenge.provider=${cfg.proxy.dnsProvider}"
-          "--certificatesresolvers.${cfg.proxy.certResolver}.acme.dnschallenge.delaybeforecheck=0"
-        ]
-        ++ lib.optionals (cfg.proxy.dnsResolvers != [ ]) [
-          "--certificatesresolvers.${cfg.proxy.certResolver}.acme.dnschallenge.resolvers=${lib.concatStringsSep "," cfg.proxy.dnsResolvers}"
-        ]
-        ++ [
-          "--certificatesresolvers.${cfg.proxy.certResolver}.acme.storage=/traefik/acme.json"
-          "--api.insecure=false"
-          "--providers.docker=true"
-          "--providers.docker.exposedbydefault=false"
-        ];
-        extraOptions = [
-          "--network=${cfg.networkName}"
-          "--add-host=host.docker.internal:host-gateway"
-          "--pull=always"
-          "--health-cmd=wget -qO- http://localhost:80/ping || exit 1"
-          "--health-interval=4s"
-          "--health-timeout=2s"
-          "--health-retries=5"
-          "--label=coolify.proxy=true"
-        ]
-        ++ domainLabels;
       };
     };
   };

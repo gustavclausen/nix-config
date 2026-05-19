@@ -73,16 +73,16 @@
 
     secrets = {
       environmentFile = config.age.secrets.coolify.path;
-      proxyEnvironmentFile = config.age.secrets.coolify-proxy.path;
       sshKeyFile = config.age.secrets.coolify-ssh-key.path;
     };
+  };
 
-    proxy = {
-      domains = [
-        {
-          main = "v2.coolify.gustavclausen.com";
-        }
-      ];
-    };
+  services.coolifyProxy = {
+    environmentFile = config.age.secrets.coolify-proxy.path;
+    domains = [
+      {
+        main = "coolify.v2.gustavclausen.com";
+      }
+    ];
   };
 }

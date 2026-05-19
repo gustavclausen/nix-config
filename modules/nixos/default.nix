@@ -11,6 +11,7 @@
     ./tailscale.nix
     ./server-profile.nix
     ./coolify.nix
+    ./coolify-proxy.nix
   ];
 
   boot.loader = {
