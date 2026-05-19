@@ -221,6 +221,19 @@
               };
             deploy = { };
           };
+
+          coder = {
+            system = "aarch64-linux";
+            hostConfig =
+              { ... }:
+              {
+                imports = [ ./hosts/coder ];
+                _module.args = {
+                  inherit secrets;
+                };
+              };
+            deploy = { };
+          };
         };
       };
 
