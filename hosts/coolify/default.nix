@@ -80,8 +80,7 @@
     proxy = {
       domains = [
         {
-          main = "gustavclausen.com";
-          sans = [ "*.gustavclausen.com" ];
+          main = "v2.coolify.gustavclausen.com";
         }
       ];
     };
