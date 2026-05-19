@@ -85,7 +85,7 @@ in
     images = {
       coolify = lib.mkOption {
         type = lib.types.str;
-        default = "ghcr.io/coollabsio/coolify:4.0.0";
+        default = "ghcr.io/coollabsio/coolify:4.1.0";
         description = "Coolify application image";
       };
 
@@ -103,7 +103,7 @@ in
 
       realtime = lib.mkOption {
         type = lib.types.str;
-        default = "ghcr.io/coollabsio/coolify-realtime:1.0.13";
+        default = "ghcr.io/coollabsio/coolify-realtime:1.0.15";
         description = "Coolify realtime image";
       };
 
