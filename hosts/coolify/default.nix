@@ -51,7 +51,6 @@
 
     tailscale = {
       file = "${secrets}/systems/tailscale.age";
-      path = "/var/run/secrets/tailscale";
       owner = "root";
       group = "root";
       mode = "600";
