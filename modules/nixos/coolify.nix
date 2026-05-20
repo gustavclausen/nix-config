@@ -31,18 +31,6 @@ in
       description = "Persistent state directory";
     };
 
-    appPort = lib.mkOption {
-      type = lib.types.port;
-      default = 8000;
-      description = "Host port";
-    };
-
-    soketiPort = lib.mkOption {
-      type = lib.types.port;
-      default = 6001;
-      description = "Host port for realtime websocket traffic";
-    };
-
     networkName = lib.mkOption {
       type = lib.types.str;
       default = "coolify";
@@ -354,7 +342,7 @@ in
         environment = {
           APP_ENV = "production";
           APP_NAME = "Coolify";
-          APP_PORT = toString cfg.appPort;
+          APP_PORT = "8000";
           AUTOUPDATE = "false";
           DOCKER_ADDRESS_POOL_BASE = "172.17.0.0/16";
           PHP_MEMORY_LIMIT = "256M";
@@ -363,7 +351,6 @@ in
           PHP_FPM_PM_MIN_SPARE_SERVERS = "1";
           PHP_FPM_PM_MAX_SPARE_SERVERS = "10";
         };
-        ports = [ "8080" ];
         volumes = [
           "${cfg.secrets.environmentFile}:/var/www/html/.env:ro"
           "${cfg.stateDir}/ssh:/var/www/html/storage/app/ssh"
@@ -375,6 +362,7 @@ in
         ];
         extraOptions = [
           "--network=${cfg.networkName}"
+          "--network-alias=coolify"
           "--add-host=host.docker.internal:host-gateway"
           "--pull=always"
           "--health-cmd=curl --fail http://127.0.0.1:8080/api/health || exit 1"
@@ -425,10 +413,6 @@ in
         image = cfg.images.realtime;
         autoStart = true;
         environmentFiles = [ "/run/coolify/soketi.env" ];
-        ports = [
-          "${toString cfg.soketiPort}:6001"
-          "6002:6002"
-        ];
         volumes = [ "${cfg.stateDir}/ssh:/var/www/html/storage/app/ssh" ];
         extraOptions = [
           "--network=${cfg.networkName}"

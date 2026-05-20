@@ -200,7 +200,6 @@ in
       ports = [
         "443:443"
         "443:443/udp"
-        "8080"
       ];
       volumes = [
         "/var/run/docker.sock:/var/run/docker.sock:ro"
