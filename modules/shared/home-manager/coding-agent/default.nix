@@ -5,7 +5,7 @@
   agent-skills,
   superpowers,
   anthropic-skills,
-  context7-skills,
+  gustavclausen-skills,
   ...
 }:
 let
@@ -56,13 +56,12 @@ in
         default = [ ];
         description = ''
           Skill IDs to install into enabled coding agents.
-          IDs are prefixed by source: superpowers/<skill>, anthropic/<skill>, or context7/<skill>.
         '';
         example = [
-          "superpowers/using-superpowers"
-          "superpowers/brainstorming"
-          "anthropic/frontend-design"
-          "context7/find-docs"
+          "using-superpowers"
+          "brainstorming"
+          "frontend-design"
+          "find-docs"
         ];
       };
 
@@ -89,19 +88,16 @@ in
         superpowers = {
           path = superpowers;
           subdir = "skills";
-          idPrefix = "superpowers";
         };
 
         anthropic = {
           path = anthropic-skills;
           subdir = "skills";
-          idPrefix = "anthropic";
         };
 
-        context7 = {
-          path = context7-skills;
+        gustavclausen = {
+          path = gustavclausen-skills;
           subdir = "skills";
-          idPrefix = "context7";
         };
       };
 

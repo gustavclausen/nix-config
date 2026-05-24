@@ -14,7 +14,7 @@ host:
   agent-skills,
   superpowers,
   anthropic-skills,
-  context7-skills,
+  gustavclausen-skills,
   mkDeploySshHosts,
 }:
 let
@@ -34,7 +34,7 @@ nixpkgs.lib.nixosSystem {
       agent-skills
       superpowers
       anthropic-skills
-      context7-skills
+      gustavclausen-skills
       mkDeploySshHosts
       systemConfig
       ;
@@ -62,7 +62,7 @@ nixpkgs.lib.nixosSystem {
             agent-skills
             superpowers
             anthropic-skills
-            context7-skills
+            gustavclausen-skills
             mkDeploySshHosts
             systemConfig
             ;

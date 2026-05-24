@@ -60,6 +60,10 @@
       url = "github:upstash/context7";
       flake = false;
     };
+    gustavclausen-skills = {
+      url = "github:gustavclausen/skills";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -80,7 +84,7 @@
       agent-skills,
       superpowers,
       anthropic-skills,
-      context7-skills,
+      gustavclausen-skills,
       ...
     }:
     let
@@ -124,7 +128,7 @@
           agent-skills
           superpowers
           anthropic-skills
-          context7-skills
+          gustavclausen-skills
           mkDeploySshHosts
           ;
       };
@@ -139,7 +143,7 @@
           agent-skills
           superpowers
           anthropic-skills
-          context7-skills
+          gustavclausen-skills
           mkDeploySshHosts
           ;
       };

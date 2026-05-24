@@ -18,7 +18,7 @@ host:
   agent-skills,
   superpowers,
   anthropic-skills,
-  context7-skills,
+  gustavclausen-skills,
   mkDeploySshHosts,
 }:
 let
@@ -39,7 +39,7 @@ darwin.lib.darwinSystem {
       agent-skills
       superpowers
       anthropic-skills
-      context7-skills
+      gustavclausen-skills
       mkDeploySshHosts
       systemConfig
       ;
@@ -80,7 +80,7 @@ darwin.lib.darwinSystem {
             agent-skills
             superpowers
             anthropic-skills
-            context7-skills
+            gustavclausen-skills
             mkDeploySshHosts
             systemConfig
             ;
