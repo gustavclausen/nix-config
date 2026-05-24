@@ -412,11 +412,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1779526522,
-        "narHash": "sha256-SKfEomS7TNoq7nAxBp/2XN/DG8Ozr8sol3X4+b3f+NM=",
+        "lastModified": 1779611490,
+        "narHash": "sha256-yKvObeJq0FqSVwiP1egDTgdqsBVrEnN5Jdih/aX7Hhw=",
         "owner": "gustavclausen",
         "repo": "nix-secrets",
-        "rev": "0ca3fcd2d05d71a2da95f7e1818ed27561e5da44",
+        "rev": "2e920f3a798f8864626d1963df956988f4de3f0b",
         "type": "github"
       },
       "original": {
