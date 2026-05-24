@@ -131,13 +131,11 @@
               fi
             }
 
-            ssh_host() {
-              if [[ -n "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY" ]]; then
-                echo -n "%{$fg[magenta]%}''${USER}@''${HOST%%.*} ❯%{$reset_color%} "
-              fi
+            host() {
+              echo -n "%{$fg[magenta]%}''${USER}@''${HOST%%.*} ❯%{$reset_color%} "
             }
 
-            PROMPT='$(ssh_host)$(ctx)$(common_current_dir)$(common_bg_jobs)$(common_return_status)'
+            PROMPT='$(host)$(ctx)$(common_current_dir)$(common_bg_jobs)$(common_return_status)'
             RPROMPT='$(common_git_status)'
 
             GPG_TTY=$(tty)
