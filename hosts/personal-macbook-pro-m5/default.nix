@@ -184,12 +184,6 @@
                 port = 22;
                 keyName = "hetzner";
               };
-              "paperclip" = {
-                hostname = "paperclip.tail695ae9.ts.net";
-                user = "nixos";
-                port = 22;
-                keyName = "hetzner";
-              };
             };
           };
         };
