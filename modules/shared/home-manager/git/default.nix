@@ -382,6 +382,7 @@ with lib;
 
         ssh = {
           enable = true;
+          enableDefaultConfig = false;
 
           extraConfig = lib.mkIf cfg.sshAuth.enable (
             lib.mkMerge (

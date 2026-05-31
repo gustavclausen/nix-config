@@ -77,22 +77,6 @@
         "type": "github"
       }
     },
-    "context7-skills": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1779712330,
-        "narHash": "sha256-O6NVWqwA//cw7nS89FntED++nqJyuCz9y0FOfTPQrDM=",
-        "owner": "upstash",
-        "repo": "context7",
-        "rev": "7e956e594584db4b1b66a3a4a07781e92b4d7e45",
-        "type": "github"
-      },
-      "original": {
-        "owner": "upstash",
-        "repo": "context7",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -408,7 +392,6 @@
         "agenix": "agenix",
         "agent-skills": "agent-skills",
         "anthropic-skills": "anthropic-skills",
-        "context7-skills": "context7-skills",
         "darwin": "darwin_2",
         "deploy-rs": "deploy-rs",
         "disko": "disko",

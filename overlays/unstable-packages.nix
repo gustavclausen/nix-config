@@ -1,7 +1,10 @@
 { nixpkgs-unstable }:
 final: prev:
 let
-  unstable = import nixpkgs-unstable { inherit (final) system config; };
+  unstable = import nixpkgs-unstable {
+    inherit (final) config;
+    system = final.stdenv.hostPlatform.system;
+  };
 in
 {
   claude-code = unstable.claude-code;

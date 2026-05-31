@@ -10,7 +10,7 @@ Create new VM with the following settings:
 - Boot: UEFI
 - Boot ISO: NixOS minimal ISO from <https://nixos.org/download/>
 - Display (**Edit** -> **Display** -> **Emulated Display Card**): `virtio-gpu-pci`
-    
+
 </details>
 
 ## Prepare VM

@@ -56,10 +56,6 @@
       url = "github:anthropics/skills";
       flake = false;
     };
-    context7-skills = {
-      url = "github:upstash/context7";
-      flake = false;
-    };
     gustavclausen-skills = {
       url = "github:gustavclausen/skills";
       flake = false;
@@ -191,62 +187,7 @@
           inherit system user hostConfig;
         } nixosSystemArgs;
 
-      hosts = {
-        darwin = {
-          "personal-macbook-pro-m5" = {
-            arch = "aarch64";
-            user = "gustavkc";
-            hostConfig =
-              { ... }:
-              {
-                imports = [ ./hosts/personal-macbook-pro-m5 ];
-                _module.args = {
-                  inherit secrets deployHosts;
-                };
-              };
-          };
-          "personal-mac-mini" = {
-            arch = "aarch64";
-            user = "gustavclausen";
-            hostConfig =
-              { ... }:
-              {
-                imports = [ ./hosts/personal-mac-mini ];
-                _module.args = {
-                  inherit secrets deployHosts;
-                };
-              };
-          };
-        };
-
-        nixos = {
-          coolify = {
-            system = "aarch64-linux";
-            hostConfig =
-              { ... }:
-              {
-                imports = [ ./hosts/coolify ];
-                _module.args = {
-                  inherit secrets;
-                };
-              };
-            deploy = { };
-          };
-
-          coder = {
-            system = "aarch64-linux";
-            hostConfig =
-              { ... }:
-              {
-                imports = [ ./hosts/coder ];
-                _module.args = {
-                  inherit secrets;
-                };
-              };
-            deploy = { };
-          };
-        };
-      };
+      hosts = import ./hosts { inherit secrets deployHosts; };
 
       deployHosts = nixpkgs.lib.mapAttrs (
         host:
