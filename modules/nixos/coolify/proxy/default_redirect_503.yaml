@@ -1,0 +1,16 @@
+http:
+  routers:
+    catchall:
+      entryPoints:
+        - http
+        - https
+      service: noop
+      rule: PathPrefix(`/`)
+      tls:
+        certResolver: @certResolver@
+  services:
+    noop:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://127.0.0.1'

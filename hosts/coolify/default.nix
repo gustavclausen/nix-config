@@ -40,13 +40,6 @@
       mode = "700";
     };
 
-    coolify-proxy = {
-      file = "${secrets}/systems/coolify-proxy.age";
-      owner = "root";
-      group = "root";
-      mode = "600";
-    };
-
     coolify-ssh-key = {
       file = "${secrets}/systems/coolify-ssh-key.age";
       owner = "root";
@@ -70,19 +63,11 @@
 
   services.coolify = {
     enable = true;
+    domain = "${systemConfig.name}.tail695ae9.ts.net";
 
     secrets = {
       environmentFile = config.age.secrets.coolify.path;
       sshKeyFile = config.age.secrets.coolify-ssh-key.path;
     };
-  };
-
-  services.coolifyProxy = {
-    environmentFile = config.age.secrets.coolify-proxy.path;
-    domains = [
-      {
-        main = "coolify.v2.gustavclausen.com";
-      }
-    ];
   };
 }

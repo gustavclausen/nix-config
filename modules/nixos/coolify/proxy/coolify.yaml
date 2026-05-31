@@ -1,0 +1,62 @@
+http:
+  middlewares:
+    redirect-to-https:
+      redirectscheme:
+        scheme: https
+    gzip:
+      compress: true
+  routers:
+    coolify-http:
+      middlewares:
+        - redirect-to-https
+      entryPoints:
+        - http
+      service: coolify
+      rule: Host(`@domain@`)
+    coolify-realtime-ws:
+      entryPoints:
+        - http
+      service: coolify-realtime
+      rule: 'Host(`@domain@`) && PathPrefix(`/app`)'
+    coolify-terminal-ws:
+      entryPoints:
+        - http
+      service: coolify-terminal
+      rule: 'Host(`@domain@`) && PathPrefix(`/terminal/ws`)'
+    coolify-https:
+      entryPoints:
+        - https
+      service: coolify
+      rule: Host(`@domain@`)
+      tls:
+        certresolver: @certResolver@
+    coolify-realtime-wss:
+      entryPoints:
+        - https
+      service: coolify-realtime
+      rule: 'Host(`@domain@`) && PathPrefix(`/app`)'
+      tls:
+        certresolver: @certResolver@
+    coolify-terminal-wss:
+      entryPoints:
+        - https
+      service: coolify-terminal
+      rule: 'Host(`@domain@`) && PathPrefix(`/terminal/ws`)'
+      tls:
+        certresolver: @certResolver@
+  services:
+    coolify:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://coolify:8080'
+    coolify-realtime:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://coolify-realtime:6001'
+    coolify-terminal:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://coolify-realtime:6002'

@@ -20,10 +20,34 @@ let
 
   stateUser = toString cfg.stateUser;
   stateGroup = toString cfg.stateGroup;
+
+  proxyCfg = config.services.coolifyProxy;
+  proxyUsesTailscaleResolver = proxyCfg.domains == [ ];
+  proxyCertResolver =
+    if proxyUsesTailscaleResolver then proxyCfg.tailscaleCertResolver else proxyCfg.certResolver;
+
+  renderProxyTemplate =
+    template:
+    builtins.replaceStrings [ "@domain@" "@certResolver@" ] [ cfg.domain proxyCertResolver ] (
+      builtins.readFile template
+    );
+
+  coolifyDynamicConfig = pkgs.writeText "coolify.yaml" (
+    renderProxyTemplate ./coolify/proxy/coolify.yaml
+  );
+
+  defaultRedirectDynamicConfig = pkgs.writeText "default_redirect_503.yaml" (
+    renderProxyTemplate ./coolify/proxy/default_redirect_503.yaml
+  );
 in
 {
   options.services.coolify = {
     enable = lib.mkEnableOption "Coolify with NixOS-managed Docker containers";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      description = "Hostname used for Coolify's Traefik dynamic configuration.";
+    };
 
     stateDir = lib.mkOption {
       type = lib.types.str;
@@ -99,6 +123,10 @@ in
       {
         assertion = config.virtualisation.oci-containers.backend == "docker";
         message = "services.coolify requires virtualisation.oci-containers.backend = \"docker\";";
+      }
+      {
+        assertion = cfg.domain != "";
+        message = "services.coolify.domain must not be empty.";
       }
     ];
 
@@ -335,6 +363,13 @@ in
     };
 
     virtualisation.oci-containers.containers = {
+      coolify-proxy = {
+        volumes = lib.mkAfter [
+          "${coolifyDynamicConfig}:/traefik/dynamic/coolify.yaml:ro"
+          "${defaultRedirectDynamicConfig}:/traefik/dynamic/default_redirect_503.yaml:ro"
+        ];
+      };
+
       coolify = {
         image = cfg.images.coolify;
         autoStart = true;

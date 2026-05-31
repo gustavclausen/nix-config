@@ -20,15 +20,7 @@
 
   custom.docker.enable = true;
 
-  services.coolifyProxy = {
-    enable = true;
-    environmentFile = config.age.secrets.coolify-proxy.path;
-    domains = [
-      {
-        main = "paperclip.v2.gustavclausen.com";
-      }
-    ];
-  };
+  services.coolifyProxy.enable = true;
 
   home-manager = {
     users.${systemConfig.user} =
@@ -47,13 +39,6 @@
   age.secrets = {
     tailscale = {
       file = "${secrets}/systems/tailscale.age";
-      owner = "root";
-      group = "root";
-      mode = "600";
-    };
-
-    coolify-proxy = {
-      file = "${secrets}/systems/coolify-proxy.age";
       owner = "root";
       group = "root";
       mode = "600";

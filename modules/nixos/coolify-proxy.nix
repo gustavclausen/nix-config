@@ -11,13 +11,18 @@ let
   stateUser = toString cfg.stateUser;
   stateGroup = toString cfg.stateGroup;
 
+  useTailscaleResolver = cfg.domains == [ ];
+  activeCertResolver = if useTailscaleResolver then cfg.tailscaleCertResolver else cfg.certResolver;
+
   domainLabels = [
     "--label=traefik.enable=true"
     "--label=traefik.http.routers.traefik.entrypoints=http"
     "--label=traefik.http.routers.traefik.service=api@internal"
     "--label=traefik.http.services.traefik.loadbalancer.server.port=8080"
+  ]
+  ++ lib.optionals (!useTailscaleResolver) [
     "--label=traefik.http.routers.traefik.tls=true"
-    "--label=traefik.http.routers.traefik.tls.certresolver=${cfg.certResolver}"
+    "--label=traefik.http.routers.traefik.tls.certresolver=${activeCertResolver}"
   ]
   ++ lib.flatten (
     lib.imap0 (
@@ -77,6 +82,12 @@ in
       description = "Traefik certificate resolver.";
     };
 
+    tailscaleCertResolver = lib.mkOption {
+      type = lib.types.str;
+      default = "tailscale";
+      description = "Traefik Tailscale certificate resolver used when no explicit domains are configured.";
+    };
+
     domains = lib.mkOption {
       type = lib.types.listOf (
         lib.types.submodule {
@@ -124,11 +135,17 @@ in
         assertion = config.virtualisation.oci-containers.backend == "docker";
         message = "services.coolifyProxy requires virtualisation.oci-containers.backend = \"docker\";";
       }
+      {
+        assertion = !useTailscaleResolver || config.services.tailscale.enable;
+        message = "services.coolifyProxy requires services.tailscale.enable = true when domains is empty and the Tailscale certificate resolver is used.";
+      }
     ];
 
     systemd.tmpfiles.rules = [
       "d ${cfg.stateDir} 0750 ${stateUser} ${stateGroup} -"
       "d ${cfg.stateDir}/dynamic 0750 ${stateUser} ${stateGroup} -"
+    ]
+    ++ lib.optionals (!useTailscaleResolver) [
       "f ${cfg.stateDir}/acme.json 0600 ${stateUser} ${stateGroup} -"
     ];
 
@@ -149,6 +166,8 @@ in
             ${lib.escapeShellArg cfg.stateDir} \
             ${lib.escapeShellArg "${cfg.stateDir}/dynamic"}
 
+        ''
+        + lib.optionalString (!useTailscaleResolver) ''
           if [ ! -e ${lib.escapeShellArg "${cfg.stateDir}/acme.json"} ]; then
             install -m 0600 -o ${stateUser} -g ${stateGroup} /dev/null ${lib.escapeShellArg "${cfg.stateDir}/acme.json"}
           else
@@ -185,10 +204,16 @@ in
         after = [
           "coolify-proxy-network.service"
           "coolify-proxy-prepare-state.service"
+        ]
+        ++ lib.optionals useTailscaleResolver [
+          "tailscaled.service"
         ];
         requires = [
           "coolify-proxy-network.service"
           "coolify-proxy-prepare-state.service"
+        ]
+        ++ lib.optionals useTailscaleResolver [
+          "tailscaled.service"
         ];
       };
     };
@@ -196,7 +221,7 @@ in
     virtualisation.oci-containers.containers.coolify-proxy = {
       image = cfg.image;
       autoStart = true;
-      environmentFiles = [ cfg.environmentFile ];
+      environmentFiles = lib.optionals (!useTailscaleResolver) [ cfg.environmentFile ];
       ports = [
         "443:443"
         "443:443/udp"
@@ -204,6 +229,9 @@ in
       volumes = [
         "/var/run/docker.sock:/var/run/docker.sock:ro"
         "${cfg.stateDir}:/traefik"
+      ]
+      ++ lib.optionals useTailscaleResolver [
+        "/run/tailscale:/var/run/tailscale:ro"
       ];
       cmd = [
         "--ping=true"
@@ -218,14 +246,21 @@ in
         "--entrypoints.https.http3"
         "--providers.file.directory=/traefik/dynamic/"
         "--providers.file.watch=true"
+      ]
+      ++ lib.optionals useTailscaleResolver [
+        "--certificatesresolvers.${cfg.tailscaleCertResolver}.tailscale=true"
+      ]
+      ++ lib.optionals (!useTailscaleResolver) [
         "--certificatesresolvers.${cfg.certResolver}.acme.dnschallenge.provider=${cfg.dnsProvider}"
         "--certificatesresolvers.${cfg.certResolver}.acme.dnschallenge.delaybeforecheck=0"
       ]
-      ++ lib.optionals (cfg.dnsResolvers != [ ]) [
+      ++ lib.optionals (!useTailscaleResolver && cfg.dnsResolvers != [ ]) [
         "--certificatesresolvers.${cfg.certResolver}.acme.dnschallenge.resolvers=${lib.concatStringsSep "," cfg.dnsResolvers}"
       ]
-      ++ [
+      ++ lib.optionals (!useTailscaleResolver) [
         "--certificatesresolvers.${cfg.certResolver}.acme.storage=/traefik/acme.json"
+      ]
+      ++ [
         "--api.insecure=false"
         "--providers.docker=true"
         "--providers.docker.exposedbydefault=false"
