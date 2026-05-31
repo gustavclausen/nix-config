@@ -19,6 +19,7 @@ host:
   superpowers,
   anthropic-skills,
   gustavclausen-skills,
+  jeffallan-skills,
   mkDeploySshHosts,
 }:
 let
@@ -40,6 +41,7 @@ darwin.lib.darwinSystem {
       superpowers
       anthropic-skills
       gustavclausen-skills
+      jeffallan-skills
       mkDeploySshHosts
       systemConfig
       ;
@@ -81,6 +83,7 @@ darwin.lib.darwinSystem {
             superpowers
             anthropic-skills
             gustavclausen-skills
+            jeffallan-skills
             mkDeploySshHosts
             systemConfig
             ;

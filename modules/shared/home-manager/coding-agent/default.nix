@@ -6,6 +6,7 @@
   superpowers,
   anthropic-skills,
   gustavclausen-skills,
+  jeffallan-skills,
   ...
 }:
 let
@@ -97,6 +98,11 @@ in
 
         gustavclausen = {
           path = gustavclausen-skills;
+          subdir = "skills";
+        };
+
+        jeffallan = {
+          path = jeffallan-skills;
           subdir = "skills";
         };
       };

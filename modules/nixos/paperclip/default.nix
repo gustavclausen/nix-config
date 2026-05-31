@@ -149,6 +149,9 @@ with lib;
             done
           '';
 
+          custom.golang.enable = true;
+          custom.python.enable = true;
+
           custom.coding-agent = {
             enable = true;
             agents = {
@@ -173,6 +176,7 @@ with lib;
               "frontend-design"
               "find-docs"
               "feature-branch"
+              "golang-pro"
             ];
           };
 

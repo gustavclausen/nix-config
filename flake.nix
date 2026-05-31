@@ -64,6 +64,10 @@
       url = "github:gustavclausen/skills";
       flake = false;
     };
+    jeffallan-skills = {
+      url = "github:Jeffallan/claude-skills";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -85,6 +89,7 @@
       superpowers,
       anthropic-skills,
       gustavclausen-skills,
+      jeffallan-skills,
       ...
     }:
     let
@@ -129,6 +134,7 @@
           superpowers
           anthropic-skills
           gustavclausen-skills
+          jeffallan-skills
           mkDeploySshHosts
           ;
       };
@@ -144,6 +150,7 @@
           superpowers
           anthropic-skills
           gustavclausen-skills
+          jeffallan-skills
           mkDeploySshHosts
           ;
       };

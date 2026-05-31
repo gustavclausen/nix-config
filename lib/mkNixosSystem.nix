@@ -15,6 +15,7 @@ host:
   superpowers,
   anthropic-skills,
   gustavclausen-skills,
+  jeffallan-skills,
   mkDeploySshHosts,
 }:
 let
@@ -35,6 +36,7 @@ nixpkgs.lib.nixosSystem {
       superpowers
       anthropic-skills
       gustavclausen-skills
+      jeffallan-skills
       mkDeploySshHosts
       systemConfig
       ;
@@ -63,6 +65,7 @@ nixpkgs.lib.nixosSystem {
             superpowers
             anthropic-skills
             gustavclausen-skills
+            jeffallan-skills
             mkDeploySshHosts
             systemConfig
             ;
