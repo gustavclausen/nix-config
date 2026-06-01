@@ -177,6 +177,7 @@ with lib;
               "find-docs"
               "feature-branch"
               "golang-pro"
+              "atlas"
             ];
           };
 

@@ -96,6 +96,7 @@
               "frontend-design"
               "skill-creator"
               "find-docs"
+              "atlas"
             ];
           };
           git = {
