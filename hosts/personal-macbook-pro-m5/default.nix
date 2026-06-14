@@ -97,6 +97,8 @@
               "skill-creator"
               "find-docs"
               "atlas"
+              "supabase"
+              "supabase-postgres-best-practices"
             ];
           };
           git = {

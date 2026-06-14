@@ -406,6 +406,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets",
+        "supabase-skills": "supabase-skills",
         "superpowers": "superpowers"
       }
     },
@@ -422,6 +423,22 @@
       "original": {
         "owner": "gustavclausen",
         "repo": "nix-secrets",
+        "type": "github"
+      }
+    },
+    "supabase-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780686878,
+        "narHash": "sha256-QFsXvpZ5BrNK17ibb2KfSz1Z4VtsBuR8W/Hx9MTRycQ=",
+        "owner": "supabase",
+        "repo": "agent-skills",
+        "rev": "1356046015476711a769601079262b5635929427",
+        "type": "github"
+      },
+      "original": {
+        "owner": "supabase",
+        "repo": "agent-skills",
         "type": "github"
       }
     },

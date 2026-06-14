@@ -64,6 +64,10 @@
       url = "github:Jeffallan/claude-skills";
       flake = false;
     };
+    supabase-skills = {
+      url = "github:supabase/agent-skills";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -86,6 +90,7 @@
       anthropic-skills,
       gustavclausen-skills,
       jeffallan-skills,
+      supabase-skills,
       ...
     }:
     let
@@ -114,6 +119,15 @@
       mkDarwinSystem = import ./lib/mkDarwinSystem.nix;
       mkNixosSystem = import ./lib/mkNixosSystem.nix;
       mkDeploySshHosts = import ./lib/mkDeploySshHosts.nix { lib = nixpkgs.lib; };
+      skillSources = {
+        inherit
+          superpowers
+          anthropic-skills
+          gustavclausen-skills
+          jeffallan-skills
+          supabase-skills
+          ;
+      };
       darwinSystemArgs = {
         inherit
           nixpkgs
@@ -127,10 +141,7 @@
           agenix
           minimal-tmux
           agent-skills
-          superpowers
-          anthropic-skills
-          gustavclausen-skills
-          jeffallan-skills
+          skillSources
           mkDeploySshHosts
           ;
       };
@@ -143,10 +154,7 @@
           disko
           minimal-tmux
           agent-skills
-          superpowers
-          anthropic-skills
-          gustavclausen-skills
-          jeffallan-skills
+          skillSources
           mkDeploySshHosts
           ;
       };

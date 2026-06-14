@@ -12,10 +12,7 @@ host:
   disko,
   minimal-tmux,
   agent-skills,
-  superpowers,
-  anthropic-skills,
-  gustavclausen-skills,
-  jeffallan-skills,
+  skillSources,
   mkDeploySshHosts,
 }:
 let
@@ -33,10 +30,7 @@ nixpkgs.lib.nixosSystem {
       agenix
       minimal-tmux
       agent-skills
-      superpowers
-      anthropic-skills
-      gustavclausen-skills
-      jeffallan-skills
+      skillSources
       mkDeploySshHosts
       systemConfig
       ;
@@ -62,10 +56,7 @@ nixpkgs.lib.nixosSystem {
             agenix
             minimal-tmux
             agent-skills
-            superpowers
-            anthropic-skills
-            gustavclausen-skills
-            jeffallan-skills
+            skillSources
             mkDeploySshHosts
             systemConfig
             ;

@@ -3,10 +3,7 @@
   config,
   pkgs,
   agent-skills,
-  superpowers,
-  anthropic-skills,
-  gustavclausen-skills,
-  jeffallan-skills,
+  skillSources,
   ...
 }:
 let
@@ -87,22 +84,27 @@ in
 
       sources = {
         superpowers = {
-          path = superpowers;
+          path = skillSources.superpowers;
           subdir = "skills";
         };
 
         anthropic = {
-          path = anthropic-skills;
+          path = skillSources.anthropic-skills;
           subdir = "skills";
         };
 
         gustavclausen = {
-          path = gustavclausen-skills;
+          path = skillSources.gustavclausen-skills;
           subdir = "skills";
         };
 
         jeffallan = {
-          path = jeffallan-skills;
+          path = skillSources.jeffallan-skills;
+          subdir = "skills";
+        };
+
+        supabase = {
+          path = skillSources.supabase-skills;
           subdir = "skills";
         };
       };

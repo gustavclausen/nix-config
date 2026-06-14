@@ -16,10 +16,7 @@ host:
   agenix,
   minimal-tmux,
   agent-skills,
-  superpowers,
-  anthropic-skills,
-  gustavclausen-skills,
-  jeffallan-skills,
+  skillSources,
   mkDeploySshHosts,
 }:
 let
@@ -38,10 +35,7 @@ darwin.lib.darwinSystem {
       agenix
       minimal-tmux
       agent-skills
-      superpowers
-      anthropic-skills
-      gustavclausen-skills
-      jeffallan-skills
+      skillSources
       mkDeploySshHosts
       systemConfig
       ;
@@ -80,10 +74,7 @@ darwin.lib.darwinSystem {
             agenix
             minimal-tmux
             agent-skills
-            superpowers
-            anthropic-skills
-            gustavclausen-skills
-            jeffallan-skills
+            skillSources
             mkDeploySshHosts
             systemConfig
             ;
