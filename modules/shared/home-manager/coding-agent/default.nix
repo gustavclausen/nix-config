@@ -77,6 +77,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = enabledAgentPackages ++ [
       pkgs.ctx7
+      pkgs.supabase-cli
     ];
 
     programs.agent-skills = {
