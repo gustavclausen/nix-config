@@ -153,17 +153,17 @@ with lib;
 
           includes = [ "config.d/*" ];
           enableDefaultConfig = false;
-          matchBlocks."*" = {
-            forwardAgent = false;
-            addKeysToAgent = "no";
-            compression = false;
-            serverAliveInterval = 0;
-            serverAliveCountMax = 3;
-            hashKnownHosts = false;
-            userKnownHostsFile = "${sshHome}/known_hosts";
-            controlMaster = "no";
-            controlPath = "${sshHome}/master-%r@%n:%p";
-            controlPersist = "no";
+          settings."*" = {
+            ForwardAgent = false;
+            AddKeysToAgent = "no";
+            Compression = false;
+            ServerAliveInterval = 0;
+            ServerAliveCountMax = 3;
+            HashKnownHosts = false;
+            UserKnownHostsFile = "${sshHome}/known_hosts";
+            ControlMaster = "no";
+            ControlPath = "${sshHome}/master-%r@%n:%p";
+            ControlPersist = "no";
           };
         };
       };
