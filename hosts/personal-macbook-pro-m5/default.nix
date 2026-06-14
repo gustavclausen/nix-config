@@ -99,6 +99,7 @@
               "atlas"
               "supabase"
               "supabase-postgres-best-practices"
+              "shadcn"
             ];
           };
           git = {

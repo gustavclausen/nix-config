@@ -68,6 +68,10 @@
       url = "github:supabase/agent-skills";
       flake = false;
     };
+    shadcn-ui = {
+      url = "github:shadcn-ui/ui";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -91,6 +95,7 @@
       gustavclausen-skills,
       jeffallan-skills,
       supabase-skills,
+      shadcn-ui,
       ...
     }:
     let
@@ -126,6 +131,7 @@
           gustavclausen-skills
           jeffallan-skills
           supabase-skills
+          shadcn-ui
           ;
       };
       darwinSystemArgs = {

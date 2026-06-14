@@ -108,6 +108,11 @@ in
           path = skillSources.supabase-skills;
           subdir = "skills";
         };
+
+        shadcn-ui = {
+          path = skillSources.shadcn-ui;
+          subdir = "skills";
+        };
       };
 
       skills = {
