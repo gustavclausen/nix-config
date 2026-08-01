@@ -45,7 +45,6 @@ darwin.lib.darwinSystem {
     {
       nixpkgs.config.permittedInsecurePackages = [ "lima-full-1.2.2" ];
       nixpkgs.overlays = [
-        (import ../overlays/direnv.nix)
         (import ../overlays/unstable-packages.nix { inherit nixpkgs-unstable; })
       ];
     }

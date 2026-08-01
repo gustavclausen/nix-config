@@ -39,7 +39,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     {
       nixpkgs.overlays = [
-        (import ../overlays/direnv.nix)
         (import ../overlays/unstable-packages.nix { inherit nixpkgs-unstable; })
       ];
     }
