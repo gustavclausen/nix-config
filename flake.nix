@@ -72,6 +72,10 @@
       url = "github:shadcn-ui/ui";
       flake = false;
     };
+    mattpocock-skills = {
+      url = "github:mattpocock/skills";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -96,6 +100,7 @@
       jeffallan-skills,
       supabase-skills,
       shadcn-ui,
+      mattpocock-skills,
       ...
     }:
     let
@@ -132,6 +137,7 @@
           jeffallan-skills
           supabase-skills
           shadcn-ui
+          mattpocock-skills
           ;
       };
       darwinSystemArgs = {

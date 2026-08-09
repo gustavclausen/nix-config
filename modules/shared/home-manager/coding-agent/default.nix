@@ -113,6 +113,11 @@ in
           path = skillSources.shadcn-ui;
           subdir = "skills";
         };
+
+        mattpocock = {
+          path = skillSources.mattpocock-skills;
+          subdir = "skills/productivity";
+        };
       };
 
       skills = {

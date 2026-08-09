@@ -100,6 +100,8 @@
               "supabase"
               "supabase-postgres-best-practices"
               "shadcn"
+              "grilling"
+              "grill-me"
             ];
           };
           git = {

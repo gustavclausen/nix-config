@@ -301,6 +301,22 @@
         "type": "github"
       }
     },
+    "mattpocock-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786045791,
+        "narHash": "sha256-pseSJJb5nBBGPzpxA1GzjGLB9OrT+u0At1saJ4NqZ1E=",
+        "owner": "mattpocock",
+        "repo": "skills",
+        "rev": "84fdeffd12f2ee307994d1eb6feb48173b6e0502",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "minimal-tmux": {
       "inputs": {
         "nixpkgs": [
@@ -401,6 +417,7 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "jeffallan-skills": "jeffallan-skills",
+        "mattpocock-skills": "mattpocock-skills",
         "minimal-tmux": "minimal-tmux",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_2",
