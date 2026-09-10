@@ -76,7 +76,7 @@ in
     images = {
       coolify = lib.mkOption {
         type = lib.types.str;
-        default = "ghcr.io/coollabsio/coolify:4.1.0";
+        default = "ghcr.io/coollabsio/coolify:4.3.19";
         description = "Coolify application image";
       };
 
@@ -94,7 +94,7 @@ in
 
       realtime = lib.mkOption {
         type = lib.types.str;
-        default = "ghcr.io/coollabsio/coolify-realtime:1.0.15";
+        default = "ghcr.io/coollabsio/coolify-realtime:1.0.19";
         description = "Coolify realtime image";
       };
     };
@@ -140,6 +140,7 @@ in
       "d ${cfg.stateDir}/databases 0750 ${stateUser} ${stateGroup} -"
       "d ${cfg.stateDir}/backups 0750 ${stateUser} ${stateGroup} -"
       "d ${cfg.stateDir}/services 0750 ${stateUser} ${stateGroup} -"
+      "d ${cfg.stateDir}/images 0750 ${stateUser} ${stateGroup} -"
       "d ${cfg.stateDir}/webhooks-during-maintenance 0750 ${stateUser} ${stateGroup} -"
     ];
 
@@ -164,6 +165,7 @@ in
               ${lib.escapeShellArg "${cfg.stateDir}/databases"} \
               ${lib.escapeShellArg "${cfg.stateDir}/backups"} \
               ${lib.escapeShellArg "${cfg.stateDir}/services"} \
+              ${lib.escapeShellArg "${cfg.stateDir}/images"} \
               ${lib.escapeShellArg "${cfg.stateDir}/webhooks-during-maintenance"}
 
             install -d -m 0700 -o ${stateUser} -g ${stateGroup} \
@@ -393,6 +395,7 @@ in
           "${cfg.stateDir}/databases:/var/www/html/storage/app/databases"
           "${cfg.stateDir}/services:/var/www/html/storage/app/services"
           "${cfg.stateDir}/backups:/var/www/html/storage/app/backups"
+          "${cfg.stateDir}/images:/var/www/html/storage/app/images"
           "/var/run/docker.sock:/var/run/docker.sock"
         ];
         extraOptions = [
@@ -402,7 +405,8 @@ in
           "--pull=always"
           "--health-cmd=curl --fail http://127.0.0.1:8080/api/health || exit 1"
           "--health-interval=5s"
-          "--health-retries=10"
+          "--health-retries=24"
+          "--health-start-period=1m"
           "--health-timeout=2s"
         ];
       };
