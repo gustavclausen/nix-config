@@ -76,7 +76,6 @@
             enable = true;
             agents = {
               claude-code.enable = true;
-              codex.enable = true;
             };
             skills.enableAll = ["superpowers" "mattpocock-skills"];
           };
