@@ -52,24 +52,8 @@
       url = "github:obra/superpowers";
       flake = false;
     };
-    anthropic-skills = {
-      url = "github:anthropics/skills";
-      flake = false;
-    };
     gustavclausen-skills = {
       url = "github:gustavclausen/skills";
-      flake = false;
-    };
-    jeffallan-skills = {
-      url = "github:Jeffallan/claude-skills";
-      flake = false;
-    };
-    supabase-skills = {
-      url = "github:supabase/agent-skills";
-      flake = false;
-    };
-    shadcn-ui = {
-      url = "github:shadcn-ui/ui";
       flake = false;
     };
     mattpocock-skills = {
@@ -95,11 +79,7 @@
       deploy-rs,
       agent-skills,
       superpowers,
-      anthropic-skills,
       gustavclausen-skills,
-      jeffallan-skills,
-      supabase-skills,
-      shadcn-ui,
       mattpocock-skills,
       ...
     }:
@@ -130,15 +110,16 @@
       mkNixosSystem = import ./lib/mkNixosSystem.nix;
       mkDeploySshHosts = import ./lib/mkDeploySshHosts.nix { lib = nixpkgs.lib; };
       skillSources = {
-        inherit
-          superpowers
-          anthropic-skills
-          gustavclausen-skills
-          jeffallan-skills
-          supabase-skills
-          shadcn-ui
-          mattpocock-skills
-          ;
+        superpowers = {
+          input = superpowers;
+        };
+        gustavclausen-skills = {
+          input = gustavclausen-skills;
+        };
+        mattpocock-skills = {
+          input = mattpocock-skills;
+          subdir = "skills/productivity";
+        };
       };
       darwinSystemArgs = {
         inherit

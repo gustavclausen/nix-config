@@ -78,31 +78,7 @@
               claude-code.enable = true;
               codex.enable = true;
             };
-            skills.enable = [
-              "brainstorming"
-              "dispatching-parallel-agents"
-              "executing-plans"
-              "finishing-a-development-branch"
-              "receiving-code-review"
-              "requesting-code-review"
-              "subagent-driven-development"
-              "systematic-debugging"
-              "test-driven-development"
-              "using-git-worktrees"
-              "using-superpowers"
-              "verification-before-completion"
-              "writing-plans"
-              "writing-skills"
-              "frontend-design"
-              "skill-creator"
-              "find-docs"
-              "atlas"
-              "supabase"
-              "supabase-postgres-best-practices"
-              "shadcn"
-              "grilling"
-              "grill-me"
-            ];
+            skills.enableAll = ["superpowers" "mattpocock-skills"];
           };
           git = {
             enable = true;

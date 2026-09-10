@@ -45,22 +45,6 @@
         "type": "github"
       }
     },
-    "anthropic-skills": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788453433,
-        "narHash": "sha256-sjgPv9tZZVTXPxZWaCOc7JwFceNn3C1ghy8mSHqgqB8=",
-        "owner": "anthropics",
-        "repo": "skills",
-        "rev": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "anthropics",
-        "repo": "skills",
-        "type": "github"
-      }
-    },
     "blueprint": {
       "inputs": {
         "nixpkgs": [
@@ -308,22 +292,6 @@
         "type": "github"
       }
     },
-    "jeffallan-skills": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786133954,
-        "narHash": "sha256-XOy2b60XpqRB/hkpR0ddtDMAhbO1tW5C4TfXgCozg5o=",
-        "owner": "Jeffallan",
-        "repo": "claude-skills",
-        "rev": "882ef55e377dbf9a4dbe496bb41ac6ccd0e555cf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jeffallan",
-        "repo": "claude-skills",
-        "type": "github"
-      }
-    },
     "mattpocock-skills": {
       "flake": false,
       "locked": {
@@ -430,7 +398,6 @@
       "inputs": {
         "agenix": "agenix",
         "agent-skills": "agent-skills",
-        "anthropic-skills": "anthropic-skills",
         "darwin": "darwin_2",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
@@ -439,15 +406,12 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
-        "jeffallan-skills": "jeffallan-skills",
         "mattpocock-skills": "mattpocock-skills",
         "minimal-tmux": "minimal-tmux",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets",
-        "shadcn-ui": "shadcn-ui",
-        "supabase-skills": "supabase-skills",
         "superpowers": "superpowers"
       }
     },
@@ -464,38 +428,6 @@
       "original": {
         "owner": "gustavclausen",
         "repo": "nix-secrets",
-        "type": "github"
-      }
-    },
-    "shadcn-ui": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788853664,
-        "narHash": "sha256-U5eueRgqLvw25FhlaPsbkjE/G5XsryzGB6NR/aPctDc=",
-        "owner": "shadcn-ui",
-        "repo": "ui",
-        "rev": "3ba91b1cc83e1bbe4ab35a422ff2a694849c5048",
-        "type": "github"
-      },
-      "original": {
-        "owner": "shadcn-ui",
-        "repo": "ui",
-        "type": "github"
-      }
-    },
-    "supabase-skills": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786520210,
-        "narHash": "sha256-cj+ng8dR/S10o5FmloOQRUohhRskON8Sx7xurEMqdfg=",
-        "owner": "supabase",
-        "repo": "agent-skills",
-        "rev": "8331f910845103c08d51f6ca1d86ebb7d1f745e3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "supabase",
-        "repo": "agent-skills",
         "type": "github"
       }
     },
