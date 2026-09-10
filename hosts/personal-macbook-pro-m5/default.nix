@@ -78,6 +78,7 @@
               claude-code.enable = true;
             };
             skills.enableAll = ["superpowers" "mattpocock-skills"];
+            skills.enable = ["installing-packages-via-nix"];
           };
           git = {
             enable = true;
