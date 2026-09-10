@@ -9,6 +9,7 @@ Personal nix-darwin + NixOS flake.
 - `just deploy <host>` — push a NixOS host's config over SSH via `deploy-rs`, for a remote host you aren't switching locally.
 - `just rollback <host>` — interactive generation rollback (asks for a generation number). Always confirm with user that host is correct before running `just switch <hostname>`.
 - Never run `darwin-rebuild` / `nixos-rebuild` / `deploy-rs` directly — always through `just`, so `sudo` and the flake path stay consistent.
+- `cat /etc/current-nix-host` — prints the current host's name.
 
 ## Layout
 
