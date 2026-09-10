@@ -15,7 +15,7 @@ See [Justfile](./Justfile) for common commands.
 - Deploy configuration on current machine:
 
   ```shell
-  just switch "<HOSTNAME>"
+  just switch
   ```
 
 - Rollback configuration on current machine:
