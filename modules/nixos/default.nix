@@ -12,7 +12,6 @@
     ./server-profile.nix
     ./coolify.nix
     ./coolify-proxy.nix
-    ./paperclip
     ./cloudflared.nix
   ];
 

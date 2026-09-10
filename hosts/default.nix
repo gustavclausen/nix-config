@@ -44,18 +44,5 @@
         };
       deploy = { };
     };
-
-    coder = {
-      system = "aarch64-linux";
-      hostConfig =
-        { ... }:
-        {
-          imports = [ ./coder ];
-          _module.args = {
-            inherit secrets;
-          };
-        };
-      deploy = { };
-    };
   };
 }
