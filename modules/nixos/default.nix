@@ -13,6 +13,7 @@
     ./coolify.nix
     ./coolify-proxy.nix
     ./paperclip
+    ./cloudflared.nix
   ];
 
   boot.loader = {
