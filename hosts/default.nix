@@ -44,5 +44,18 @@
         };
       deploy = { };
     };
+
+    app1 = {
+      system = "aarch64-linux";
+      hostConfig =
+        { ... }:
+        {
+          imports = [ ./app1 ];
+          _module.args = {
+            inherit secrets;
+          };
+        };
+      deploy = { };
+    };
   };
 }
