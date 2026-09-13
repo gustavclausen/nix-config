@@ -25,15 +25,6 @@ with lib;
       description = "Runtime path to the tunnel credentials JSON file (from `cloudflared tunnel create`).";
     };
 
-    ingress = mkOption {
-      type = types.attrsOf types.str;
-      default = { };
-      example = {
-        "app.example.com" = "http://localhost:8080";
-      };
-      description = "Hostname to local service mappings for the tunnel.";
-    };
-
     default = mkOption {
       type = types.str;
       default = "http_status:404";
@@ -57,7 +48,6 @@ with lib;
       enable = true;
       tunnels.${cfg.tunnelId} = {
         credentialsFile = cfg.credentialsFile;
-        ingress = cfg.ingress;
         default = cfg.default;
       };
     };
