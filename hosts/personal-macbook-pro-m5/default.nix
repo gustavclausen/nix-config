@@ -26,6 +26,7 @@
           packages = with pkgs; [
             slack
             uv
+            claude-usage-tracker
           ];
         };
 
