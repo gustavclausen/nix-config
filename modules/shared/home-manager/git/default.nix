@@ -334,6 +334,7 @@ with lib;
             "pyrightconfig.json"
             "*.swp"
             ".claude/*.local.*"
+            "docs/superpowers/**/*"
           ];
           lfs = {
             enable = true;
