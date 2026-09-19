@@ -237,11 +237,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1789665414,
-        "narHash": "sha256-98CRRKdPzkcS/E1iN10MOCf7XKpuXjNgif38iSRkiiA=",
+        "lastModified": 1789694433,
+        "narHash": "sha256-BIL5LwBEuBykL/G7T8HJToTXAIx56g0T4nIV+cZBnaM=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "6501359f6e0a89f1e4239715c8f9091f533aa445",
+        "rev": "8f5bf5595baa25800a808936400880db34011479",
         "type": "github"
       },
       "original": {
@@ -253,11 +253,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1789671009,
-        "narHash": "sha256-r7WxrpJUe4tdvHvIzXYLd9zbSh0CUvd5ZqyNPWqGhxc=",
+        "lastModified": 1789703015,
+        "narHash": "sha256-hYpVujhM+UrZCW0eVj2YRevyRBYCbW9Yu4u/9j/z/gc=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "202b2d6ffe8bfa3b3a63e690bce3dabf075a1bdf",
+        "rev": "76e076f5db41a5e7dc721c7c3c28525bd1dda95f",
         "type": "github"
       },
       "original": {
@@ -386,6 +386,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets",
+        "shadcn-ui-skills": "shadcn-ui-skills",
+        "supabase-skills": "supabase-skills",
         "superpowers": "superpowers"
       }
     },
@@ -402,6 +404,38 @@
       "original": {
         "owner": "gustavclausen",
         "repo": "nix-secrets",
+        "type": "github"
+      }
+    },
+    "shadcn-ui-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789650885,
+        "narHash": "sha256-4/YPXSklYfL4ESOSEWoMGUQ3vBxySF1zyEYUOomuVZE=",
+        "owner": "shadcn-ui",
+        "repo": "ui",
+        "rev": "a87a63b2ca25143d26c8bd0903e4e9bc77b3f824",
+        "type": "github"
+      },
+      "original": {
+        "owner": "shadcn-ui",
+        "repo": "ui",
+        "type": "github"
+      }
+    },
+    "supabase-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786520210,
+        "narHash": "sha256-cj+ng8dR/S10o5FmloOQRUohhRskON8Sx7xurEMqdfg=",
+        "owner": "supabase",
+        "repo": "agent-skills",
+        "rev": "8331f910845103c08d51f6ca1d86ebb7d1f745e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "supabase",
+        "repo": "agent-skills",
         "type": "github"
       }
     },

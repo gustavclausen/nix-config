@@ -60,6 +60,14 @@
       url = "github:mattpocock/skills";
       flake = false;
     };
+    supabase-skills = {
+      url = "github:supabase/agent-skills";
+      flake = false;
+    };
+    shadcn-ui-skills = {
+      url = "github:shadcn-ui/ui";
+      flake = false;
+    };
   };
   outputs =
     {
@@ -81,6 +89,8 @@
       superpowers,
       gustavclausen-skills,
       mattpocock-skills,
+      supabase-skills,
+      shadcn-ui-skills,
       ...
     }:
     let
@@ -116,9 +126,19 @@
         gustavclausen-skills = {
           input = gustavclausen-skills;
         };
-        mattpocock-skills = {
+        mattpocock-skills-productivity = {
           input = mattpocock-skills;
           subdir = "skills/productivity";
+        };
+        mattpocock-skills-engineering = {
+          input = mattpocock-skills;
+          subdir = "skills/engineering";
+        };
+        supabase-skills = {
+          input = supabase-skills;
+        };
+        shadcn-ui-skills = {
+          input = shadcn-ui-skills;
         };
       };
       darwinSystemArgs = {

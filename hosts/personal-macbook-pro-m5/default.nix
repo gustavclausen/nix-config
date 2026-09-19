@@ -78,8 +78,8 @@
             agents = {
               claude-code.enable = true;
             };
-            skills.enableAll = ["superpowers" "mattpocock-skills"];
-            skills.enable = ["installing-packages-via-nix" "storing-personal-skills"];
+            skills.enableAll = ["superpowers" "mattpocock-skills-productivity" "mattpocock-skills-engineering"];
+            skills.enable = ["installing-packages-via-nix" "storing-personal-skills" "supabase" "shadcn"];
           };
           git = {
             enable = true;
