@@ -45,12 +45,12 @@
       deploy = { };
     };
 
-    app1 = {
+    app-1 = {
       system = "aarch64-linux";
       hostConfig =
         { ... }:
         {
-          imports = [ ./app1 ];
+          imports = [ ./app-1 ];
           _module.args = {
             inherit secrets;
           };
