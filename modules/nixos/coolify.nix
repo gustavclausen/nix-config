@@ -76,7 +76,7 @@ in
     images = {
       coolify = lib.mkOption {
         type = lib.types.str;
-        default = "ghcr.io/coollabsio/coolify:4.3.19";
+        default = "ghcr.io/coollabsio/coolify:4.3.23";
         description = "Coolify application image";
       };
 
