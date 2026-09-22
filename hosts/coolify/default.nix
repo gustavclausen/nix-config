@@ -53,6 +53,13 @@
       group = "root";
       mode = "600";
     };
+
+    cloudflared-tunnel = {
+      file = "${secrets}/systems/cloudflare-tunnel-coolify-gustavclausen.age";
+      owner = "root";
+      group = "root";
+      mode = "600";
+    };
   };
   custom.tailscale = {
     enable = true;
@@ -69,5 +76,11 @@
       environmentFile = config.age.secrets.coolify.path;
       sshKeyFile = config.age.secrets.coolify-ssh-key.path;
     };
+  };
+
+  custom.cloudflared = {
+    enable = true;
+    tunnelId = "ef604db3-2900-4349-9e0b-b3b6d6e12d2f";
+    credentialsFile = config.age.secrets.cloudflared-tunnel.path;
   };
 }
