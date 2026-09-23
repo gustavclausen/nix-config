@@ -47,6 +47,10 @@
           };
         };
 
+        programs.vscode = {
+          enable = true;
+        };
+
         custom = {
           darwin.dock = {
             enable = true;
