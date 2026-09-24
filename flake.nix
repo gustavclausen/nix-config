@@ -48,6 +48,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+    };
     superpowers = {
       url = "github:obra/superpowers";
       flake = false;
@@ -86,6 +89,7 @@
       nixpkgs-unstable,
       deploy-rs,
       agent-skills,
+      llm-agents,
       superpowers,
       gustavclausen-skills,
       mattpocock-skills,
@@ -154,6 +158,7 @@
           agenix
           minimal-tmux
           agent-skills
+          llm-agents
           skillSources
           mkDeploySshHosts
           ;
@@ -167,6 +172,7 @@
           disko
           minimal-tmux
           agent-skills
+          llm-agents
           skillSources
           mkDeploySshHosts
           ;

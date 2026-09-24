@@ -12,6 +12,7 @@ host:
   disko,
   minimal-tmux,
   agent-skills,
+  llm-agents,
   skillSources,
   mkDeploySshHosts,
 }:
@@ -30,6 +31,7 @@ nixpkgs.lib.nixosSystem {
       agenix
       minimal-tmux
       agent-skills
+      llm-agents
       skillSources
       mkDeploySshHosts
       systemConfig
@@ -55,6 +57,7 @@ nixpkgs.lib.nixosSystem {
             agenix
             minimal-tmux
             agent-skills
+            llm-agents
             skillSources
             mkDeploySshHosts
             systemConfig

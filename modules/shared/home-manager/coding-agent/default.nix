@@ -3,6 +3,7 @@
   config,
   pkgs,
   agent-skills,
+  llm-agents,
   skillSources,
   ...
 }:
@@ -79,6 +80,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = enabledAgentPackages ++ [
+      llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr
       pkgs.ctx7
       pkgs.supabase-cli
     ];

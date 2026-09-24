@@ -16,6 +16,7 @@ host:
   agenix,
   minimal-tmux,
   agent-skills,
+  llm-agents,
   skillSources,
   mkDeploySshHosts,
 }:
@@ -35,6 +36,7 @@ darwin.lib.darwinSystem {
       agenix
       minimal-tmux
       agent-skills
+      llm-agents
       skillSources
       mkDeploySshHosts
       systemConfig
@@ -73,6 +75,7 @@ darwin.lib.darwinSystem {
             agenix
             minimal-tmux
             agent-skills
+            llm-agents
             skillSources
             mkDeploySshHosts
             systemConfig
