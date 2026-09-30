@@ -64,7 +64,7 @@
               { path = "${pkgs.slack}/Applications/Slack.app/"; }
               { path = "/Applications/TickTick.app/"; }
               { path = "/Applications/1Password.app/"; }
-              { path = "${pkgs.zed-editor}/Applications/Zed.app/"; }
+              { path = "${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
               {
                 path = "${pkgs.ghostty-bin}/Applications/Ghostty.app/";
               }
@@ -83,8 +83,17 @@
               claude-code.enable = true;
               codex.enable = true;
             };
-            skills.enableAll = ["superpowers" "mattpocock-skills-productivity" "mattpocock-skills-engineering"];
-            skills.enable = ["installing-packages-via-nix" "storing-personal-skills" "supabase" "shadcn"];
+            skills.enableAll = [
+              "superpowers"
+              "mattpocock-skills-productivity"
+              "mattpocock-skills-engineering"
+            ];
+            skills.enable = [
+              "installing-packages-via-nix"
+              "storing-personal-skills"
+              "supabase"
+              "shadcn"
+            ];
           };
           git = {
             enable = true;
