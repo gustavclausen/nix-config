@@ -64,6 +64,7 @@
               { path = "${pkgs.slack}/Applications/Slack.app/"; }
               { path = "/Applications/TickTick.app/"; }
               { path = "/Applications/1Password.app/"; }
+              { path = "/Applications/Tailscale.app/"; }
               { path = "${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
               {
                 path = "${pkgs.ghostty-bin}/Applications/Ghostty.app/";

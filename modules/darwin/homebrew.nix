@@ -10,6 +10,7 @@
       "raycast"
       "rectangle-pro"
       "spotify"
+      "tailscale"
       "ticktick"
     ];
 
