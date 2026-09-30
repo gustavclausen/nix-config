@@ -69,6 +69,7 @@
               {
                 path = "${pkgs.ghostty-bin}/Applications/Ghostty.app/";
               }
+              { path = "/Applications/Zwift.app/"; }
             ];
           };
           zed.enable = true;
